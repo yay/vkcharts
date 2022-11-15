@@ -1,4 +1,4 @@
-import { describe, expect, test, it } from "@jest/globals";
+import { describe, expect, it } from "@jest/globals";
 import { interpolate } from "./string";
 import { locale } from "./time/format/defaultLocale";
 
@@ -41,7 +41,7 @@ describe('interpolate', () => {
         const amount2 = 1234;
         const locales = 'en-GB';
         const date = new Date('Wed Sep 23 2020');
-        const options = {
+        const options: Intl.NumberFormatOptions = {
             style: 'unit',
             unit: 'liter',
             unitDisplay: 'long'

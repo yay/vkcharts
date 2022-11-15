@@ -4,6 +4,7 @@ module.exports = {
           tsConfig: 'tsconfig.test.json'
       }
   },
+  testEnvironment: 'jsdom',
   roots: [
       "<rootDir>/src"
   ],
