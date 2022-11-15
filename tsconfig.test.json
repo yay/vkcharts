@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "dist-test",
+    "rootDir": "src"
+  },
+  "include": [
+    "**/*.test.ts"
+  ]
+}
