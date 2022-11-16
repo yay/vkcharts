@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { FpsCounter } from '../../src/scene/fpsCounter';
+import { FpsCounter } from '../../lib/scene/fpsCounter';
 
 document.addEventListener('DOMContentLoaded', () => {
     (window as any).d3 = d3;

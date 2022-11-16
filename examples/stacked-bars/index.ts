@@ -1,7 +1,7 @@
-import { HdpiCanvas } from "../../src/canvas/hdpiCanvas";
-import { CanvasAxis } from "../../src/canvasAxis";
-import { BandScale } from "../../src/scale/bandScale";
-import { LinearScale } from "../../src/scale/linearScale";
+import { HdpiCanvas } from "../../lib/canvas/hdpiCanvas";
+import { CanvasAxis } from "../../lib/canvasAxis";
+import { BandScale } from "../../lib/scale/bandScale";
+import { LinearScale } from "../../lib/scale/linearScale";
 
 const gradientTheme = [
     ['#69C5EC', '#53AFD6'],

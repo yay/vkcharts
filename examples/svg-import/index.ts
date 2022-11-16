@@ -1,11 +1,11 @@
 import { tiger } from "./tiger";
 import { createButton } from "../lib/ui";
-import { Scene } from "../../src/scene/scene";
-import { Group } from "../../src/scene/group";
-import { Text } from "../../src/scene/shape/text";
-import { Shape } from "../../src/scene/shape/shape";
-import { Path } from "../../src/scene/shape/path";
-import { Node } from "../../src/scene/node";
+import { Scene } from "../../lib/scene/scene";
+import { Group } from "../../lib/scene/group";
+import { Text } from "../../lib/scene/shape/text";
+import { Shape } from "../../lib/scene/shape/shape";
+import { Path } from "../../lib/scene/shape/path";
+import { Node } from "../../lib/scene/node";
 
 function importSvg(scene: Scene, svg: string) {
     const parser = new DOMParser();

@@ -1,5 +1,5 @@
-import { Scale } from "../../src/scale/scale";
-import { normalizeAngle360 } from "../../src/util/angle";
+import { Scale } from "../../lib/scale/scale";
+import { normalizeAngle360 } from "../../lib/util/angle";
 
 export class CanvasAxis<D> {
     constructor(scale: Scale<D, number>) {

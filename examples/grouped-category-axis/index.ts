@@ -1,12 +1,12 @@
-import { Caption } from "../../src/caption";
-import { GroupedCategoryAxis } from "../../src/chart/axis/groupedCategoryAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { GroupedCategoryChart } from "../../src/chart/groupedCategoryChart";
-import { Circle } from "../../src/chart/marker/circle";
-import { Square } from "../../src/chart/marker/square";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
-import { LineSeries } from "../../src/chart/series/cartesian/lineSeries";
+import { Caption } from "../../lib/caption";
+import { GroupedCategoryAxis } from "../../lib/chart/axis/groupedCategoryAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { GroupedCategoryChart } from "../../lib/chart/groupedCategoryChart";
+import { Circle } from "../../lib/chart/marker/circle";
+import { Square } from "../../lib/chart/marker/square";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
+import { LineSeries } from "../../lib/chart/series/cartesian/lineSeries";
 import { makeChartResizeable } from "../lib/chart";
 import { createButton, createSlider } from "../lib/ui";
 

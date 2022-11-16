@@ -1,11 +1,11 @@
-import { LinearScale } from "../../src/scale/linearScale";
-import { BandScale } from "../../src/scale/bandScale";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Rect } from "../../src/scene/shape/rect";
-import { Text } from "../../src/scene/shape/text";
-import { DropShadow } from "../../src/scene/dropShadow";
-import { Axis } from "../../src/axis";
+import { LinearScale } from "../../lib/scale/linearScale";
+import { BandScale } from "../../lib/scale/bandScale";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Rect } from "../../lib/scene/shape/rect";
+import { Text } from "../../lib/scene/shape/text";
+import { DropShadow } from "../../lib/scene/dropShadow";
+import { Axis } from "../../lib/axis";
 
 const gradientTheme = [
     ['#69C5EC', '#53AFD6'],

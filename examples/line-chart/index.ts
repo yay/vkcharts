@@ -1,6 +1,6 @@
-import { HdpiCanvas } from "../../src/canvas/hdpiCanvas";
-import { CanvasAxis } from "../../src/canvasAxis";
-import { BandScale, LinearScale } from "../../src/main";
+import { HdpiCanvas } from "../../lib/canvas/hdpiCanvas";
+import { CanvasAxis } from "../../lib/canvasAxis";
+import { BandScale, LinearScale } from "../../lib/main";
 
 const data = [
     {

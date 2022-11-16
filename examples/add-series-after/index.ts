@@ -1,8 +1,8 @@
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { AreaSeries } from "../../src/chart/series/cartesian/areaSeries";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { AreaSeries } from "../../lib/chart/series/cartesian/areaSeries";
 import { createButton } from "../lib/ui";
 import { makeChartResizeable } from "../lib/chart";
 

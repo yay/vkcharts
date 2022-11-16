@@ -1,20 +1,20 @@
 import { createButton, createSlider } from "../lib/ui";
 import { data } from "./data";
-import { CartesianChart } from "../../src/chart/cartesianChart";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
 import { makeChartResizeable } from "../lib/chart";
-import { ScatterSeries } from "../../src/chart/series/cartesian/scatterSeries";
-import { Caption } from "../../src/caption";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { Square } from "../../src/chart/marker/square";
-import { Color } from "../../src/util/color";
-import { Circle } from "../../src/chart/marker/circle";
-import { Diamond } from "../../src/chart/marker/diamond";
-import { Cross } from "../../src/chart/marker/cross";
-import { Plus } from "../../src/chart/marker/plus";
-import { Triangle } from "../../src/chart/marker/triangle";
-import { VkChart } from "../../src/chart/vkChart";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
+import { ScatterSeries } from "../../lib/chart/series/cartesian/scatterSeries";
+import { Caption } from "../../lib/caption";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { Square } from "../../lib/chart/marker/square";
+import { Color } from "../../lib/util/color";
+import { Circle } from "../../lib/chart/marker/circle";
+import { Diamond } from "../../lib/chart/marker/diamond";
+import { Cross } from "../../lib/chart/marker/cross";
+import { Plus } from "../../lib/chart/marker/plus";
+import { Triangle } from "../../lib/chart/marker/triangle";
+import { VkChart } from "../../lib/chart/vkChart";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
 
 /**
 

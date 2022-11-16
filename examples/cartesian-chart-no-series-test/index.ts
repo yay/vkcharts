@@ -1,8 +1,8 @@
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { LineSeries } from "../../src/chart/series/cartesian/lineSeries";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { LineSeries } from "../../lib/chart/series/cartesian/lineSeries";
 
 type CategoryDatum = {
     category: string,

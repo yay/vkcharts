@@ -1,14 +1,14 @@
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
 import { makeChartResizeable } from "../lib/chart";
-import { GroupedCategoryAxis } from "../../src/chart/axis/groupedCategoryAxis";
-import { VkChart } from "../../src/chart/vkChart";
+import { GroupedCategoryAxis } from "../../lib/chart/axis/groupedCategoryAxis";
+import { VkChart } from "../../lib/chart/vkChart";
 import { createSlider } from "../lib/ui";
-import { VkCartesianChartOptions, VkChartOptions, VkChartTheme } from "../../src/chart/vkChartOptions";
-import { ChartTheme } from "../../src/chart/themes/chartTheme";
-import { LineSeriesNodeClickEvent } from "../../src/chart/series/cartesian/lineSeries";
+import { VkCartesianChartOptions, VkChartOptions, VkChartTheme } from "../../lib/chart/vkChartOptions";
+import { ChartTheme } from "../../lib/chart/themes/chartTheme";
+import { LineSeriesNodeClickEvent } from "../../lib/chart/series/cartesian/lineSeries";
 
 const data = [
     { name: "E", value: 0.12702 },

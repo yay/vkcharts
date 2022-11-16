@@ -1,6 +1,6 @@
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Rect, RectSizing } from "../../src/scene/shape/rect";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Rect, RectSizing } from "../../lib/scene/shape/rect";
 import { createSlider } from "../lib/ui";
 
 document.addEventListener('DOMContentLoaded', () => {

@@ -1,6 +1,6 @@
 import './picker.css';
 import './checker.png';
-import { Color } from "../../src/util/color";
+import { Color } from "../../lib/util/color";
 
 class ColorPicker {
     private readonly element: HTMLElement;

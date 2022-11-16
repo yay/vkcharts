@@ -1,7 +1,7 @@
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Arc } from "../../src/scene/shape/arc";
-import { Text } from "../../src/scene/shape/text";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Arc } from "../../lib/scene/shape/arc";
+import { Text } from "../../lib/scene/shape/text";
 
 function delay() {
     return new Promise(resolve => {

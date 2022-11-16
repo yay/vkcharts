@@ -1,19 +1,19 @@
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Selection } from "../../src/scene/selection";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Selection } from "../../lib/scene/selection";
 import { data } from "./data";
 import { FinvizMapData } from "./finviz_data";
-import { Rect } from "../../src/scene/shape/rect";
-import { Text } from "../../src/scene/shape/text";
+import { Rect } from "../../lib/scene/shape/rect";
+import { Text } from "../../lib/scene/shape/text";
 import { convertGridTreeData, rowData } from "./convert";
 import { createButton, createSlider } from "../lib/ui";
 
 import * as d3 from "d3";
-import { HdpiCanvas } from "../../src/canvas/hdpiCanvas";
+import { HdpiCanvas } from "../../lib/canvas/hdpiCanvas";
 import { makeChartResizeable } from "../lib/chart";
-import { VkChart, VkChartOptions, Caption, LinearScale } from "../../src/main";
-import { HierarchyChart } from "../../src/chart/hierarchyChart";
-import { TreemapSeries } from "../../src/chart/series/hierarchy/treemapSeries";
+import { VkChart, VkChartOptions, Caption, LinearScale } from "../../lib/main";
+import { HierarchyChart } from "../../lib/chart/hierarchyChart";
+import { TreemapSeries } from "../../lib/chart/series/hierarchy/treemapSeries";
 
 function processFinVizData() {
     console.log(FinvizMapData);

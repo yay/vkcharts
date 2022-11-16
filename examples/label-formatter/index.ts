@@ -1,9 +1,9 @@
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { LineSeries } from "../../src/chart/series/cartesian/lineSeries";
-import { toReadableNumber } from "../../src/util/number";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { LineSeries } from "../../lib/chart/series/cartesian/lineSeries";
+import { toReadableNumber } from "../../lib/util/number";
 
 const data1 = [
     { category: '1', value: 0.0001234 },

@@ -1,9 +1,9 @@
-import { Axis } from "../../src/axis";
-import { BandScale } from "../../src/scale/bandScale";
-import { LinearScale } from "../../src/scale/linearScale";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { toDegrees } from "../../src/util/angle";
+import { Axis } from "../../lib/axis";
+import { BandScale } from "../../lib/scale/bandScale";
+import { LinearScale } from "../../lib/scale/linearScale";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { toDegrees } from "../../lib/util/angle";
 
 function nextFrame() {
     return new Promise(resolve => {

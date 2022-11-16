@@ -5,7 +5,7 @@ import { Selection } from "../../../scene/selection";
 import { DropShadow } from "../../../scene/dropShadow";
 import { LinearScale } from "../../../scale/linearScale";
 import { Sector } from "../../../scene/shape/sector";
-import { PolarTooltipRendererParams, SeriesNodeDatum, HighlightStyle, SeriesTooltip } from "./../series";
+import { PolarTooltipRendererParams, SeriesNodeDatum, HighlightStyle, SeriesTooltip } from "../series";
 import { Label } from "../../label";
 import { PointerEvents } from "../../../scene/node";
 import { normalizeAngle180, toRadians } from "../../../util/angle";

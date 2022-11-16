@@ -1,8 +1,8 @@
-import { Node } from "../../src/scene/node";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Line } from "../../src/scene/shape/line";
-import { Text } from "../../src/scene/shape/text";
+import { Node } from "../../lib/scene/node";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Line } from "../../lib/scene/shape/line";
+import { Text } from "../../lib/scene/shape/text";
 
 document.addEventListener('DOMContentLoaded', () => {
     const scene = new Scene();

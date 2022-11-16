@@ -1,13 +1,13 @@
 import { makeChartResizeable } from "../lib/chart";
 import { createButton, createSlider } from "../lib/ui";
-import { PolarChart } from "../../src/chart/polarChart";
-import { PieSeries, PieTitle } from "../../src/chart/series/polar/pieSeries";
-import { Caption } from "../../src/caption";
-import { DropShadow } from "../../src/scene/dropShadow";
-import { Padding } from "../../src/util/padding";
-import { FontStyle, FontWeight } from "../../src/scene/shape/text";
-import { LegendPosition } from "../../src/chart/legend";
-import { VkChart } from "../../src/chart/vkChart";
+import { PolarChart } from "../../lib/chart/polarChart";
+import { PieSeries, PieTitle } from "../../lib/chart/series/polar/pieSeries";
+import { Caption } from "../../lib/caption";
+import { DropShadow } from "../../lib/scene/dropShadow";
+import { Padding } from "../../lib/util/padding";
+import { FontStyle, FontWeight } from "../../lib/scene/shape/text";
+import { LegendPosition } from "../../lib/chart/legend";
+import { VkChart } from "../../lib/chart/vkChart";
 
 type Datum = {
     label: string,

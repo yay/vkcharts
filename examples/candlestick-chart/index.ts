@@ -1,18 +1,18 @@
 import { data } from './data';
 import { makeChartResizeable } from '../lib/chart';
 import { createButton } from '../lib/ui';
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { TimeAxis } from "../../src/chart/axis/timeAxis";
-import month from "../../src/util/time/month";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { locale } from "../../src/util/time/format/defaultLocale";
-import { LineSeries } from "../../src/chart/series/cartesian/lineSeries";
-import { OHLCSeries } from "../../src/chart/series/cartesian/ohlc/ohlcSeries";
-import { Square } from "../../src/chart/marker/square";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
-import { Chart } from '../../src/chart/chart';
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { TimeAxis } from "../../lib/chart/axis/timeAxis";
+import month from "../../lib/util/time/month";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { locale } from "../../lib/util/time/format/defaultLocale";
+import { LineSeries } from "../../lib/chart/series/cartesian/lineSeries";
+import { OHLCSeries } from "../../lib/chart/series/cartesian/ohlc/ohlcSeries";
+import { Square } from "../../lib/chart/marker/square";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
+import { Chart } from '../../lib/chart/chart';
 
 function createChart() {
     const xAxis = new TimeAxis();

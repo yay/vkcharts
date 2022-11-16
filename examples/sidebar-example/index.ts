@@ -1,12 +1,12 @@
 import './app.css';
 import { createButton, createSlider } from "../lib/ui";
 import * as d3 from "d3";
-import { CategoryAxis } from '../../src/chart/axis/categoryAxis';
-import { NumberAxis } from '../../src/chart/axis/numberAxis';
-import { ChartAxisPosition } from '../../src/chart/chartAxis';
-import { CartesianChart } from '../../src/chart/cartesianChart';
-import { Caption } from '../../src/caption';
-import { BarSeries } from '../../src/chart/series/cartesian/barSeries';
+import { CategoryAxis } from '../../lib/chart/axis/categoryAxis';
+import { NumberAxis } from '../../lib/chart/axis/numberAxis';
+import { ChartAxisPosition } from '../../lib/chart/chartAxis';
+import { CartesianChart } from '../../lib/chart/cartesianChart';
+import { Caption } from '../../lib/caption';
+import { BarSeries } from '../../lib/chart/series/cartesian/barSeries';
 
 function generateData(n = 50, yKeyCount = 10) {
     const data: any[] = [];

@@ -1,14 +1,14 @@
 import { createRangeSlider, createButton, createSlider } from "../lib/ui";
 import { makeChartResizeable } from "../lib/chart";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
-import { LineSeries } from "../../src/chart/series/cartesian/lineSeries";
-import { GroupedCategoryAxis } from "../../src/chart/axis/groupedCategoryAxis";
-import { VkChart } from "../../src/chart/vkChart";
-import { VkCartesianChartOptions } from "../../src/chart/vkChartOptions";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
+import { LineSeries } from "../../lib/chart/series/cartesian/lineSeries";
+import { GroupedCategoryAxis } from "../../lib/chart/axis/groupedCategoryAxis";
+import { VkChart } from "../../lib/chart/vkChart";
+import { VkCartesianChartOptions } from "../../lib/chart/vkChartOptions";
 
 const data = [
     { name: "E", value: 0.12702 },

@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import * as ReactDOM from 'react-dom';
-import { VkChart } from "../../src/chart/vkChart";
-import { VkCartesianChartOptions, VkChartOptions } from "../../src/chart/vkChartOptions";
-import { CartesianChart } from "../../src/chart/cartesianChart";
+import { VkChart } from "../../lib/chart/vkChart";
+import { VkCartesianChartOptions, VkChartOptions } from "../../lib/chart/vkChartOptions";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
 
 const CounterExample = () => {
     const [count, setCount] = useState(0);

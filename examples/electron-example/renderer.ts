@@ -3,13 +3,13 @@ import { remote } from 'electron';
 import './app.css';
 import { createButton } from "../lib/ui";
 import { makeChartResizeable } from "../lib/chart";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { Caption } from "../../src/caption";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
-import borneo from "../../src/chart/palettes";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { Caption } from "../../lib/caption";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
+import borneo from "../../lib/chart/palettes";
 
 const { BrowserWindow } = remote;
 

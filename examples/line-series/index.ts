@@ -1,18 +1,18 @@
 import { makeChartResizeable } from "../lib/chart";
 import { createButton, createSlider } from "../lib/ui";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { LineSeries } from "../../src/chart/series/cartesian/lineSeries";
-import { Circle } from "../../src/chart/marker/circle";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { Marker } from "../../src/chart/marker/marker";
-import { Square } from "../../src/chart/marker/square";
-import { AreaSeries } from "../../src/chart/series/cartesian/areaSeries";
-import { VkChart } from "../../src/chart/vkChart";
-import second from "../../src/util/time/second";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
-import minute from "../../src/util/time/minute";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { LineSeries } from "../../lib/chart/series/cartesian/lineSeries";
+import { Circle } from "../../lib/chart/marker/circle";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { Marker } from "../../lib/chart/marker/marker";
+import { Square } from "../../lib/chart/marker/square";
+import { AreaSeries } from "../../lib/chart/series/cartesian/areaSeries";
+import { VkChart } from "../../lib/chart/vkChart";
+import second from "../../lib/util/time/second";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
+import minute from "../../lib/util/time/minute";
 
 type CategoryDatum = {
     category: string,

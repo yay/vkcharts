@@ -1,8 +1,8 @@
-import { Scene } from "../../src/scene/scene";
-import { Group } from "../../src/scene/group";
-import { Rect } from "../../src/scene/shape/rect";
-import { Text } from "../../src/scene/shape/text";
-import { Arc, ArcType } from "../../src/scene/shape/arc";
+import { Scene } from "../../lib/scene/scene";
+import { Group } from "../../lib/scene/group";
+import { Rect } from "../../lib/scene/shape/rect";
+import { Text } from "../../lib/scene/shape/text";
+import { Arc, ArcType } from "../../lib/scene/shape/arc";
 
 function nextFrame() {
     return new Promise(resolve => {

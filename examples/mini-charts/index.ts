@@ -1,16 +1,16 @@
-import { Scene } from '../../src/scene/scene';
-import { Group } from '../../src/scene/group';
-import { Sector } from '../../src/scene/shape/sector';
-import { toRadians } from '../../src/util/angle';
-import { Path } from '../../src/scene/shape/path';
-import { Line } from '../../src/scene/shape/line';
-import { LinearScale } from '../../src/scale/linearScale';
-import { BandScale } from '../../src/scale/bandScale';
-import { Rect } from '../../src/scene/shape/rect';
-import { ClipRect } from '../../src/scene/clipRect';
-import { Arc } from '../../src/scene/shape/arc';
-import { Shape } from '../../src/scene/shape/shape';
-import { VkChartThemePalette } from '../../src/main';
+import { Scene } from '../../lib/scene/scene';
+import { Group } from '../../lib/scene/group';
+import { Sector } from '../../lib/scene/shape/sector';
+import { toRadians } from '../../lib/util/angle';
+import { Path } from '../../lib/scene/shape/path';
+import { Line } from '../../lib/scene/shape/line';
+import { LinearScale } from '../../lib/scale/linearScale';
+import { BandScale } from '../../lib/scale/bandScale';
+import { Rect } from '../../lib/scene/shape/rect';
+import { ClipRect } from '../../lib/scene/clipRect';
+import { Arc } from '../../lib/scene/shape/arc';
+import { Shape } from '../../lib/scene/shape/shape';
+import { VkChartThemePalette } from '../../lib/main';
 import {
     chartTheme,
     materialDark,

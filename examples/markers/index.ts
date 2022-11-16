@@ -1,11 +1,11 @@
-import { Circle } from "../../src/chart/marker/circle";
-import { Cross } from "../../src/chart/marker/cross";
-import { Diamond } from "../../src/chart/marker/diamond";
-import { Plus } from "../../src/chart/marker/plus";
-import { Square } from "../../src/chart/marker/square";
-import { Triangle } from "../../src/chart/marker/triangle";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
+import { Circle } from "../../lib/chart/marker/circle";
+import { Cross } from "../../lib/chart/marker/cross";
+import { Diamond } from "../../lib/chart/marker/diamond";
+import { Plus } from "../../lib/chart/marker/plus";
+import { Square } from "../../lib/chart/marker/square";
+import { Triangle } from "../../lib/chart/marker/triangle";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
 import { createSlider } from "../lib/ui";
 
 document.addEventListener('DOMContentLoaded', () => {

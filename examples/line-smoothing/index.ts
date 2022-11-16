@@ -1,10 +1,10 @@
 import { createButton, createSlider, createSliderValues } from "../lib/ui";
 
 import * as d3 from 'd3';
-import { Scene } from "../../src/scene/scene";
-import { Group } from "../../src/scene/group";
-import { Path } from "../../src/scene/shape/path";
-import { Arc } from "../../src/scene/shape/arc";
+import { Scene } from "../../lib/scene/scene";
+import { Group } from "../../lib/scene/group";
+import { Path } from "../../lib/scene/shape/path";
+import { Arc } from "../../lib/scene/shape/arc";
 
 export function basis(t1: number, v0: number, v1: number, v2: number, v3: number) {
     const t2 = t1 * t1;

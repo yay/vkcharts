@@ -1,7 +1,7 @@
-import { Axis } from "../../src/axis";
-import { LogScale } from "../../src/scale/logScale";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
+import { Axis } from "../../lib/axis";
+import { LogScale } from "../../lib/scale/logScale";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
 
 document.addEventListener('DOMContentLoaded', () => {
     // testConvert();

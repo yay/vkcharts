@@ -1,9 +1,9 @@
 import { createButton } from "../lib/ui";
-import { PolarChart } from "../../src/chart/polarChart";
-import { PieSeries } from "../../src/chart/series/polar/pieSeries";
-import { Caption } from "../../src/caption";
-import { toDegrees } from "../../src/util/angle";
-import { LegendPosition } from "../../src/chart/legend";
+import { PolarChart } from "../../lib/chart/polarChart";
+import { PieSeries } from "../../lib/chart/series/polar/pieSeries";
+import { Caption } from "../../lib/caption";
+import { toDegrees } from "../../lib/util/angle";
+import { LegendPosition } from "../../lib/chart/legend";
 
 const data = [
     {

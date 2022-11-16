@@ -1,6 +1,6 @@
-import { HdpiCanvas } from "../../src/canvas/hdpiCanvas";
-import { LinearScale } from "../../src/scale/linearScale";
-import { normalizeAngle180 } from "../../src/util/angle";
+import { HdpiCanvas } from "../../lib/canvas/hdpiCanvas";
+import { LinearScale } from "../../lib/scale/linearScale";
+import { normalizeAngle180 } from "../../lib/util/angle";
 
 // Q1'12 data
 const data = [

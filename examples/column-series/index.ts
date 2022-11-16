@@ -1,14 +1,14 @@
 import './app.css';
 import { createButton, createSlider } from "../lib/ui";
 import { makeChartResizeable } from "../lib/chart";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { Caption } from "../../src/caption";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
-import { find } from "../../src/util/array";
-import { LegendPosition } from '../../src/chart/legend';
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { Caption } from "../../lib/caption";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
+import { find } from "../../lib/util/array";
+import { LegendPosition } from '../../lib/chart/legend';
 
 type Datum = {
     category: string,

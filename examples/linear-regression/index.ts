@@ -2,13 +2,13 @@ import { data as timeData } from './data';
 
 import { createButton } from "../lib/ui";
 import * as d3 from 'd3';
-import { NumberAxis } from '../../src/chart/axis/numberAxis';
-import { ChartAxisPosition } from '../../src/chart/chartAxis';
-import { CartesianChart } from '../../src/chart/cartesianChart';
-import { Caption } from '../../src/caption';
-import { ScatterSeries } from '../../src/chart/series/cartesian/scatterSeries';
-import { linearRegression } from '../../src/util/stat';
-import { LineSeries } from '../../src/chart/series/cartesian/lineSeries';
+import { NumberAxis } from '../../lib/chart/axis/numberAxis';
+import { ChartAxisPosition } from '../../lib/chart/chartAxis';
+import { CartesianChart } from '../../lib/chart/cartesianChart';
+import { Caption } from '../../lib/caption';
+import { ScatterSeries } from '../../lib/chart/series/cartesian/scatterSeries';
+import { linearRegression } from '../../lib/util/stat';
+import { LineSeries } from '../../lib/chart/series/cartesian/lineSeries';
 
 type Datum = {
     x: number,

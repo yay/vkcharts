@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
-import { EnterNode, Selection } from '../../src/scene/selection';
-import { Node } from '../../src/scene/node';
-import { Group } from '../../src/scene/group';
-import { Scene } from '../../src/scene/scene';
-import { Rect } from '../../src/scene/shape/rect';
+import { EnterNode, Selection } from '../../lib/scene/selection';
+import { Node } from '../../lib/scene/node';
+import { Group } from '../../lib/scene/group';
+import { Scene } from '../../lib/scene/scene';
+import { Rect } from '../../lib/scene/shape/rect';
 
 function test_SelectionSelect() {
     const scene = new Scene();

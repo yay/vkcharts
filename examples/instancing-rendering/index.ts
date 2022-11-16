@@ -1,10 +1,10 @@
-import { FpsCounter } from "../../src/scene/fpsCounter";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Path } from "../../src/scene/shape/path";
-import { Rect } from "../../src/scene/shape/rect";
-import { Shape } from "../../src/scene/shape/shape";
-import { Color } from "../../src/util/color";
+import { FpsCounter } from "../../lib/scene/fpsCounter";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Path } from "../../lib/scene/shape/path";
+import { Rect } from "../../lib/scene/shape/rect";
+import { Shape } from "../../lib/scene/shape/shape";
+import { Color } from "../../lib/util/color";
 
 const fpsCounter = new FpsCounter(document.body);
 

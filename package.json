@@ -1,7 +1,17 @@
 {
   "name": "vkcharts",
   "version": "0.9.0",
+  "author": "Vitalii Kravchenko (google email: vitalyx)",
   "license": "MIT",
+  "keywords": [
+    "vkcharts",
+    "data-visualization",
+    "charts",
+    "charting-library",
+    "visualization",
+    "data-viz",
+    "canvas"
+  ],
   "type": "module",
   "files": ["dist"],
   "main": "./dist/vk-charts.umd.cjs",

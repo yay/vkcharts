@@ -5,10 +5,10 @@
 // on every frame. This should result in a better performance,
 // especially in case of complex paths.
 
-import { FpsCounter } from "../../src/scene/fpsCounter";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Arc, ArcType } from "../../src/scene/shape/arc";
+import { FpsCounter } from "../../lib/scene/fpsCounter";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Arc, ArcType } from "../../lib/scene/shape/arc";
 
 document.addEventListener('DOMContentLoaded', () => {
     const width = 800;

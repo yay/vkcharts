@@ -1,10 +1,10 @@
-import { Scene } from "../../src/scene/scene";
-import { Group } from "../../src/scene/group";
-import { ClipRect } from "../../src/scene/clipRect";
-import { Arc, ArcType } from "../../src/scene/shape/arc";
-import { Text } from "../../src/scene/shape/text";
-import { Line } from "../../src/scene/shape/line";
-import { Selection } from "../../src/scene/selection";
+import { Scene } from "../../lib/scene/scene";
+import { Group } from "../../lib/scene/group";
+import { ClipRect } from "../../lib/scene/clipRect";
+import { Arc, ArcType } from "../../lib/scene/shape/arc";
+import { Text } from "../../lib/scene/shape/text";
+import { Line } from "../../lib/scene/shape/line";
+import { Selection } from "../../lib/scene/selection";
 
 function nextFrame() {
     return new Promise(resolve => {

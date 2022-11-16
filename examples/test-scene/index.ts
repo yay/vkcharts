@@ -1,7 +1,7 @@
-import { Arc, BandScale, Chart, DropShadow, Group, Line, LinearScale, Rect } from "../../src/main";
-import { Scene } from "../../src/scene/scene";
-import { Text } from "../../src/scene/shape/text";
-import { Selection } from "../../src/scene/selection";
+import { Arc, BandScale, Chart, DropShadow, Group, Line, LinearScale, Rect } from "../../lib/main";
+import { Scene } from "../../lib/scene/scene";
+import { Text } from "../../lib/scene/shape/text";
+import { Selection } from "../../lib/scene/selection";
 import { createButton, createSlider, createSlider2 } from "../lib/ui";
 
 const scene = new Scene(document, 800, 600);

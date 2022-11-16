@@ -1,17 +1,17 @@
 import { createButton, createSlider } from "../lib/ui";
 import { makeChartResizeable } from "../lib/chart";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { Caption } from "../../src/caption";
-import { BarLabelPlacement, BarSeries } from "../../src/chart/series/cartesian/barSeries";
-import { Circle } from "../../src/chart/marker/circle";
-import { VkChart } from "../../src/chart/vkChart";
-import { Padding } from "../../src/util/padding";
-import { LogScale } from "../../src/scale/logScale";
-import { LinearScale } from "../../src/scale/linearScale";
-import { VkCartesianAxisType, VkCartesianChartOptions } from "../../src/chart/vkChartOptions";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { Caption } from "../../lib/caption";
+import { BarLabelPlacement, BarSeries } from "../../lib/chart/series/cartesian/barSeries";
+import { Circle } from "../../lib/chart/marker/circle";
+import { VkChart } from "../../lib/chart/vkChart";
+import { Padding } from "../../lib/util/padding";
+import { LogScale } from "../../lib/scale/logScale";
+import { LinearScale } from "../../lib/scale/linearScale";
+import { VkCartesianAxisType, VkCartesianChartOptions } from "../../lib/chart/vkChartOptions";
 
 type Datum = {
     category: string,

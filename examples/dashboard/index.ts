@@ -1,10 +1,10 @@
-import { Caption } from "../../src/caption";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { LegendPosition } from "../../src/chart/legend";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
+import { Caption } from "../../lib/caption";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { LegendPosition } from "../../lib/chart/legend";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
 
 function createOldestCompaniesChart() {
     const data = [{

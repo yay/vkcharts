@@ -1,15 +1,15 @@
-import Scale from "../../src/scale/scale";
-import { Selection } from "../../src/scene/selection";
-import { Node } from "../../src/scene/node";
-import { Group } from "../../src/scene/group";
-import { Line } from "../../src/scene/shape/line";
-import { Rect } from "../../src/scene/shape/rect";
-import { Text } from "../../src/scene/shape/text";
-import { normalizeAngle360 } from "../../src/util/angle";
-import { LinearScale } from "../../src/scale/linearScale";
-import { BandScale } from "../../src/scale/bandScale";
-import { DropShadow } from "../../src/scene/dropShadow";
-import { Scene } from "../../src/scene/scene";
+import Scale from "../../lib/scale/scale";
+import { Selection } from "../../lib/scene/selection";
+import { Node } from "../../lib/scene/node";
+import { Group } from "../../lib/scene/group";
+import { Line } from "../../lib/scene/shape/line";
+import { Rect } from "../../lib/scene/shape/rect";
+import { Text } from "../../lib/scene/shape/text";
+import { normalizeAngle360 } from "../../lib/util/angle";
+import { LinearScale } from "../../lib/scale/linearScale";
+import { BandScale } from "../../lib/scale/bandScale";
+import { DropShadow } from "../../lib/scene/dropShadow";
+import { Scene } from "../../lib/scene/scene";
 
 document.addEventListener('DOMContentLoaded', () => {
     renderChart();

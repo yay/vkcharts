@@ -1,19 +1,19 @@
 import './app.css';
 import { createButton, createSlider } from '../lib/ui';
 import { makeChartResizeable } from '../lib/chart';
-import { CategoryAxis } from '../../src/chart/axis/categoryAxis';
-import { ChartAxisPosition } from '../../src/chart/chartAxis';
-import { BandScale } from '../../src/scale/bandScale';
-import { NumberAxis } from '../../src/chart/axis/numberAxis';
-import { CartesianChart } from '../../src/chart/cartesianChart';
-import { Caption } from '../../src/caption';
-import { AreaSeries } from '../../src/chart/series/cartesian/areaSeries';
-import { find } from '../../src/util/array';
-import { Path } from '../../src/scene/shape/path';
-import { DropShadow } from '../../src/scene/dropShadow';
-import { Group } from '../../src/scene/group';
-import { LegendPosition } from '../../src/chart/legend';
-import { VkCartesianChartOptions, VkChart, Arc } from '../../src/main';
+import { CategoryAxis } from '../../lib/chart/axis/categoryAxis';
+import { ChartAxisPosition } from '../../lib/chart/chartAxis';
+import { BandScale } from '../../lib/scale/bandScale';
+import { NumberAxis } from '../../lib/chart/axis/numberAxis';
+import { CartesianChart } from '../../lib/chart/cartesianChart';
+import { Caption } from '../../lib/caption';
+import { AreaSeries } from '../../lib/chart/series/cartesian/areaSeries';
+import { find } from '../../lib/util/array';
+import { Path } from '../../lib/scene/shape/path';
+import { DropShadow } from '../../lib/scene/dropShadow';
+import { Group } from '../../lib/scene/group';
+import { LegendPosition } from '../../lib/chart/legend';
+import { VkCartesianChartOptions, VkChart, Arc } from '../../lib/main';
 
 type Datum = {
     category: string,

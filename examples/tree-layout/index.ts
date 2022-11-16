@@ -1,8 +1,8 @@
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Selection } from "../../src/scene/selection";
-import { Line } from "../../src/scene/shape/line";
-import { Text } from "../../src/scene/shape/text";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Selection } from "../../lib/scene/selection";
+import { Line } from "../../lib/scene/shape/line";
+import { Text } from "../../lib/scene/shape/text";
 import { createSlider } from "../lib/ui";
 
 interface Tick {

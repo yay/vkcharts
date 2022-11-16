@@ -1,8 +1,8 @@
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { Circle } from "../../src/chart/marker/circle";
-import { LineSeries } from "../../src/chart/series/cartesian/lineSeries";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { Circle } from "../../lib/chart/marker/circle";
+import { LineSeries } from "../../lib/chart/series/cartesian/lineSeries";
 
 type NumericDatum = {
   xValue: number,

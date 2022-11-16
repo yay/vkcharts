@@ -1,16 +1,16 @@
 import { createButton } from "../lib/ui";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { AreaSeries } from "../../src/chart/series/cartesian/areaSeries";
-import { LineSeries, LineSeriesNodeClickEvent } from "../../src/chart/series/cartesian/lineSeries";
-import { Circle } from "../../src/chart/marker/circle";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
-import { Caption } from "../../src/caption";
-import { VkChart } from "../../src/chart/vkChart";
-import { Color } from "../../src/util/color";
-import { VkChartOptions } from "../../src/main";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { AreaSeries } from "../../lib/chart/series/cartesian/areaSeries";
+import { LineSeries, LineSeriesNodeClickEvent } from "../../lib/chart/series/cartesian/lineSeries";
+import { Circle } from "../../lib/chart/marker/circle";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
+import { Caption } from "../../lib/caption";
+import { VkChart } from "../../lib/chart/vkChart";
+import { Color } from "../../lib/util/color";
+import { VkChartOptions } from "../../lib/main";
 
 type MultiValue = {
     category: string,

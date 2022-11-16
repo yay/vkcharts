@@ -1,7 +1,7 @@
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Arc, ArcType } from "../../src/scene/shape/arc";
-import { toRadians } from "../../src/util/angle";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Arc, ArcType } from "../../lib/scene/shape/arc";
+import { toRadians } from "../../lib/util/angle";
 
 document.addEventListener('DOMContentLoaded', () => {
     const scene = new Scene();

@@ -1,4 +1,4 @@
-import { ChartTheme, DropShadow, Group, Scene, Sector } from "../../src/main";
+import { ChartTheme, DropShadow, Group, Scene, Sector } from "../../lib/main";
 
 document.addEventListener('DOMContentLoaded', () => {
     testSector();

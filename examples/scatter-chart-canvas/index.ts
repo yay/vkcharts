@@ -1,6 +1,6 @@
-import { HdpiCanvas } from '../../src/canvas/hdpiCanvas';
-import { CanvasAxis } from '../../src/canvasAxis';
-import { LinearScale } from '../../src/scale/linearScale';
+import { HdpiCanvas } from '../../lib/canvas/hdpiCanvas';
+import { CanvasAxis } from '../../lib/canvasAxis';
+import { LinearScale } from '../../lib/scale/linearScale';
 import carData, {ICarInfo} from './auto-mpg';
 
 const colors = [

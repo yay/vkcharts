@@ -1,8 +1,8 @@
-import { FpsCounter } from "../../src/scene/fpsCounter";
-import { Group } from "../../src/scene/group";
-import { Text } from "../../src/scene/shape/text";
-import { Scene } from "../../src/scene/scene";
-import { Arc, ArcType } from "../../src/scene/shape/arc";
+import { FpsCounter } from "../../lib/scene/fpsCounter";
+import { Group } from "../../lib/scene/group";
+import { Text } from "../../lib/scene/shape/text";
+import { Scene } from "../../lib/scene/scene";
+import { Arc, ArcType } from "../../lib/scene/shape/arc";
 
 function createArcPathExample() {
     const scene = new Scene();

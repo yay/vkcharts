@@ -1,7 +1,7 @@
-import { DropShadow } from "../../src/scene/dropShadow";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Text } from "../../src/scene/shape/text";
+import { DropShadow } from "../../lib/scene/dropShadow";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Text } from "../../lib/scene/shape/text";
 
 document.addEventListener('DOMContentLoaded', () => {
     const scene = new Scene();

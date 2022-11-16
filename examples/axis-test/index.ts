@@ -1,11 +1,11 @@
-import { Scene } from "../../src/scene/scene";
-import { Group } from "../../src/scene/group";
-import { Arc, ArcType } from "../../src/scene/shape/arc";
-import { Text } from "../../src/scene/shape/text";
-import { BandScale } from "../../src/scale/bandScale";
-import { Axis } from "../../src/axis";
-import { Caption } from "../../src/caption";
-import { LinearScale } from "../../src/scale/linearScale";
+import { Scene } from "../../lib/scene/scene";
+import { Group } from "../../lib/scene/group";
+import { Arc, ArcType } from "../../lib/scene/shape/arc";
+import { Text } from "../../lib/scene/shape/text";
+import { BandScale } from "../../lib/scale/bandScale";
+import { Axis } from "../../lib/axis";
+import { Caption } from "../../lib/caption";
+import { LinearScale } from "../../lib/scale/linearScale";
 
 function nextFrame() {
     return new Promise(resolve => {

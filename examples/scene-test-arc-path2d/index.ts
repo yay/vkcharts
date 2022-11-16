@@ -1,9 +1,9 @@
-import { FpsCounter } from "../../src/scene/fpsCounter";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Shape } from "../../src/scene/shape/shape";
-import { normalizeAngle360 } from "../../src/util/angle";
-import { isEqual } from "../../src/util/number";
+import { FpsCounter } from "../../lib/scene/fpsCounter";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Shape } from "../../lib/scene/shape/shape";
+import { normalizeAngle360 } from "../../lib/util/angle";
+import { isEqual } from "../../lib/util/number";
 
 enum ArcType {
     Open,

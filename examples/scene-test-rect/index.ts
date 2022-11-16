@@ -1,7 +1,7 @@
-import { FpsCounter } from "../../src/scene/fpsCounter";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Rect } from "../../src/scene/shape/rect";
+import { FpsCounter } from "../../lib/scene/fpsCounter";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Rect } from "../../lib/scene/shape/rect";
 
 document.addEventListener('DOMContentLoaded', () => {
     const scene = new Scene();

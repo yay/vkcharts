@@ -1,11 +1,11 @@
 import { createButton } from "../lib/ui";
-import { VkChart } from "../../src/chart/vkChart";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { LegendPosition } from "../../src/chart/legend";
-import { ChartAxisPosition } from "../../src/chart/chartAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { LineSeries } from "../../src/chart/series/cartesian/lineSeries";
+import { VkChart } from "../../lib/chart/vkChart";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { LegendPosition } from "../../lib/chart/legend";
+import { ChartAxisPosition } from "../../lib/chart/chartAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { LineSeries } from "../../lib/chart/series/cartesian/lineSeries";
 
 const revenueProfitData = [{
     month: 'Jan',

@@ -1,10 +1,10 @@
-import { PolarChart } from "../../src/chart/polarChart";
-import { PieSeries } from "../../src/chart/series/polar/pieSeries";
-import { CartesianChart } from "../../src/chart/cartesianChart";
-import { CategoryAxis } from "../../src/chart/axis/categoryAxis";
-import { NumberAxis } from "../../src/chart/axis/numberAxis";
-import { BarSeries } from "../../src/chart/series/cartesian/barSeries";
-import { LineSeries } from "../../src/chart/series/cartesian/lineSeries";
+import { PolarChart } from "../../lib/chart/polarChart";
+import { PieSeries } from "../../lib/chart/series/polar/pieSeries";
+import { CartesianChart } from "../../lib/chart/cartesianChart";
+import { CategoryAxis } from "../../lib/chart/axis/categoryAxis";
+import { NumberAxis } from "../../lib/chart/axis/numberAxis";
+import { BarSeries } from "../../lib/chart/series/cartesian/barSeries";
+import { LineSeries } from "../../lib/chart/series/cartesian/lineSeries";
 
 // test of JS as opposed to TS, to verify the library is accessible from plain javascript
 

@@ -1,6 +1,6 @@
-import { Group } from "../../src/scene/group";
-import { Text } from "../../src/scene/shape/text";
-import { Scene } from "../../src/scene/scene";
+import { Group } from "../../lib/scene/group";
+import { Text } from "../../lib/scene/shape/text";
+import { Scene } from "../../lib/scene/scene";
 
 document.addEventListener('DOMContentLoaded', () => {
     const scene = new Scene();

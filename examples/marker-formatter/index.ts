@@ -1,7 +1,7 @@
-import { Circle } from "../../src/chart/marker/circle";
-import { Diamond } from "../../src/chart/marker/diamond";
-import { Plus } from "../../src/chart/marker/plus";
-import { AreaSeries, BarSeries, CartesianChart, CategoryAxis, ChartAxisPosition, LineSeries, NumberAxis, PieSeries, PolarChart, ScatterSeries } from "../../src/main";
+import { Circle } from "../../lib/chart/marker/circle";
+import { Diamond } from "../../lib/chart/marker/diamond";
+import { Plus } from "../../lib/chart/marker/plus";
+import { AreaSeries, BarSeries, CartesianChart, CategoryAxis, ChartAxisPosition, LineSeries, NumberAxis, PieSeries, PolarChart, ScatterSeries } from "../../lib/main";
 import { makeChartResizeable } from "../lib/chart";
 import { createButton, createSlider } from "../lib/ui";
 

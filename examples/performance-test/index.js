@@ -15,7 +15,7 @@
 // npm run bundleOneAndWatch -- --env.example=performance-test-size
 // ----- CLOSE ALL APPS (IDEs included) !!! -----
 // Then run in terminal:
-// node src/performance-test/index.js
+// node lib/performance-test/index.js
 // Update results.txt, mentioning CPU, GPU, puppeteer version, OS version, commit hash and date of the test.
 
 const puppeteer = require('puppeteer');

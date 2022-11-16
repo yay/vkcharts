@@ -1,8 +1,8 @@
 import * as d3 from "d3";
-import { Group } from "../../src/scene/group";
-import { Scene } from "../../src/scene/scene";
-import { Arc } from "../../src/scene/shape/arc";
-import { Rect } from "../../src/scene/shape/rect";
+import { Group } from "../../lib/scene/group";
+import { Scene } from "../../lib/scene/scene";
+import { Arc } from "../../lib/scene/shape/arc";
+import { Rect } from "../../lib/scene/shape/rect";
 
 document.addEventListener('DOMContentLoaded', () => {
 

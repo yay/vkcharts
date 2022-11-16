@@ -1,7 +1,7 @@
 import { makeChartResizeable } from "../lib/chart";
-import { PolarChart } from "../../src/chart/polarChart";
-import { DropShadow } from "../../src/scene/dropShadow";
-import { PieSeries } from "../../src/chart/series/polar/pieSeries";
+import { PolarChart } from "../../lib/chart/polarChart";
+import { DropShadow } from "../../lib/scene/dropShadow";
+import { PieSeries } from "../../lib/chart/series/polar/pieSeries";
 
 const data = [
     { label: 'John', value1: 3, value2: 7, value3: 5 },
