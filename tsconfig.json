@@ -11,14 +11,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "noEmit": true,
+    "noEmit": false,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "skipLibCheck": true
   },
   "include": [
-    "**/*.ts", "vite.config.js",
+    "**/*.ts",
+    "vite.config.js",
   ],
   "exclude": [
     "node_modules",

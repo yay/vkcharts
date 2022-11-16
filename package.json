@@ -2,30 +2,11 @@
   "name": "vkcharts",
   "version": "0.9.0",
   "author": "Vitalii Kravchenko (google email: vitalyx)",
-  "license": "MIT",
-  "keywords": [
-    "vkcharts",
-    "data-visualization",
-    "charts",
-    "charting-library",
-    "visualization",
-    "data-viz",
-    "canvas"
-  ],
-  "type": "module",
-  "files": ["dist"],
-  "main": "./dist/vk-charts.umd.cjs",
-  "module": "./dist/vk-charts.js",
-  "exports": {
-    ".": {
-      "import": "./dist/vk-charts.js",
-      "require": "./dist/vk-charts.umd.cjs"
-    }
-  },
   "scripts": {
     "dev": "vite",
     "test": "jest",
     "build": "tsc && vite build",
+    "dts": "tsc -p tsconfig.json --declaration --emitDeclarationOnly --esModuleInterop --outDir dist",
     "preview": "vite preview"
   },
   "devDependencies": {
@@ -37,5 +18,27 @@
     "ts-jest": "^29.0.3",
     "typescript": "^4.6.4",
     "vite": "^3.2.3"
+  },
+  "license": "MIT",
+  "keywords": [
+    "vkcharts",
+    "data-visualization",
+    "charts",
+    "charting-library",
+    "visualization",
+    "data-viz",
+    "canvas"
+  ],
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "./dist/vk-charts.umd.cjs",
+  "module": "./dist/vk-charts.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vk-charts.js",
+      "require": "./dist/vk-charts.umd.cjs"
+    }
   }
 }
