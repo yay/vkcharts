@@ -1,8 +1,17 @@
 {
   "name": "vkcharts",
-  "private": true,
-  "version": "0.8.0",
+  "version": "0.9.0",
+  "license": "MIT",
   "type": "module",
+  "files": ["dist"],
+  "main": "./dist/vk-charts.umd.cjs",
+  "module": "./dist/vk-charts.js",
+  "exports": {
+    ".": {
+      "import": "./dist/vk-charts.js",
+      "require": "./dist/vk-charts.umd.cjs"
+    }
+  },
   "scripts": {
     "dev": "vite",
     "test": "jest",

@@ -11,8 +11,8 @@ type DateFormat = string;
 
 type ValueFormat = NumberFormat | DateFormat;
 
-export function interpolate(input: string, values: { [key in string]: any },
-                            formats?: { [key in string]: ValueFormat }): string {
+export function interpolate(input: string, values: { [key: string]: any },
+                            formats?: { [key: string]: ValueFormat }): string {
     return input.replace(interpolatePattern, function () {
         const name = arguments[2];
         const [valueName, formatName] = name.split(':');

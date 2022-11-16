@@ -21,9 +21,7 @@ Here are some of the features that make vkCharts stand out:
 
 ## Disclosure
 
-VkCharts were developed by Vitalii Kravchenko during his employment at AG GRID LTD.
-This code is based on a fork of AG Charts at the time of Vitalii's last commit
-and has code developed by others stripped away.
+VkCharts were developed by Vitalii Kravchenko during his employment at AG GRID LTD. This code is based on a fork of AG Charts at the time of Vitalii's last commit and has code developed by others stripped away.
 
 ## Getting Started
 

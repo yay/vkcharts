@@ -309,10 +309,10 @@ export class BarSeries extends CartesianSeries {
      * A map of `yKeys` to their names (used in legends and tooltips).
      * For example, if a key is `product_name` it's name can be a more presentable `Product Name`.
      */
-    protected _yNames: { [key in string]: string } = {};
-    set yNames(values: { [key in string]: string }) {
+    protected _yNames: { [key: string]: string } = {};
+    set yNames(values: { [key: string]: string }) {
         if (Array.isArray(values) && this.flatYKeys) {
-            const map: { [key in string]: string } = {};
+            const map: { [key: string]: string } = {};
             this.flatYKeys.forEach((k, i) => {
                 map[k] = values[i];
             });
@@ -321,7 +321,7 @@ export class BarSeries extends CartesianSeries {
         this._yNames = values;
         this.scheduleData();
     }
-    get yNames(): { [key in string]: string } {
+    get yNames(): { [key: string]: string } {
         return this._yNames;
     }
 

@@ -33,7 +33,7 @@ function createCategoryLineChart() {
     lineSeries.data = data;
     lineSeries.xKey = 'country';
     lineSeries.yKey = 'value';
-    lineSeries.tooltipEnabled = true;
+    lineSeries.tooltip.enabled = true;
     lineSeries.title = 'Countries';
 
     chart.series = [lineSeries as any];
@@ -53,9 +53,12 @@ function createBarChart() {
     lineSeries.strokeWidth = 4;
     lineSeries.data = data;
     lineSeries.xKey = 'country';
-    lineSeries.yKeys = ['value', 'other'];
-    lineSeries.yNames = ['Countries', 'Whatever'];
-    lineSeries.tooltipEnabled = true;
+    lineSeries.yKeys = [['value', 'other']];
+    lineSeries.yNames = {
+      value: 'Countries',
+      other: 'Whatever'
+    };
+    lineSeries.tooltip.enabled = true;
 
     chart.series = [lineSeries as any];
 }

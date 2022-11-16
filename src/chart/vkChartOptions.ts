@@ -198,7 +198,7 @@ interface VkBaseChartOptions {
     tooltip?: VkChartTooltipOptions;
     navigator?: VkNavigatorOptions;
     legend?: VkChartLegendOptions;
-    listeners?: { [key in string]: Function };
+    listeners?: { [key: string]: Function };
     theme?: string | VkChartTheme; // | ChartTheme
 }
 
@@ -301,7 +301,7 @@ interface VkBaseSeriesOptions {
     visible?: boolean;
     showInLegend?: boolean;
     cursor?: string;
-    listeners?: { [key in string]: Function };
+    listeners?: { [key: string]: Function };
     highlightStyle?: {
         /**
          * @deprecated Use item.fill instead.
@@ -557,7 +557,7 @@ export interface VkBarSeriesOptions extends VkBaseSeriesOptions {
     xKey?: string;
     yKeys?: string[] | string[][];
     xName?: string;
-    yNames?: string[] | { [key in string]: string };
+    yNames?: string[] | { [key: string]: string };
     fills?: string[];
     strokes?: string[];
     strokeWidth?: number;
@@ -688,7 +688,6 @@ type VkCartesianSeriesOptions =
     VkScatterSeriesOptions |
     VkAreaSeriesOptions |
     VkBarSeriesOptions |
-    VkHistogramSeriesOptions |
     VkOHLCSeriesOptions;
 
 type VkPolarSeriesOptions = VkPieSeriesOptions;

@@ -60,7 +60,6 @@ function createPieChart() {
     pieSeries.highlightStyle.item.fill = 'yellow';
     pieSeries.highlightStyle.item.stroke = 'red';
     pieSeries.highlightStyle.item.strokeWidth = 5;
-    pieSeries.highlightStyle.series.enabled = true;
     pieSeries.highlightStyle.series.dimOpacity = 0.2;
     pieSeries.highlightStyle.series.strokeWidth = 3;
 
@@ -79,7 +78,6 @@ function createPieChart() {
     pieSeries2.highlightStyle.item.fill = 'yellow';
     pieSeries2.highlightStyle.item.stroke = 'red';
     pieSeries2.highlightStyle.item.strokeWidth = 5;
-    pieSeries2.highlightStyle.series.enabled = true;
     pieSeries2.highlightStyle.series.dimOpacity = 0.2;
     pieSeries2.highlightStyle.series.strokeWidth = 3;
 

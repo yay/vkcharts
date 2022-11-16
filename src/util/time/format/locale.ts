@@ -12,8 +12,8 @@ import utcSunday, { utcMonday, utcThursday } from "../utcWeek";
 type FormatKeys = 'a' | 'A' | 'b' | 'B' | 'c' | 'd' | 'e' | 'f' | 'H' | 'I' | 'j' | 'L' | 'm' | 'M' |
                   'p' | 'Q' | 's' | 'S' | 'u' | 'U' | 'V' | 'w' | 'W' | 'x' | 'X' | 'y' | 'Y' | 'Z' | '%';
 // The keys in the DateMap are actually FormatKeys, not all will be defined though, so to prevent
-// many checks and to avoid creating a more complicated type we just use `key in string` here.
-type ParsedDate = { [key in string]: number };
+// many checks and to avoid creating a more complicated type we just use `key: string` here.
+type ParsedDate = { [key: string]: number };
 /**
  * Parses part of the `string` (for example, full year part) starting at `i` position
  * and, if successful, poluates the corresponding field in `d` with a number,
@@ -186,7 +186,7 @@ function utcDate(d: ParsedDate): Date {
  * @param names
  */
 function formatLookup(names: string[]): typeof map {
-    const map: { [key in string]: number } = {};
+    const map: { [key: string]: number } = {};
     for (let i = 0, n = names.length; i < n; i++) {
         map[names[i].toLowerCase()] = i;
     }
@@ -221,7 +221,7 @@ export const requote = (s: string) => s.replace(requoteRe, '\\$&'); // $& - matc
 export const formatRe = (names: string[]) => new RegExp('^(?:' + names.map(requote).join('|') + ')', 'i');
 
 // A map of padding modifiers to padding strings. Default is `0`.
-const pads: { [key in string]: string } = {
+const pads: { [key: string]: string } = {
     '-': '',
     '_': ' ',
     '0': '0'

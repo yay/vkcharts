@@ -9,7 +9,7 @@
     "moduleResolution": "Node",
     "strict": true,
     "resolveJsonModule": true,
-    // "isolatedModules": true,
+    "isolatedModules": true,
     "esModuleInterop": true,
     "noEmit": true,
     "noUnusedLocals": true,
@@ -18,10 +18,11 @@
     "skipLibCheck": true
   },
   "include": [
-    "**/*.ts",
+    "**/*.ts", "vite.config.js",
   ],
   "exclude": [
     "node_modules",
+    "examples",
     "**/*.d.ts",
     "**/*.test.ts"
   ]

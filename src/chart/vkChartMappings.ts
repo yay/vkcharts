@@ -853,7 +853,7 @@ export const mappings: any = {
 
 // Amend the `mappings` object with aliases for different chart types.
 {
-    const typeToAliases: { [key in string]: string[] } = {
+    const typeToAliases: { [key: string]: string[] } = {
         cartesian: ['line', 'area', 'bar', 'column'],
         polar: ['pie'],
         hierarchy: ['treemap']

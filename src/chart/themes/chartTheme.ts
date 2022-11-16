@@ -572,7 +572,7 @@ export class ChartTheme {
     private static seriesTypes: (keyof VkChartThemeOverrides)[] = ChartTheme.cartesianSeriesTypes.concat(ChartTheme.polarSeriesTypes);
 
     private createChartConfigPerSeries(config: any) {
-        const typeToAliases: { [key in string]: string[] } = {
+        const typeToAliases: { [key: string]: string[] } = {
             cartesian: ChartTheme.cartesianSeriesTypes,
             polar: ChartTheme.polarSeriesTypes
         };

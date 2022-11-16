@@ -138,7 +138,7 @@ export abstract class VkChart {
     static createComponent = create;
 }
 
-const pathToSeriesTypeMap: { [key in string]: string } = {
+const pathToSeriesTypeMap: { [key: string]: string } = {
     'cartesian.series': 'line', // default series type for cartesian charts
     'line.series': 'line',
     'area.series': 'area',
@@ -150,7 +150,7 @@ const pathToSeriesTypeMap: { [key in string]: string } = {
 };
 
 const actualSeriesTypeMap = (() => {
-    const map: { [key in string]: string } = {};
+    const map: { [key: string]: string } = {};
     const actualSeries = ['area', 'bar', 'line', 'pie', 'scatter'];
     actualSeries.forEach(series => map[series] = series);
     // Aliases:
