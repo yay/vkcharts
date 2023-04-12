@@ -12,7 +12,6 @@ import { Padding } from '../../lib/util/padding';
 import { LogScale } from '../../lib/scale/logScale';
 import { LinearScale } from '../../lib/scale/linearScale';
 import { type VkCartesianAxisType, type VkCartesianChartOptions } from '../../lib/chart/vkChartOptions';
-import { Observable } from '../../lib/util/observable';
 
 type Datum = {
   category: string;
@@ -498,10 +497,8 @@ function createGroupedAndStackedColumnChart() {
   });
 
   createButton('Enable labels', () => {
-    // window.target.isPrototypeOf(barSeries.label)
-    // where target is the one from @reactive decorator function:
-    // Object.defineProperty(target, key, {
     barSeries.label.enabled = true;
+    console.log('reactive property set', barSeries.label, Object.getOwnPropertyDescriptor(barSeries.label, 'enabled'));
   });
   createButton('Disable labels', () => {
     barSeries.label.enabled = false;

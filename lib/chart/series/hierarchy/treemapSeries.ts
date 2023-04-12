@@ -1,6 +1,6 @@
 import { Selection } from '../../../scene/selection';
 import { HdpiCanvas } from '../../../canvas/hdpiCanvas';
-import { reactive, type TypedEvent } from '../../../util/observable';
+import { type TypedEvent } from '../../../util/observable';
 import { Label } from '../../label';
 import { type SeriesNodeDatum, SeriesTooltip, type TooltipRendererParams } from '../series';
 import { HierarchySeries } from './hierarchySeries';
@@ -41,7 +41,18 @@ export interface TreemapTooltipRendererParams extends TooltipRendererParams {
 }
 
 export class TreemapSeriesTooltip extends SeriesTooltip {
-  @reactive('change') renderer?: (params: TreemapTooltipRendererParams) => string | TooltipRendererResult;
+  private _renderer: ((params: TreemapTooltipRendererParams) => string | TooltipRendererResult) | undefined;
+  set renderer(value: ((params: TreemapTooltipRendererParams) => string | TooltipRendererResult) | undefined) {
+    const oldValue = this._renderer;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._renderer = value;
+      this.notifyPropertyListeners('renderer', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get renderer(): ((params: TreemapTooltipRendererParams) => string | TooltipRendererResult) | undefined {
+    return this._renderer;
+  }
 }
 
 export interface TreemapSeriesNodeClickEvent extends TypedEvent {
@@ -55,7 +66,18 @@ export interface TreemapSeriesNodeClickEvent extends TypedEvent {
 }
 
 export class TreemapSeriesLabel extends Label {
-  @reactive('change') padding = 10;
+  private _padding: number = 10;
+  set padding(value: number) {
+    const oldValue = this._padding;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._padding = value;
+      this.notifyPropertyListeners('padding', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get padding(): number {
+    return this._padding;
+  }
 }
 
 enum TextNodeTag {
@@ -147,13 +169,96 @@ export class TreemapSeries extends HierarchySeries {
     return this._nodePadding;
   }
 
-  @reactive('dataChange') labelKey: string = 'label';
-  @reactive('dataChange') sizeKey?: string = 'size';
-  @reactive('dataChange') colorKey?: string = 'color';
-  @reactive('dataChange') colorDomain: number[] = [-5, 5];
-  @reactive('dataChange') colorRange: string[] = ['#cb4b3f', '#6acb64'];
-  @reactive('dataChange') colorParents: boolean = false;
-  @reactive('update') gradient: boolean = true;
+  private _labelKey: string = 'label';
+  set labelKey(value: string) {
+    const oldValue = this._labelKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._labelKey = value;
+      this.notifyPropertyListeners('labelKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get labelKey(): string {
+    return this._labelKey;
+  }
+
+  private _sizeKey: string | undefined = 'size';
+  set sizeKey(value: string | undefined) {
+    const oldValue = this._sizeKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._sizeKey = value;
+      this.notifyPropertyListeners('sizeKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get sizeKey(): string | undefined {
+    return this._sizeKey;
+  }
+
+  private _colorKey: string | undefined = 'color';
+  set colorKey(value: string | undefined) {
+    const oldValue = this._colorKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._colorKey = value;
+      this.notifyPropertyListeners('colorKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get colorKey(): string | undefined {
+    return this._colorKey;
+  }
+
+  private _colorDomain: number[] = [-5, 5];
+  set colorDomain(value: number[]) {
+    const oldValue = this._colorDomain;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._colorDomain = value;
+      this.notifyPropertyListeners('colorDomain', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get colorDomain(): number[] {
+    return this._colorDomain;
+  }
+
+  private _colorRange: string[] = ['#cb4b3f', '#6acb64'];
+  set colorRange(value: string[]) {
+    const oldValue = this._colorRange;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._colorRange = value;
+      this.notifyPropertyListeners('colorRange', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get colorRange(): string[] {
+    return this._colorRange;
+  }
+
+  private _colorParents: boolean = false;
+  set colorParents(value: boolean) {
+    const oldValue = this._colorParents;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._colorParents = value;
+      this.notifyPropertyListeners('colorParents', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get colorParents(): boolean {
+    return this._colorParents;
+  }
+
+  private _gradient: boolean = true;
+  set gradient(value: boolean) {
+    const oldValue = this._gradient;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._gradient = value;
+      this.notifyPropertyListeners('gradient', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get gradient(): boolean {
+    return this._gradient;
+  }
 
   colorName: string = 'Change';
   rootName: string = 'Root';

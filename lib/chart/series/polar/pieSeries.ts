@@ -12,7 +12,7 @@ import { normalizeAngle180, toRadians } from '../../../util/angle';
 import { toFixed } from '../../../util/number';
 import { type LegendDatum } from '../../legend';
 import { Caption } from '../../../caption';
-import { reactive, Observable, type TypedEvent } from '../../../util/observable';
+import { Observable, type TypedEvent } from '../../../util/observable';
 import { PolarSeries } from './polarSeries';
 import { ChartAxisDirection } from '../../chartAxis';
 import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
@@ -75,23 +75,114 @@ export interface PieSeriesFormat {
 }
 
 class PieSeriesLabel extends Label {
-  @reactive('change') offset = 3; // from the callout line
-  @reactive('dataChange') minAngle = 20; // in degrees
-  @reactive('dataChange') formatter?: (params: { value: any }) => string;
+  private _offset: number = 3;
+  set offset(value: number) {
+    const oldValue = this._offset;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._offset = value;
+      this.notifyPropertyListeners('offset', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get offset(): number {
+    return this._offset;
+  }
+
+  private _minAngle: number = 20;
+  set minAngle(value: number) {
+    const oldValue = this._minAngle;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._minAngle = value;
+      this.notifyPropertyListeners('minAngle', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get minAngle(): number {
+    return this._minAngle;
+  }
+
+  private _formatter: ((params: { value: any }) => string) | undefined;
+  set formatter(value: ((params: { value: any }) => string) | undefined) {
+    const oldValue = this._formatter;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._formatter = value;
+      this.notifyPropertyListeners('formatter', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get formatter(): ((params: { value: any }) => string) | undefined {
+    return this._formatter;
+  }
 }
 
 class PieSeriesCallout extends Observable {
-  @reactive('change') colors: string[] = ['#874349', '#718661', '#a48f5f', '#5a7088', '#7f637a', '#5d8692'];
-  @reactive('change') length: number = 10;
-  @reactive('change') strokeWidth: number = 1;
+  private _colors: string[] = ['#874349', '#718661', '#a48f5f', '#5a7088', '#7f637a', '#5d8692'];
+  set colors(value: string[]) {
+    const oldValue = this._colors;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._colors = value;
+      this.notifyPropertyListeners('colors', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get colors(): string[] {
+    return this._colors;
+  }
+
+  private _length: number = 10;
+  set length(value: number) {
+    const oldValue = this._length;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._length = value;
+      this.notifyPropertyListeners('length', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get length(): number {
+    return this._length;
+  }
+
+  private _strokeWidth: number = 1;
+  set strokeWidth(value: number) {
+    const oldValue = this._strokeWidth;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._strokeWidth = value;
+      this.notifyPropertyListeners('strokeWidth', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get strokeWidth(): number {
+    return this._strokeWidth;
+  }
 }
 
 export class PieSeriesTooltip extends SeriesTooltip {
-  @reactive('change') renderer?: (params: PieTooltipRendererParams) => string | TooltipRendererResult;
+  private _renderer: ((params: PieTooltipRendererParams) => string | TooltipRendererResult) | undefined;
+  set renderer(value: ((params: PieTooltipRendererParams) => string | TooltipRendererResult) | undefined) {
+    const oldValue = this._renderer;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._renderer = value;
+      this.notifyPropertyListeners('renderer', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get renderer(): ((params: PieTooltipRendererParams) => string | TooltipRendererResult) | undefined {
+    return this._renderer;
+  }
 }
 
 export class PieTitle extends Caption {
-  @reactive() showInLegend = false;
+  private _showInLegend: any = false;
+  set showInLegend(value: any) {
+    const oldValue = this._showInLegend;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._showInLegend = value;
+      this.notifyPropertyListeners('showInLegend', oldValue, value);
+    }
+  }
+  get showInLegend(): any {
+    return this._showInLegend;
+  }
 }
 
 export class PieSeries extends PolarSeries {
@@ -174,21 +265,114 @@ export class PieSeries extends PolarSeries {
    * The key of the numeric field to use to determine the angle (for example,
    * a pie slice angle).
    */
-  @reactive('dataChange') angleKey = '';
-  @reactive('update') angleName = '';
+  private _angleKey: string = '';
+  set angleKey(value: string) {
+    const oldValue = this._angleKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._angleKey = value;
+      this.notifyPropertyListeners('angleKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get angleKey(): string {
+    return this._angleKey;
+  }
+
+  private _angleName: string = '';
+  set angleName(value: string) {
+    const oldValue = this._angleName;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._angleName = value;
+      this.notifyPropertyListeners('angleName', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get angleName(): string {
+    return this._angleName;
+  }
 
   /**
    * The key of the numeric field to use to determine the radii of pie slices.
    * The largest value will correspond to the full radius and smaller values to
    * proportionally smaller radii.
    */
-  @reactive('dataChange') radiusKey?: string;
-  @reactive('update') radiusName?: string;
-  @reactive('dataChange') radiusMin?: number;
-  @reactive('dataChange') radiusMax?: number;
+  private _radiusKey: string | undefined;
+  set radiusKey(value: string | undefined) {
+    const oldValue = this._radiusKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._radiusKey = value;
+      this.notifyPropertyListeners('radiusKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get radiusKey(): string | undefined {
+    return this._radiusKey;
+  }
 
-  @reactive('dataChange') labelKey?: string;
-  @reactive('update') labelName?: string;
+  private _radiusName: string | undefined;
+  set radiusName(value: string | undefined) {
+    const oldValue = this._radiusName;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._radiusName = value;
+      this.notifyPropertyListeners('radiusName', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get radiusName(): string | undefined {
+    return this._radiusName;
+  }
+
+  private _radiusMin: number | undefined;
+  set radiusMin(value: number | undefined) {
+    const oldValue = this._radiusMin;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._radiusMin = value;
+      this.notifyPropertyListeners('radiusMin', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get radiusMin(): number | undefined {
+    return this._radiusMin;
+  }
+
+  private _radiusMax: number | undefined;
+  set radiusMax(value: number | undefined) {
+    const oldValue = this._radiusMax;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._radiusMax = value;
+      this.notifyPropertyListeners('radiusMax', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get radiusMax(): number | undefined {
+    return this._radiusMax;
+  }
+
+  private _labelKey: string | undefined;
+  set labelKey(value: string | undefined) {
+    const oldValue = this._labelKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._labelKey = value;
+      this.notifyPropertyListeners('labelKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get labelKey(): string | undefined {
+    return this._labelKey;
+  }
+
+  private _labelName: string | undefined;
+  set labelName(value: string | undefined) {
+    const oldValue = this._labelName;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._labelName = value;
+      this.notifyPropertyListeners('labelName', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get labelName(): string | undefined {
+    return this._labelName;
+  }
 
   private _fills: string[] = ['#c16068', '#a2bf8a', '#ebcc87', '#80a0c3', '#b58dae', '#85c0d1'];
   set fills(values: string[]) {
@@ -208,26 +392,138 @@ export class PieSeries extends PolarSeries {
     return this._strokes;
   }
 
-  @reactive('layoutChange') fillOpacity = 1;
-  @reactive('layoutChange') strokeOpacity = 1;
+  private _fillOpacity: number = 1;
+  set fillOpacity(value: number) {
+    const oldValue = this._fillOpacity;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._fillOpacity = value;
+      this.notifyPropertyListeners('fillOpacity', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get fillOpacity(): number {
+    return this._fillOpacity;
+  }
 
-  @reactive('update') lineDash?: number[] = undefined;
-  @reactive('update') lineDashOffset: number = 0;
+  private _strokeOpacity: number = 1;
+  set strokeOpacity(value: number) {
+    const oldValue = this._strokeOpacity;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._strokeOpacity = value;
+      this.notifyPropertyListeners('strokeOpacity', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get strokeOpacity(): number {
+    return this._strokeOpacity;
+  }
 
-  @reactive('update') formatter?: (params: PieSeriesFormatterParams) => PieSeriesFormat;
+  private _lineDash: number[] | undefined = undefined;
+  set lineDash(value: number[] | undefined) {
+    const oldValue = this._lineDash;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._lineDash = value;
+      this.notifyPropertyListeners('lineDash', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get lineDash(): number[] | undefined {
+    return this._lineDash;
+  }
+
+  private _lineDashOffset: number = 0;
+  set lineDashOffset(value: number) {
+    const oldValue = this._lineDashOffset;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._lineDashOffset = value;
+      this.notifyPropertyListeners('lineDashOffset', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get lineDashOffset(): number {
+    return this._lineDashOffset;
+  }
+
+  private _formatter: ((params: PieSeriesFormatterParams) => PieSeriesFormat) | undefined;
+  set formatter(value: ((params: PieSeriesFormatterParams) => PieSeriesFormat) | undefined) {
+    const oldValue = this._formatter;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._formatter = value;
+      this.notifyPropertyListeners('formatter', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get formatter(): ((params: PieSeriesFormatterParams) => PieSeriesFormat) | undefined {
+    return this._formatter;
+  }
 
   /**
    * The series rotation in degrees.
    */
-  @reactive('dataChange') rotation = 0;
+  private _rotation: number = 0;
+  set rotation(value: number) {
+    const oldValue = this._rotation;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._rotation = value;
+      this.notifyPropertyListeners('rotation', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get rotation(): number {
+    return this._rotation;
+  }
 
-  @reactive('layoutChange') outerRadiusOffset = 0;
+  private _outerRadiusOffset: number = 0;
+  set outerRadiusOffset(value: number) {
+    const oldValue = this._outerRadiusOffset;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._outerRadiusOffset = value;
+      this.notifyPropertyListeners('outerRadiusOffset', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get outerRadiusOffset(): number {
+    return this._outerRadiusOffset;
+  }
 
-  @reactive('dataChange') innerRadiusOffset = 0;
+  private _innerRadiusOffset: number = 0;
+  set innerRadiusOffset(value: number) {
+    const oldValue = this._innerRadiusOffset;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._innerRadiusOffset = value;
+      this.notifyPropertyListeners('innerRadiusOffset', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get innerRadiusOffset(): number {
+    return this._innerRadiusOffset;
+  }
 
-  @reactive('layoutChange') strokeWidth = 1;
+  private _strokeWidth: number = 1;
+  set strokeWidth(value: number) {
+    const oldValue = this._strokeWidth;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._strokeWidth = value;
+      this.notifyPropertyListeners('strokeWidth', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get strokeWidth(): number {
+    return this._strokeWidth;
+  }
 
-  @reactive('layoutChange') shadow?: DropShadow;
+  private _shadow: DropShadow | undefined;
+  set shadow(value: DropShadow | undefined) {
+    const oldValue = this._shadow;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._shadow = value;
+      this.notifyPropertyListeners('shadow', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get shadow(): DropShadow | undefined {
+    return this._shadow;
+  }
 
   readonly highlightStyle = new PieHighlightStyle();
 

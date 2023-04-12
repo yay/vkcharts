@@ -14,7 +14,7 @@ import { type LegendDatum } from '../../legend';
 import { CartesianSeries, CartesianSeriesMarker, type CartesianSeriesMarkerFormat } from './cartesianSeries';
 import { ChartAxisDirection } from '../../chartAxis';
 import { getMarker } from '../../marker/util';
-import { reactive, type PropertyChangeEvent, type TypedEvent } from '../../../util/observable';
+import { type PropertyChangeEvent, type TypedEvent } from '../../../util/observable';
 import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
 import { interpolate } from '../../../util/string';
 import { type FontStyle, type FontWeight } from '../../../scene/shape/text';
@@ -51,12 +51,46 @@ export interface LineSeriesNodeClickEvent extends TypedEvent {
 export type { LineTooltipRendererParams };
 
 class LineSeriesLabel extends Label {
-  @reactive('change') formatter?: (params: { value: any }) => string;
+  private _formatter: ((params: { value: any }) => string) | undefined;
+  set formatter(value: ((params: { value: any }) => string) | undefined) {
+    const oldValue = this._formatter;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._formatter = value;
+      this.notifyPropertyListeners('formatter', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get formatter(): ((params: { value: any }) => string) | undefined {
+    return this._formatter;
+  }
 }
 
 export class LineSeriesTooltip extends SeriesTooltip {
-  @reactive('change') renderer?: (params: LineTooltipRendererParams) => string | TooltipRendererResult;
-  @reactive('change') format?: string;
+  private _renderer: ((params: LineTooltipRendererParams) => string | TooltipRendererResult) | undefined;
+  set renderer(value: ((params: LineTooltipRendererParams) => string | TooltipRendererResult) | undefined) {
+    const oldValue = this._renderer;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._renderer = value;
+      this.notifyPropertyListeners('renderer', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get renderer(): ((params: LineTooltipRendererParams) => string | TooltipRendererResult) | undefined {
+    return this._renderer;
+  }
+
+  private _format: string | undefined;
+  set format(value: string | undefined) {
+    const oldValue = this._format;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._format = value;
+      this.notifyPropertyListeners('format', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get format(): string | undefined {
+    return this._format;
+  }
 }
 
 export class LineSeries extends CartesianSeries {
@@ -81,13 +115,83 @@ export class LineSeries extends CartesianSeries {
 
   readonly label = new LineSeriesLabel();
 
-  @reactive('layoutChange') title?: string;
+  private _title: string | undefined;
+  set title(value: string | undefined) {
+    const oldValue = this._title;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._title = value;
+      this.notifyPropertyListeners('title', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get title(): string | undefined {
+    return this._title;
+  }
 
-  @reactive('update') stroke?: string = '#874349';
-  @reactive('update') lineDash?: number[] = undefined;
-  @reactive('update') lineDashOffset: number = 0;
-  @reactive('update') strokeWidth: number = 2;
-  @reactive('update') strokeOpacity: number = 1;
+  private _stroke: string | undefined = '#874349';
+  set stroke(value: string | undefined) {
+    const oldValue = this._stroke;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._stroke = value;
+      this.notifyPropertyListeners('stroke', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get stroke(): string | undefined {
+    return this._stroke;
+  }
+
+  private _lineDash: number[] | undefined = undefined;
+  set lineDash(value: number[] | undefined) {
+    const oldValue = this._lineDash;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._lineDash = value;
+      this.notifyPropertyListeners('lineDash', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get lineDash(): number[] | undefined {
+    return this._lineDash;
+  }
+
+  private _lineDashOffset: number = 0;
+  set lineDashOffset(value: number) {
+    const oldValue = this._lineDashOffset;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._lineDashOffset = value;
+      this.notifyPropertyListeners('lineDashOffset', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get lineDashOffset(): number {
+    return this._lineDashOffset;
+  }
+
+  private _strokeWidth: number = 2;
+  set strokeWidth(value: number) {
+    const oldValue = this._strokeWidth;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._strokeWidth = value;
+      this.notifyPropertyListeners('strokeWidth', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get strokeWidth(): number {
+    return this._strokeWidth;
+  }
+
+  private _strokeOpacity: number = 1;
+  set strokeOpacity(value: number) {
+    const oldValue = this._strokeOpacity;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._strokeOpacity = value;
+      this.notifyPropertyListeners('strokeOpacity', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get strokeOpacity(): number {
+    return this._strokeOpacity;
+  }
 
   tooltip: LineSeriesTooltip = new LineSeriesTooltip();
 
@@ -148,7 +252,18 @@ export class LineSeries extends CartesianSeries {
     return this._xKey;
   }
 
-  @reactive('update') xName: string = '';
+  private _xName: string = '';
+  set xName(value: string) {
+    const oldValue = this._xName;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._xName = value;
+      this.notifyPropertyListeners('xName', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get xName(): string {
+    return this._xName;
+  }
 
   protected _yKey: string = '';
   set yKey(value: string) {
@@ -162,7 +277,18 @@ export class LineSeries extends CartesianSeries {
     return this._yKey;
   }
 
-  @reactive('update') yName: string = '';
+  private _yName: string = '';
+  set yName(value: string) {
+    const oldValue = this._yName;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._yName = value;
+      this.notifyPropertyListeners('yName', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get yName(): string {
+    return this._yName;
+  }
 
   processData(): boolean {
     const { xAxis, yAxis, xKey, yKey, xData, yData } = this;

@@ -1,6 +1,6 @@
 import { Group } from '../../scene/group';
 import { type LegendDatum } from '../legend';
-import { Observable, reactive } from '../../util/observable';
+import { Observable } from '../../util/observable';
 import { ChartAxis, ChartAxisDirection } from '../chartAxis';
 import { Chart } from '../chart';
 import { createId } from '../../util/id';
@@ -71,7 +71,18 @@ export class HighlightStyle {
 }
 
 export class SeriesTooltip extends Observable {
-  @reactive('change') enabled = true;
+  private _enabled: boolean = true;
+  set enabled(value: boolean) {
+    const oldValue = this._enabled;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._enabled = value;
+      this.notifyPropertyListeners('enabled', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get enabled(): boolean {
+    return this._enabled;
+  }
 }
 
 export abstract class Series extends Observable {
@@ -101,9 +112,44 @@ export abstract class Series extends Observable {
 
   abstract tooltip: SeriesTooltip;
 
-  @reactive('dataChange') data?: any[] = undefined;
-  @reactive('dataChange') visible = true;
-  @reactive('layoutChange') showInLegend = true;
+  protected _data: any[] | undefined = undefined;
+  set data(value: any[] | undefined) {
+    const oldValue = this._data;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._data = value;
+      this.notifyPropertyListeners('data', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get data(): any[] | undefined {
+    return this._data;
+  }
+
+  private _visible: boolean = true;
+  set visible(value: boolean) {
+    const oldValue = this._visible;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._visible = value;
+      this.notifyPropertyListeners('visible', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get visible(): boolean {
+    return this._visible;
+  }
+
+  private _showInLegend: boolean = true;
+  set showInLegend(value: boolean) {
+    const oldValue = this._showInLegend;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._showInLegend = value;
+      this.notifyPropertyListeners('showInLegend', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get showInLegend(): boolean {
+    return this._showInLegend;
+  }
 
   cursor = 'default';
 

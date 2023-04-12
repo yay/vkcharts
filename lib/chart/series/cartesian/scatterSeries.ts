@@ -4,7 +4,7 @@ import { type SeriesNodeDatum, type CartesianTooltipRendererParams, SeriesToolti
 import { extent } from '../../../util/array';
 import { type LegendDatum } from '../../legend';
 import { LinearScale } from '../../../scale/linearScale';
-import { reactive, type TypedEvent } from '../../../util/observable';
+import { type TypedEvent } from '../../../util/observable';
 import { CartesianSeries, CartesianSeriesMarker, type CartesianSeriesMarkerFormat } from './cartesianSeries';
 import { ChartAxisDirection } from '../../chartAxis';
 import { getMarker } from '../../marker/util';
@@ -46,7 +46,18 @@ export interface ScatterTooltipRendererParams extends CartesianTooltipRendererPa
 }
 
 export class ScatterSeriesTooltip extends SeriesTooltip {
-  @reactive('change') renderer?: (params: ScatterTooltipRendererParams) => string | TooltipRendererResult;
+  private _renderer: ((params: ScatterTooltipRendererParams) => string | TooltipRendererResult) | undefined;
+  set renderer(value: ((params: ScatterTooltipRendererParams) => string | TooltipRendererResult) | undefined) {
+    const oldValue = this._renderer;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._renderer = value;
+      this.notifyPropertyListeners('renderer', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get renderer(): ((params: ScatterTooltipRendererParams) => string | TooltipRendererResult) | undefined {
+    return this._renderer;
+  }
 }
 
 export class ScatterSeries extends CartesianSeries {
@@ -76,11 +87,70 @@ export class ScatterSeries extends CartesianSeries {
     this.updateMarkerNodes();
   }
 
-  @reactive('layoutChange') title?: string;
-  @reactive('dataChange') xKey: string = '';
-  @reactive('dataChange') yKey: string = '';
-  @reactive('dataChange') sizeKey?: string;
-  @reactive('dataChange') labelKey?: string;
+  private _title: string | undefined;
+  set title(value: string | undefined) {
+    const oldValue = this._title;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._title = value;
+      this.notifyPropertyListeners('title', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get title(): string | undefined {
+    return this._title;
+  }
+
+  private _xKey: string = '';
+  set xKey(value: string) {
+    const oldValue = this._xKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._xKey = value;
+      this.notifyPropertyListeners('xKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get xKey(): string {
+    return this._xKey;
+  }
+
+  private _yKey: string = '';
+  set yKey(value: string) {
+    const oldValue = this._yKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._yKey = value;
+      this.notifyPropertyListeners('yKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get yKey(): string {
+    return this._yKey;
+  }
+
+  private _sizeKey: string | undefined;
+  set sizeKey(value: string | undefined) {
+    const oldValue = this._sizeKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._sizeKey = value;
+      this.notifyPropertyListeners('sizeKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get sizeKey(): string | undefined {
+    return this._sizeKey;
+  }
+
+  private _labelKey: string | undefined;
+  set labelKey(value: string | undefined) {
+    const oldValue = this._labelKey;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._labelKey = value;
+      this.notifyPropertyListeners('labelKey', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get labelKey(): string | undefined {
+    return this._labelKey;
+  }
 
   xName: string = '';
   yName: string = '';

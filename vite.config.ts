@@ -12,9 +12,5 @@ export default defineConfig({
       fileName: 'vk-charts',
     },
   },
-  plugins: [
-    react({
-      tsDecorators: true,
-    }),
-  ],
+  plugins: [react()],
 });

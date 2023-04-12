@@ -13,7 +13,7 @@ import { ChartAxis, ChartAxisDirection, flipChartAxisDirection } from '../../cha
 import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
 import { findMinMax } from '../../../util/array';
 import { equal } from '../../../util/equal';
-import { reactive, type TypedEvent } from '../../../util/observable';
+import { type TypedEvent } from '../../../util/observable';
 import { type Scale } from '../../../scale/scale';
 import { sanitizeHtml } from '../../../util/sanitize';
 import { isNumber } from '../../../util/value';
@@ -68,8 +68,31 @@ export enum BarLabelPlacement {
 }
 
 class BarSeriesLabel extends Label {
-  @reactive('change') formatter?: (params: { value: number }) => string;
-  @reactive('change') placement = BarLabelPlacement.Inside;
+  private _formatter: ((params: { value: number }) => string) | undefined;
+  set formatter(value: ((params: { value: number }) => string) | undefined) {
+    const oldValue = this._formatter;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._formatter = value;
+      this.notifyPropertyListeners('formatter', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get formatter(): ((params: { value: number }) => string) | undefined {
+    return this._formatter;
+  }
+
+  private _placement: BarLabelPlacement = BarLabelPlacement.Inside;
+  set placement(value: BarLabelPlacement) {
+    const oldValue = this._placement;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._placement = value;
+      this.notifyPropertyListeners('placement', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get placement(): BarLabelPlacement {
+    return this._placement;
+  }
 }
 
 export interface BarSeriesFormatterParams {
@@ -89,7 +112,18 @@ export interface BarSeriesFormat {
 }
 
 export class BarSeriesTooltip extends SeriesTooltip {
-  @reactive('change') renderer?: (params: BarTooltipRendererParams) => string | TooltipRendererResult;
+  private _renderer: ((params: BarTooltipRendererParams) => string | TooltipRendererResult) | undefined;
+  set renderer(value: ((params: BarTooltipRendererParams) => string | TooltipRendererResult) | undefined) {
+    const oldValue = this._renderer;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._renderer = value;
+      this.notifyPropertyListeners('renderer', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get renderer(): ((params: BarTooltipRendererParams) => string | TooltipRendererResult) | undefined {
+    return this._renderer;
+  }
 }
 
 function flat(arr: any[], target: any[] = []): any[] {
@@ -134,19 +168,109 @@ export class BarSeries extends CartesianSeries {
 
   tooltip: BarSeriesTooltip = new BarSeriesTooltip();
 
-  @reactive('dataChange') flipXY = false;
+  private _flipXY: boolean = false;
+  set flipXY(value: boolean) {
+    const oldValue = this._flipXY;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._flipXY = value;
+      this.notifyPropertyListeners('flipXY', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get flipXY(): boolean {
+    return this._flipXY;
+  }
 
-  @reactive('dataChange') fills: string[] = ['#c16068', '#a2bf8a', '#ebcc87', '#80a0c3', '#b58dae', '#85c0d1'];
+  private _fills: string[] = ['#c16068', '#a2bf8a', '#ebcc87', '#80a0c3', '#b58dae', '#85c0d1'];
+  set fills(value: string[]) {
+    const oldValue = this._fills;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._fills = value;
+      this.notifyPropertyListeners('fills', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get fills(): string[] {
+    return this._fills;
+  }
 
-  @reactive('dataChange') strokes: string[] = ['#874349', '#718661', '#a48f5f', '#5a7088', '#7f637a', '#5d8692'];
+  private _strokes: string[] = ['#874349', '#718661', '#a48f5f', '#5a7088', '#7f637a', '#5d8692'];
+  set strokes(value: string[]) {
+    const oldValue = this._strokes;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._strokes = value;
+      this.notifyPropertyListeners('strokes', oldValue, value);
+      this.notifyEventListeners(['dataChange']);
+    }
+  }
+  get strokes(): string[] {
+    return this._strokes;
+  }
 
-  @reactive('layoutChange') fillOpacity = 1;
-  @reactive('layoutChange') strokeOpacity = 1;
+  private _fillOpacity: number = 1;
+  set fillOpacity(value: number) {
+    const oldValue = this._fillOpacity;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._fillOpacity = value;
+      this.notifyPropertyListeners('fillOpacity', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get fillOpacity(): number {
+    return this._fillOpacity;
+  }
 
-  @reactive('update') lineDash?: number[] = undefined;
-  @reactive('update') lineDashOffset: number = 0;
+  private _strokeOpacity: number = 1;
+  set strokeOpacity(value: number) {
+    const oldValue = this._strokeOpacity;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._strokeOpacity = value;
+      this.notifyPropertyListeners('strokeOpacity', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get strokeOpacity(): number {
+    return this._strokeOpacity;
+  }
 
-  @reactive('update') formatter?: (params: BarSeriesFormatterParams) => BarSeriesFormat;
+  private _lineDash: number[] | undefined = undefined;
+  set lineDash(value: number[] | undefined) {
+    const oldValue = this._lineDash;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._lineDash = value;
+      this.notifyPropertyListeners('lineDash', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get lineDash(): number[] | undefined {
+    return this._lineDash;
+  }
+
+  private _lineDashOffset: number = 0;
+  set lineDashOffset(value: number) {
+    const oldValue = this._lineDashOffset;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._lineDashOffset = value;
+      this.notifyPropertyListeners('lineDashOffset', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get lineDashOffset(): number {
+    return this._lineDashOffset;
+  }
+
+  private _formatter: ((params: BarSeriesFormatterParams) => BarSeriesFormat) | undefined;
+  set formatter(value: ((params: BarSeriesFormatterParams) => BarSeriesFormat) | undefined) {
+    const oldValue = this._formatter;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._formatter = value;
+      this.notifyPropertyListeners('formatter', oldValue, value);
+      this.notifyEventListeners(['update']);
+    }
+  }
+  get formatter(): ((params: BarSeriesFormatterParams) => BarSeriesFormat) | undefined {
+    return this._formatter;
+  }
 
   constructor() {
     super();
@@ -215,7 +339,18 @@ export class BarSeries extends CartesianSeries {
   private cumYKeyCount: number[] = [];
   private flatYKeys: string[] | undefined = undefined; // only set when a user used a flat array for yKeys
 
-  @reactive('layoutChange') hideInLegend: string[] = [];
+  private _hideInLegend: string[] = [];
+  set hideInLegend(value: string[]) {
+    const oldValue = this._hideInLegend;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._hideInLegend = value;
+      this.notifyPropertyListeners('hideInLegend', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get hideInLegend(): string[] {
+    return this._hideInLegend;
+  }
 
   /**
    * yKeys: [['coffee']] - regular bars, each category has a single bar that shows a value for coffee

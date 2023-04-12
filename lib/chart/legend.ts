@@ -4,7 +4,7 @@ import { MarkerLabel } from './markerLabel';
 import { BBox } from '../scene/bbox';
 import { type FontStyle, type FontWeight } from '../scene/shape/text';
 import { Marker } from './marker/marker';
-import { reactive, Observable, type PropertyChangeEvent, type SourceEvent } from '../util/observable';
+import { Observable, type PropertyChangeEvent, type SourceEvent } from '../util/observable';
 import { getMarker } from './marker/util';
 import { createId } from '../util/id';
 
@@ -49,26 +49,143 @@ interface LegendLabelFormatterParams {
 }
 
 export class LegendLabel extends Observable {
-  @reactive('change') color = 'black';
-  @reactive('layoutChange') fontStyle?: FontStyle;
-  @reactive('layoutChange') fontWeight?: FontWeight;
-  @reactive('layoutChange') fontSize = 12;
-  @reactive('layoutChange') fontFamily = 'Verdana, sans-serif';
-  @reactive() formatter?: (params: LegendLabelFormatterParams) => string;
+  private _color: string = 'black';
+  set color(value: string) {
+    const oldValue = this._color;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._color = value;
+      this.notifyPropertyListeners('color', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get color(): string {
+    return this._color;
+  }
+
+  private _fontStyle: FontStyle | undefined;
+  set fontStyle(value: FontStyle | undefined) {
+    const oldValue = this._fontStyle;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._fontStyle = value;
+      this.notifyPropertyListeners('fontStyle', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get fontStyle(): FontStyle | undefined {
+    return this._fontStyle;
+  }
+
+  private _fontWeight: FontWeight | undefined;
+  set fontWeight(value: FontWeight | undefined) {
+    const oldValue = this._fontWeight;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._fontWeight = value;
+      this.notifyPropertyListeners('fontWeight', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get fontWeight(): FontWeight | undefined {
+    return this._fontWeight;
+  }
+
+  private _fontSize: number = 12;
+  set fontSize(value: number) {
+    const oldValue = this._fontSize;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._fontSize = value;
+      this.notifyPropertyListeners('fontSize', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get fontSize(): number {
+    return this._fontSize;
+  }
+
+  private _fontFamily: string = 'Verdana, sans-serif';
+  set fontFamily(value: string) {
+    const oldValue = this._fontFamily;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._fontFamily = value;
+      this.notifyPropertyListeners('fontFamily', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get fontFamily(): string {
+    return this._fontFamily;
+  }
+
+  private _formatter: ((params: LegendLabelFormatterParams) => string) | undefined;
+  set formatter(value: ((params: LegendLabelFormatterParams) => string) | undefined) {
+    const oldValue = this._formatter;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._formatter = value;
+      this.notifyPropertyListeners('formatter', oldValue, value);
+    }
+  }
+  get formatter(): ((params: LegendLabelFormatterParams) => string) | undefined {
+    return this._formatter;
+  }
 }
 
 export class LegendMarker extends Observable {
-  @reactive('layoutChange') size = 15;
+  private _size: number = 15;
+  set size(value: number) {
+    const oldValue = this._size;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._size = value;
+      this.notifyPropertyListeners('size', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get size(): number {
+    return this._size;
+  }
+
   /**
    * If the marker type is set, the legend will always use that marker type for all its items,
    * regardless of the type that comes from the `data`.
    */
-  @reactive('layoutChange') shape?: string | (new () => Marker);
+  private _shape: (string | (new () => Marker)) | undefined;
+  set shape(value: (string | (new () => Marker)) | undefined) {
+    const oldValue = this._shape;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._shape = value;
+      this.notifyPropertyListeners('shape', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get shape(): (string | (new () => Marker)) | undefined {
+    return this._shape;
+  }
+
   /**
    * Padding between the marker and the label within each legend item.
    */
-  @reactive('layoutChange') padding: number = 8;
-  @reactive('change') strokeWidth: number = 1;
+  private _padding: number = 8;
+  set padding(value: number) {
+    const oldValue = this._padding;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._padding = value;
+      this.notifyPropertyListeners('padding', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get padding(): number {
+    return this._padding;
+  }
+
+  private _strokeWidth: number = 1;
+  set strokeWidth(value: number) {
+    const oldValue = this._strokeWidth;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._strokeWidth = value;
+      this.notifyPropertyListeners('strokeWidth', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get strokeWidth(): number {
+    return this._strokeWidth;
+  }
 }
 
 export class LegendItem extends Observable {
@@ -79,13 +196,36 @@ export class LegendItem extends Observable {
    * and as few rows as possible when positioned to top or bottom. This config specifies the amount of horizontal
    * padding between legend items.
    */
-  @reactive('layoutChange') paddingX = 16;
+  private _paddingX: number = 16;
+  set paddingX(value: number) {
+    const oldValue = this._paddingX;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._paddingX = value;
+      this.notifyPropertyListeners('paddingX', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get paddingX(): number {
+    return this._paddingX;
+  }
+
   /**
    * The legend uses grid layout for its items, occupying as few columns as possible when positioned to left or right,
    * and as few rows as possible when positioned to top or bottom. This config specifies the amount of vertical
    * padding between legend items.
    */
-  @reactive('layoutChange') paddingY = 8;
+  private _paddingY: number = 8;
+  set paddingY(value: number) {
+    const oldValue = this._paddingY;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._paddingY = value;
+      this.notifyPropertyListeners('paddingY', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get paddingY(): number {
+    return this._paddingY;
+  }
 
   constructor() {
     super();
@@ -117,15 +257,73 @@ export class Legend extends Observable {
 
   readonly item = new LegendItem();
 
-  @reactive('layoutChange') data: LegendDatum[] = [];
-  @reactive('layoutChange') enabled = true;
-  @reactive('layoutChange') orientation: LegendOrientation = LegendOrientation.Vertical;
-  @reactive('layoutChange') position: LegendPosition = LegendPosition.Right;
+  private _data: LegendDatum[] = [];
+  set data(value: LegendDatum[]) {
+    const oldValue = this._data;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._data = value;
+      this.notifyPropertyListeners('data', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get data(): LegendDatum[] {
+    return this._data;
+  }
+
+  private _enabled: boolean = true;
+  set enabled(value: boolean) {
+    const oldValue = this._enabled;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._enabled = value;
+      this.notifyPropertyListeners('enabled', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get enabled(): boolean {
+    return this._enabled;
+  }
+
+  private _orientation: LegendOrientation = LegendOrientation.Vertical;
+  set orientation(value: LegendOrientation) {
+    const oldValue = this._orientation;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._orientation = value;
+      this.notifyPropertyListeners('orientation', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get orientation(): LegendOrientation {
+    return this._orientation;
+  }
+
+  private _position: LegendPosition = LegendPosition.Right;
+  set position(value: LegendPosition) {
+    const oldValue = this._position;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._position = value;
+      this.notifyPropertyListeners('position', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get position(): LegendPosition {
+    return this._position;
+  }
 
   /**
    * Spacing between the legend and the edge of the chart's element.
    */
-  @reactive('layoutChange') spacing = 20;
+  private _spacing: number = 20;
+  set spacing(value: number) {
+    const oldValue = this._spacing;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._spacing = value;
+      this.notifyPropertyListeners('spacing', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get spacing(): number {
+    return this._spacing;
+  }
 
   constructor() {
     super();

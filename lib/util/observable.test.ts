@@ -1,16 +1,84 @@
 import { expect, test } from '@jest/globals';
-import { Observable, reactive } from './observable';
+import { Observable } from './observable';
 
 class Component extends Observable {
-  @reactive('name', 'misc') john = 'smith';
-  @reactive('name', 'misc') bob = 'marley';
-  @reactive('change') foo: string = '';
-  @reactive() arr: [] | undefined | null = [];
-  @reactive() obj: {} | undefined | null = {};
+  private _john: string = 'smith';
+  set john(value: string) {
+    const oldValue = this._john;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._john = value;
+      this.notifyPropertyListeners('john', oldValue, value);
+      this.notifyEventListeners(['name', 'misc']);
+    }
+  }
+  get john(): string {
+    return this._john;
+  }
+
+  private _bob: string = 'marley';
+  set bob(value: string) {
+    const oldValue = this._bob;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._bob = value;
+      this.notifyPropertyListeners('bob', oldValue, value);
+      this.notifyEventListeners(['name', 'misc']);
+    }
+  }
+  get bob(): string {
+    return this._bob;
+  }
+
+  private _foo: string = '';
+  set foo(value: string) {
+    const oldValue = this._foo;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._foo = value;
+      this.notifyPropertyListeners('foo', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get foo(): string {
+    return this._foo;
+  }
+
+  private _arr: [] | undefined | null = [];
+  set arr(value: [] | undefined | null) {
+    const oldValue = this._arr;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._arr = value;
+      this.notifyPropertyListeners('arr', oldValue, value);
+    }
+  }
+  get arr(): [] | undefined | null {
+    return this._arr;
+  }
+
+  private _obj: {} | undefined | null = {};
+  set obj(value: {} | undefined | null) {
+    const oldValue = this._obj;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._obj = value;
+      this.notifyPropertyListeners('obj', oldValue, value);
+    }
+  }
+  get obj(): {} | undefined | null {
+    return this._obj;
+  }
 }
 
 class BaseClass extends Observable {
-  @reactive('layout') foo = 5;
+  private _foo: number = 5;
+  set foo(value: number) {
+    const oldValue = this._foo;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._foo = value;
+      this.notifyPropertyListeners('foo', oldValue, value);
+      this.notifyEventListeners(['layout']);
+    }
+  }
+  get foo(): number {
+    return this._foo;
+  }
 
   layoutTriggered = false;
 
@@ -22,7 +90,18 @@ class BaseClass extends Observable {
 }
 
 class SubClass extends BaseClass {
-  @reactive('layout') bar = 10;
+  private _bar: number = 10;
+  set bar(value: number) {
+    const oldValue = this._bar;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._bar = value;
+      this.notifyPropertyListeners('bar', oldValue, value);
+      this.notifyEventListeners(['layout']);
+    }
+  }
+  get bar(): number {
+    return this._bar;
+  }
 }
 
 test('reactive', async () => {

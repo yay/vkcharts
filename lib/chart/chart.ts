@@ -10,7 +10,7 @@ import { BBox } from '../scene/bbox';
 import { find } from '../util/array';
 import { SizeMonitor } from '../util/sizeMonitor';
 import { Caption } from '../caption';
-import { Observable, reactive, type PropertyChangeEvent, type SourceEvent } from '../util/observable';
+import { Observable, type PropertyChangeEvent, type SourceEvent } from '../util/observable';
 import { ChartAxis, ChartAxisDirection } from './chartAxis';
 import { createId } from '../util/id';
 import { type PlacedLabel, placeLabels, type PointLabelDatum } from '../util/labelPlacement';
@@ -151,17 +151,57 @@ export class ChartTooltip extends Observable {
 
   private observer?: IntersectionObserver;
 
-  @reactive() enabled: boolean = true;
+  private _enabled: boolean = true;
+  set enabled(value: boolean) {
+    const oldValue = this._enabled;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._enabled = value;
+      this.notifyPropertyListeners('enabled', oldValue, value);
+    }
+  }
+  get enabled(): boolean {
+    return this._enabled;
+  }
 
-  @reactive() class: string = Chart.defaultTooltipClass;
+  private _class: string = Chart.defaultTooltipClass;
+  set class(value: string) {
+    const oldValue = this._class;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._class = value;
+      this.notifyPropertyListeners('class', oldValue, value);
+    }
+  }
+  get class(): string {
+    return this._class;
+  }
 
-  @reactive() delay: number = 0;
+  private _delay: number = 0;
+  set delay(value: number) {
+    const oldValue = this._delay;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._delay = value;
+      this.notifyPropertyListeners('delay', oldValue, value);
+    }
+  }
+  get delay(): number {
+    return this._delay;
+  }
 
   /**
    * If `true`, the tooltip will be shown for the marker closest to the mouse cursor.
    * Only has effect on series with markers.
    */
-  @reactive() tracking: boolean = true;
+  private _tracking: boolean = true;
+  set tracking(value: boolean) {
+    const oldValue = this._tracking;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._tracking = value;
+      this.notifyPropertyListeners('tracking', oldValue, value);
+    }
+  }
+  get tracking(): boolean {
+    return this._tracking;
+  }
 
   constructor(chart: Chart, document: Document) {
     super();
@@ -390,9 +430,44 @@ export abstract class Chart extends Observable {
     this.scene.download(fileName);
   }
 
-  @reactive('layoutChange') padding = new Padding(20);
-  @reactive('layoutChange') title?: Caption;
-  @reactive('layoutChange') subtitle?: Caption;
+  protected _padding: Padding = new Padding(20);
+  set padding(value: Padding) {
+    const oldValue = this._padding;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._padding = value;
+      this.notifyPropertyListeners('padding', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get padding(): Padding {
+    return this._padding;
+  }
+
+  private _title: Caption | undefined;
+  set title(value: Caption | undefined) {
+    const oldValue = this._title;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._title = value;
+      this.notifyPropertyListeners('title', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get title(): Caption | undefined {
+    return this._title;
+  }
+
+  private _subtitle: Caption | undefined;
+  set subtitle(value: Caption | undefined) {
+    const oldValue = this._subtitle;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._subtitle = value;
+      this.notifyPropertyListeners('subtitle', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
+    }
+  }
+  get subtitle(): Caption | undefined {
+    return this._subtitle;
+  }
 
   private static tooltipDocuments: Document[] = [];
 

@@ -2,13 +2,36 @@ import { Padding } from './util/padding';
 import { Text } from './scene/shape/text';
 import { PointerEvents } from './scene/node';
 import { type FontStyle, type FontWeight } from './scene/shape/text';
-import { Observable, reactive } from './util/observable';
+import { Observable } from './util/observable';
 
 export class Caption extends Observable {
   readonly node: Text = new Text();
 
-  @reactive('change') enabled = false;
-  @reactive('change') padding = new Padding(10);
+  private _enabled: boolean = false;
+  set enabled(value: boolean) {
+    const oldValue = this._enabled;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._enabled = value;
+      this.notifyPropertyListeners('enabled', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get enabled(): boolean {
+    return this._enabled;
+  }
+
+  private _padding: Padding = new Padding(10);
+  set padding(value: Padding) {
+    const oldValue = this._padding;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._padding = value;
+      this.notifyPropertyListeners('padding', oldValue, value);
+      this.notifyEventListeners(['change']);
+    }
+  }
+  get padding(): Padding {
+    return this._padding;
+  }
 
   set text(value: string) {
     if (this.node.text !== value) {

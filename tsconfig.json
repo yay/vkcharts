@@ -8,7 +8,6 @@
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "experimentalDecorators": true,
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
@@ -19,6 +18,6 @@
     "noUnusedParameters": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["lib", "examples", "utils"],
+  "include": ["lib", "examples", "utils", "convert.js"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
