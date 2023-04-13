@@ -1,8 +1,11 @@
+// This expands all reactive properties in the codebase into plain TypeScript.
+// When Stage 3 decorators are well supported, this will no longer be needed.
+// This is not a bulletproof solution like a full blown parser, but it's easy to understand, standalone,
+// and works in almost all cases. Edge cases can be fixed manually with minimal effort.
+
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-
-const testLine = `@reactive('hello','100','MIT') foo = 'blah';`;
 
 const testText = `
 class Hello extends Observable {
@@ -14,7 +17,9 @@ class Hello extends Observable {
   @reactive('change') domain?: [number, number];
   @reactive('change', 'layoutChange', 'tag') foo = 'oof';
   @reactive('change') bar: string = 'rab';
-  @reactive() bar: number = 42;
+  @reactive() xyz: number = 42;
+  @reactive() yes = true;
+  @reactive() no = false;
   @reactive() optional?: string | number = '55';
   @reactive() anotherOptional: string | number | undefined = '69';
   @reactive('change') shape: string | (new () => Marker) = Circle;
@@ -76,16 +81,40 @@ class Hello extends Observable {
     return this._bar;
   }
 
-  private _bar: number = 42;
-  set bar(value: number) {
-    const oldValue = this._bar;
+  private _xyz: number = 42;
+  set xyz(value: number) {
+    const oldValue = this._xyz;
     if (value !== oldValue || (typeof value === 'object' && value !== null)) {
-      this._bar = value;
-      this.notifyPropertyListeners('bar', oldValue, value);
+      this._xyz = value;
+      this.notifyPropertyListeners('xyz', oldValue, value);
     }
   }
-  get bar(): number {
-    return this._bar;
+  get xyz(): number {
+    return this._xyz;
+  }
+
+  private _yes: boolean = true;
+  set yes(value: boolean) {
+    const oldValue = this._yes;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._yes = value;
+      this.notifyPropertyListeners('yes', oldValue, value);
+    }
+  }
+  get yes(): boolean {
+    return this._yes;
+  }
+
+  private _no: boolean = false;
+  set no(value: boolean) {
+    const oldValue = this._no;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._no = value;
+      this.notifyPropertyListeners('no', oldValue, value);
+    }
+  }
+  get no(): boolean {
+    return this._no;
   }
 
   private _optional: string | number | undefined = '55';
@@ -162,42 +191,54 @@ function expandReactiveProperty(line, indent = '') {
   if (!(reactiveIdx >= 0) || line.trimStart().indexOf('//') === 0) {
     return line;
   }
+  // The closing parenthesis in @reactive(...)
   const closeParen = line.indexOf(')', reactiveIdx);
-  const semi = line.lastIndexOf(';');
+  // The semicolon or the EOL
+  const semiIdx = line.lastIndexOf(';');
+  const semiOrEOL = semiIdx >= 0 ? semiIdx : line.length - 1;
+  // The index of the initializing assignment operator
   const assignIdx = line.lastIndexOf('=');
-  const isArrow = assignIdx >= 0 && line.indexOf('>', assignIdx) === assignIdx + 1;
-  const assign = assignIdx >= 0 && !isArrow ? assignIdx : semi;
+  // We might find the `=`, but it can come from a function type.
+  // For example: @reactive() foo?: () => number;
+  // fnType will be true if that's the case.
+  const fnType = assignIdx >= 0 && line.indexOf('>', assignIdx) === assignIdx + 1;
+  const assignSemiOrEOL = assignIdx >= 0 && !fnType ? assignIdx : semiOrEOL;
+  // field (key) name and type delimiter
   const colon = line.indexOf(':', closeParen);
+  // optional type delimiter
   const optional = line.indexOf('?:', closeParen);
+  // the list of events to fire when a new property value is set
   const events = line.substring(reactiveIdx + reactiveLen, closeParen)
     .split(',')
     .map(event => event.trim())
     .filter(event => Boolean(event))
     .map(event => event.substring(1, event.length - 1));
 
-  const key = line.substring(closeParen + 1, optional >= 0 ? optional : colon >= 0 ? colon : assign).trim();
-  const explicitType = colon >= 0 ? line.substring(colon, assign).trim() : '';
-  const value = assignIdx ? line.substring(assign + 1, semi).trim() : '';
+  const key = line.substring(closeParen + 1, optional >= 0 ? optional : colon >= 0 ? colon : assignSemiOrEOL).trim();
+  const explicitType = colon >= 0 ? line.substring(colon, assignSemiOrEOL).trim() : '';
+  const value = line.substring(assignSemiOrEOL + 1, semiOrEOL).trim();
 
   const eventsStrings = events.length ? [
     `    this.notifyEventListeners([${events.map(event => `'${event}'`).join(', ')}]);`
   ] : [];
 
   const orUndefined = optional >= 0 ? ' | undefined' : '';
-  const type = assignIdx
-    ? explicitType
-      ? explicitType.lastIndexOf('| undefined') >= 0
-        ? explicitType
-        : isArrow ? `: (${explicitType.substring(2)})${orUndefined}` : `${explicitType}${orUndefined}`
-      : (value[0] === "'" || value[0] === '"')
-        ? `: string${orUndefined}`
-        : !isNaN(parseFloat(value))
-          ? `: number${orUndefined}`
-          : ': any'
-    : ': any';
+  const type = explicitType
+    ? explicitType.lastIndexOf('| undefined') >= 0
+      ? explicitType
+      : fnType
+        ? `: (${explicitType.substring(2)})${orUndefined}`
+        : `${explicitType}${orUndefined}`
+    : (value[0] === "'" || value[0] === '"')
+      ? `: string${orUndefined}`
+      : !isNaN(parseFloat(value))
+        ? `: number${orUndefined}`
+        : value === 'true' || value === 'false'
+          ? ': boolean'
+          : ': any';
 
   const privateKey = `_${key}`;
-  const assignValue = assignIdx >= 0 && !isArrow ? ` = ${value}` : '';
+  const assignValue = assignIdx >= 0 && !fnType ? ` = ${value}` : '';
   const strings = [
     `private ${privateKey}${type}${assignValue};`,
     `set ${key}(value${type}) {`,
@@ -258,7 +299,7 @@ function getAllFiles(dirPath, arrayOfFiles) {
   return arrayOfFiles;
 }
 
-function convertAllFiles() {
+function transformAllFiles() {
   const files = getAllFiles('./lib');
 
   files.map(file => {
@@ -310,16 +351,20 @@ function test() {
         break;
       }
     }
+    if (outputLines.length > min) {
+      console.log('Actual output is longer than expected. Extra lines:\n', outputLines.slice(min)
+        .map((line, i) => addLineNumber(line, min + i, maxLineNumberLength)));
+    } else if (expectedOutputLines.length > min) {
+      console.log('Expected output is longer than actual. Extra lines:\n', expectedOutputLines.slice(min)
+        .map((line, i) => addLineNumber(line, min + i, maxLineNumberLength)));
+    }
   }
 }
 
 function addLineNumber(line, number, maxLength) {
   const pad = String(number).padStart(maxLength, ' ');
-  return `${pad}${line}`;
+  return `${pad} ${line}`;
 }
 
-// console.log(expandReactiveProperty(testLine));
-// console.log(testText.split('\n').map(line => expandReactiveProperty(line, getIndent(line))).join('\n'));
-// console.log(getAllFiles('./lib'));
 // test();
-convertAllFiles();
+transformAllFiles();

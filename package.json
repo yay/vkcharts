@@ -19,7 +19,7 @@
   "scripts": {
     "dev": "vite",
     "test": "jest",
-    "redecorate": "node convert.js",
+    "redecorate": "node redecorate.js",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "typecheck": " tsc --noEmit"
