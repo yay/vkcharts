@@ -6,6 +6,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 const testText = `
 class Hello extends Observable {
@@ -299,8 +300,17 @@ function getAllFiles(dirPath, arrayOfFiles) {
   return arrayOfFiles;
 }
 
-function transformAllFiles() {
-  const files = getAllFiles('./lib');
+function getChangedFiles(extension = 'ts') {
+  extension = extension && `-- '***.${extension}'`;
+  const command = `{ git diff --name-only ${extension}; git diff --name-only --staged ${extension}; } | sort | uniq`;
+  const diffOutput = execSync(command).toString();
+
+  return diffOutput.split('\n').filter(Boolean);
+}
+
+function transformFiles() {
+  // const files = getAllFiles('./lib');
+  const files = getChangedFiles();
 
   files.map(file => {
     console.log('Processing...', file);
@@ -367,4 +377,4 @@ function addLineNumber(line, number, maxLength) {
 }
 
 // test();
-transformAllFiles();
+transformFiles();
