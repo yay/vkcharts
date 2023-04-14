@@ -11,7 +11,7 @@ import { execSync } from 'child_process';
 const testText = `
 class Hello extends Observable {
   regularClassField = 7;
-  // @reactive is a decorator, but we shouldn't process any comments.
+  // @reactive is a decorator, but we shouldn't transform any comments.
   /** @reactive
    * @reactive
    */
@@ -39,7 +39,7 @@ class Hello extends Observable {
 const expectedOutput = `
 class Hello extends Observable {
   regularClassField = 7;
-  // @reactive is a decorator, but we shouldn't process any comments.
+  // @reactive is a decorator, but we shouldn't transform any comments.
   /** @reactive
    * @reactive
    */
@@ -183,7 +183,7 @@ const reactive = '@reactive(';
 const reactiveLen = reactive.length;
 
 function getIndent(line) {
-  const trimmed = line.trimStart(line);
+  const trimmed = line.trimStart();
   return line.substring(0, line.length - trimmed.length);
 }
 
@@ -212,7 +212,7 @@ function expandReactiveProperty(line, indent = '') {
   const events = line.substring(reactiveIdx + reactiveLen, closeParen)
     .split(',')
     .map(event => event.trim())
-    .filter(event => Boolean(event))
+    .filter(Boolean)
     .map(event => event.substring(1, event.length - 1));
 
   const key = line.substring(closeParen + 1, optional >= 0 ? optional : colon >= 0 ? colon : assignSemiOrEOL).trim();
@@ -265,7 +265,7 @@ function expandReactiveProperty(line, indent = '') {
   return strings;
 }
 
-export function processText(lines) {
+export function transformText(lines) {
   let comment = 0;
   return lines.map(line => {
     const trimmedLine = line.trimStart();
@@ -309,17 +309,21 @@ function transformFiles() {
   // const files = getAllFiles('./lib');
   const files = getChangedFiles();
 
+  if (!files.length) {
+    console.log('No file changes detected.');
+    return;
+  }
+
   files.map(file => {
-    console.log('Processing...', file);
     try {
       const text = fs.readFileSync(file, 'utf8');
       const lines = text.split('\n');
 
-      const processedText = processText(lines);
+      const transformedText = transformText(lines);
 
-      if (processedText !== text) {
+      if (transformedText !== text) {
         try {
-          fs.writeFileSync(file, processedText);
+          fs.writeFileSync(file, transformedText);
         } catch (err) {
           console.error('Error writing file:', err);
         }
@@ -328,11 +332,11 @@ function transformFiles() {
       console.error('Error reading file:', err);
     }
   });
-  console.log('All files processed.');
+  console.log('Redecoration complete!');
 }
 
 function test() {
-  const output = processText(testText.split('\n'));
+  const output = transformText(testText.split('\n'));
   if (output === expectedOutput) {
     console.info('Tests passed.');
   } else {
