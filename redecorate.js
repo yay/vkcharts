@@ -284,15 +284,12 @@ export function processText(lines) {
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-function getAllFiles(dirPath, arrayOfFiles) {
-  arrayOfFiles = arrayOfFiles || [];
-
+function getAllFiles(dirPath, arrayOfFiles = [], ext = '.ts') {
   const files = fs.readdirSync(dirPath);
-
-  files.forEach(function(file) {
+  files.forEach(file => {
     if (fs.statSync(dirPath + '/' + file).isDirectory()) {
-      arrayOfFiles = getAllFiles(dirPath + '/' + file, arrayOfFiles);
-    } else {
+      arrayOfFiles = getAllFiles(dirPath + '/' + file, arrayOfFiles, ext);
+    } else if (!ext || path.extname(file) === ext) {
       arrayOfFiles.push(path.join(__dirname, dirPath, '/', file));
     }
   });
@@ -300,9 +297,9 @@ function getAllFiles(dirPath, arrayOfFiles) {
   return arrayOfFiles;
 }
 
-function getChangedFiles(extension = 'ts') {
-  extension = extension && `-- '***.${extension}'`;
-  const command = `{ git diff --name-only ${extension}; git diff --name-only --staged ${extension}; } | sort | uniq`;
+function getChangedFiles(ext = '.ts') {
+  ext = ext && `-- '***${ext}'`;
+  const command = `{ git diff --name-only ${ext}; git diff --name-only --staged ${ext}; } | sort | uniq`;
   const diffOutput = execSync(command).toString();
 
   return diffOutput.split('\n').filter(Boolean);
