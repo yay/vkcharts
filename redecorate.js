@@ -59,7 +59,7 @@ class Hello extends Observable {
   private _foo: string = 'oof';
   set foo(value: string) {
     const oldValue = this._foo;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._foo = value;
       this.notifyPropertyListeners('foo', oldValue, value);
       this.notifyEventListeners(['change', 'layoutChange', 'tag']);
@@ -72,7 +72,7 @@ class Hello extends Observable {
   private _bar: string = 'rab';
   set bar(value: string) {
     const oldValue = this._bar;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._bar = value;
       this.notifyPropertyListeners('bar', oldValue, value);
       this.notifyEventListeners(['change']);
@@ -85,7 +85,7 @@ class Hello extends Observable {
   private _xyz: number = 42;
   set xyz(value: number) {
     const oldValue = this._xyz;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._xyz = value;
       this.notifyPropertyListeners('xyz', oldValue, value);
     }
@@ -97,7 +97,7 @@ class Hello extends Observable {
   private _yes: boolean = true;
   set yes(value: boolean) {
     const oldValue = this._yes;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._yes = value;
       this.notifyPropertyListeners('yes', oldValue, value);
     }
@@ -109,7 +109,7 @@ class Hello extends Observable {
   private _no: boolean = false;
   set no(value: boolean) {
     const oldValue = this._no;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._no = value;
       this.notifyPropertyListeners('no', oldValue, value);
     }
@@ -187,6 +187,11 @@ function getIndent(line) {
   return line.substring(0, line.length - trimmed.length);
 }
 
+const primitiveTypes = [
+  ': number', ': string', ': boolean',
+  ': number | undefined', ': string | undefined', ': boolean | undefined'
+];
+
 function expandReactiveProperty(line, indent = '') {
   const reactiveIdx = line.indexOf(reactive);
   if (!(reactiveIdx >= 0) || line.trimStart().indexOf('//') === 0) {
@@ -238,13 +243,17 @@ function expandReactiveProperty(line, indent = '') {
           ? ': boolean'
           : ': any';
 
+  const objectCheck = !primitiveTypes.some(t => t === type)
+    ? ` || (typeof value === 'object' && value !== null)`
+    : '';
+
   const privateKey = `_${key}`;
   const assignValue = assignIdx >= 0 && !fnType ? ` = ${value}` : '';
   const strings = [
     `private ${privateKey}${type}${assignValue};`,
     `set ${key}(value${type}) {`,
     `  const oldValue = this.${privateKey};`,
-    `  if (value !== oldValue || (typeof value === 'object' && value !== null)) {`,
+    `  if (value !== oldValue${objectCheck}) {`,
     `    this.${privateKey} = value;`,
     `    this.notifyPropertyListeners('${key}', oldValue, value);`,
     ...eventsStrings,
