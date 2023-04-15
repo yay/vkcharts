@@ -277,7 +277,7 @@ export class AreaSeries extends CartesianSeries {
   private _xName: string = '';
   set xName(value: string) {
     const oldValue = this._xName;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._xName = value;
       this.notifyPropertyListeners('xName', oldValue, value);
       this.notifyEventListeners(['update']);

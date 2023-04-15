@@ -5,7 +5,7 @@ class Component extends Observable {
   private _john: string = 'smith';
   set john(value: string) {
     const oldValue = this._john;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._john = value;
       this.notifyPropertyListeners('john', oldValue, value);
       this.notifyEventListeners(['name', 'misc']);
@@ -18,7 +18,7 @@ class Component extends Observable {
   private _bob: string = 'marley';
   set bob(value: string) {
     const oldValue = this._bob;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._bob = value;
       this.notifyPropertyListeners('bob', oldValue, value);
       this.notifyEventListeners(['name', 'misc']);
@@ -31,7 +31,7 @@ class Component extends Observable {
   private _foo: string = '';
   set foo(value: string) {
     const oldValue = this._foo;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._foo = value;
       this.notifyPropertyListeners('foo', oldValue, value);
       this.notifyEventListeners(['change']);
@@ -70,7 +70,7 @@ class BaseClass extends Observable {
   private _foo: number = 5;
   set foo(value: number) {
     const oldValue = this._foo;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._foo = value;
       this.notifyPropertyListeners('foo', oldValue, value);
       this.notifyEventListeners(['layout']);
@@ -93,7 +93,7 @@ class SubClass extends BaseClass {
   private _bar: number = 10;
   set bar(value: number) {
     const oldValue = this._bar;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._bar = value;
       this.notifyPropertyListeners('bar', oldValue, value);
       this.notifyEventListeners(['layout']);

@@ -2,23 +2,23 @@ import { type FontStyle, type FontWeight, getFont } from '../scene/shape/text';
 import { Observable } from '../util/observable';
 
 export class Label extends Observable {
-  private _enabled: any = true;
-  set enabled(value: any) {
+  private _enabled: boolean = true;
+  set enabled(value: boolean) {
     const oldValue = this._enabled;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._enabled = value;
       this.notifyPropertyListeners('enabled', oldValue, value);
       this.notifyEventListeners(['change', 'dataChange']);
     }
   }
-  get enabled(): any {
+  get enabled(): boolean {
     return this._enabled;
   }
 
   private _fontSize: number = 12;
   set fontSize(value: number) {
     const oldValue = this._fontSize;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fontSize = value;
       this.notifyPropertyListeners('fontSize', oldValue, value);
       this.notifyEventListeners(['change']);
@@ -31,7 +31,7 @@ export class Label extends Observable {
   private _fontFamily: string = 'Verdana, sans-serif';
   set fontFamily(value: string) {
     const oldValue = this._fontFamily;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fontFamily = value;
       this.notifyPropertyListeners('fontFamily', oldValue, value);
       this.notifyEventListeners(['change']);
@@ -44,7 +44,7 @@ export class Label extends Observable {
   private _fontStyle: FontStyle | undefined;
   set fontStyle(value: FontStyle | undefined) {
     const oldValue = this._fontStyle;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fontStyle = value;
       this.notifyPropertyListeners('fontStyle', oldValue, value);
       this.notifyEventListeners(['change']);
@@ -57,7 +57,7 @@ export class Label extends Observable {
   private _fontWeight: FontWeight | undefined;
   set fontWeight(value: FontWeight | undefined) {
     const oldValue = this._fontWeight;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fontWeight = value;
       this.notifyPropertyListeners('fontWeight', oldValue, value);
       this.notifyEventListeners(['change']);
@@ -70,7 +70,7 @@ export class Label extends Observable {
   private _color: string = 'rgba(70, 70, 70, 1)';
   set color(value: string) {
     const oldValue = this._color;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._color = value;
       this.notifyPropertyListeners('color', oldValue, value);
       this.notifyEventListeners(['change']);

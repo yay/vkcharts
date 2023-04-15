@@ -154,7 +154,7 @@ export class ChartTooltip extends Observable {
   private _enabled: boolean = true;
   set enabled(value: boolean) {
     const oldValue = this._enabled;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._enabled = value;
       this.notifyPropertyListeners('enabled', oldValue, value);
     }
@@ -166,7 +166,7 @@ export class ChartTooltip extends Observable {
   private _class: string = Chart.defaultTooltipClass;
   set class(value: string) {
     const oldValue = this._class;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._class = value;
       this.notifyPropertyListeners('class', oldValue, value);
     }
@@ -178,7 +178,7 @@ export class ChartTooltip extends Observable {
   private _delay: number = 0;
   set delay(value: number) {
     const oldValue = this._delay;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._delay = value;
       this.notifyPropertyListeners('delay', oldValue, value);
     }
@@ -194,7 +194,7 @@ export class ChartTooltip extends Observable {
   private _tracking: boolean = true;
   set tracking(value: boolean) {
     const oldValue = this._tracking;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._tracking = value;
       this.notifyPropertyListeners('tracking', oldValue, value);
     }

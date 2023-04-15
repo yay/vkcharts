@@ -171,7 +171,7 @@ export class BarSeries extends CartesianSeries {
   private _flipXY: boolean = false;
   set flipXY(value: boolean) {
     const oldValue = this._flipXY;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._flipXY = value;
       this.notifyPropertyListeners('flipXY', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -184,7 +184,7 @@ export class BarSeries extends CartesianSeries {
   private _fills: string[] = ['#c16068', '#a2bf8a', '#ebcc87', '#80a0c3', '#b58dae', '#85c0d1'];
   set fills(value: string[]) {
     const oldValue = this._fills;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fills = value;
       this.notifyPropertyListeners('fills', oldValue, value);
       this.notifyEventListeners(['dataChange']);

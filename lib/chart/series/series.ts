@@ -74,7 +74,7 @@ export class SeriesTooltip extends Observable {
   private _enabled: boolean = true;
   set enabled(value: boolean) {
     const oldValue = this._enabled;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._enabled = value;
       this.notifyPropertyListeners('enabled', oldValue, value);
       this.notifyEventListeners(['change']);
@@ -128,7 +128,7 @@ export abstract class Series extends Observable {
   private _visible: boolean = true;
   set visible(value: boolean) {
     const oldValue = this._visible;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._visible = value;
       this.notifyPropertyListeners('visible', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -141,7 +141,7 @@ export abstract class Series extends Observable {
   private _showInLegend: boolean = true;
   set showInLegend(value: boolean) {
     const oldValue = this._showInLegend;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._showInLegend = value;
       this.notifyPropertyListeners('showInLegend', oldValue, value);
       this.notifyEventListeners(['layoutChange']);

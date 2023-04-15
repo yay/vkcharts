@@ -52,7 +52,7 @@ export class LegendLabel extends Observable {
   private _color: string = 'black';
   set color(value: string) {
     const oldValue = this._color;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._color = value;
       this.notifyPropertyListeners('color', oldValue, value);
       this.notifyEventListeners(['change']);
@@ -65,7 +65,7 @@ export class LegendLabel extends Observable {
   private _fontStyle: FontStyle | undefined;
   set fontStyle(value: FontStyle | undefined) {
     const oldValue = this._fontStyle;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fontStyle = value;
       this.notifyPropertyListeners('fontStyle', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -78,7 +78,7 @@ export class LegendLabel extends Observable {
   private _fontWeight: FontWeight | undefined;
   set fontWeight(value: FontWeight | undefined) {
     const oldValue = this._fontWeight;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fontWeight = value;
       this.notifyPropertyListeners('fontWeight', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -91,7 +91,7 @@ export class LegendLabel extends Observable {
   private _fontSize: number = 12;
   set fontSize(value: number) {
     const oldValue = this._fontSize;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fontSize = value;
       this.notifyPropertyListeners('fontSize', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -104,7 +104,7 @@ export class LegendLabel extends Observable {
   private _fontFamily: string = 'Verdana, sans-serif';
   set fontFamily(value: string) {
     const oldValue = this._fontFamily;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fontFamily = value;
       this.notifyPropertyListeners('fontFamily', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -117,7 +117,7 @@ export class LegendLabel extends Observable {
   private _formatter: ((params: LegendLabelFormatterParams) => string) | undefined;
   set formatter(value: ((params: LegendLabelFormatterParams) => string) | undefined) {
     const oldValue = this._formatter;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._formatter = value;
       this.notifyPropertyListeners('formatter', oldValue, value);
     }
@@ -131,7 +131,7 @@ export class LegendMarker extends Observable {
   private _size: number = 15;
   set size(value: number) {
     const oldValue = this._size;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._size = value;
       this.notifyPropertyListeners('size', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -148,7 +148,7 @@ export class LegendMarker extends Observable {
   private _shape: (string | (new () => Marker)) | undefined;
   set shape(value: (string | (new () => Marker)) | undefined) {
     const oldValue = this._shape;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._shape = value;
       this.notifyPropertyListeners('shape', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -164,7 +164,7 @@ export class LegendMarker extends Observable {
   private _padding: number = 8;
   set padding(value: number) {
     const oldValue = this._padding;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._padding = value;
       this.notifyPropertyListeners('padding', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -177,7 +177,7 @@ export class LegendMarker extends Observable {
   private _strokeWidth: number = 1;
   set strokeWidth(value: number) {
     const oldValue = this._strokeWidth;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._strokeWidth = value;
       this.notifyPropertyListeners('strokeWidth', oldValue, value);
       this.notifyEventListeners(['change']);
@@ -199,7 +199,7 @@ export class LegendItem extends Observable {
   private _paddingX: number = 16;
   set paddingX(value: number) {
     const oldValue = this._paddingX;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._paddingX = value;
       this.notifyPropertyListeners('paddingX', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -217,7 +217,7 @@ export class LegendItem extends Observable {
   private _paddingY: number = 8;
   set paddingY(value: number) {
     const oldValue = this._paddingY;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._paddingY = value;
       this.notifyPropertyListeners('paddingY', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -273,7 +273,7 @@ export class Legend extends Observable {
   private _enabled: boolean = true;
   set enabled(value: boolean) {
     const oldValue = this._enabled;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._enabled = value;
       this.notifyPropertyListeners('enabled', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -286,7 +286,7 @@ export class Legend extends Observable {
   private _orientation: LegendOrientation = LegendOrientation.Vertical;
   set orientation(value: LegendOrientation) {
     const oldValue = this._orientation;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._orientation = value;
       this.notifyPropertyListeners('orientation', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -299,7 +299,7 @@ export class Legend extends Observable {
   private _position: LegendPosition = LegendPosition.Right;
   set position(value: LegendPosition) {
     const oldValue = this._position;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._position = value;
       this.notifyPropertyListeners('position', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -315,7 +315,7 @@ export class Legend extends Observable {
   private _spacing: number = 20;
   set spacing(value: number) {
     const oldValue = this._spacing;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._spacing = value;
       this.notifyPropertyListeners('spacing', oldValue, value);
       this.notifyEventListeners(['layoutChange']);

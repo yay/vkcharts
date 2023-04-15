@@ -172,15 +172,15 @@ export class PieSeriesTooltip extends SeriesTooltip {
 }
 
 export class PieTitle extends Caption {
-  private _showInLegend: any = false;
-  set showInLegend(value: any) {
+  private _showInLegend: boolean = false;
+  set showInLegend(value: boolean) {
     const oldValue = this._showInLegend;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._showInLegend = value;
       this.notifyPropertyListeners('showInLegend', oldValue, value);
     }
   }
-  get showInLegend(): any {
+  get showInLegend(): boolean {
     return this._showInLegend;
   }
 }
@@ -268,7 +268,7 @@ export class PieSeries extends PolarSeries {
   private _angleKey: string = '';
   set angleKey(value: string) {
     const oldValue = this._angleKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._angleKey = value;
       this.notifyPropertyListeners('angleKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -281,7 +281,7 @@ export class PieSeries extends PolarSeries {
   private _angleName: string = '';
   set angleName(value: string) {
     const oldValue = this._angleName;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._angleName = value;
       this.notifyPropertyListeners('angleName', oldValue, value);
       this.notifyEventListeners(['update']);
@@ -299,7 +299,7 @@ export class PieSeries extends PolarSeries {
   private _radiusKey: string | undefined;
   set radiusKey(value: string | undefined) {
     const oldValue = this._radiusKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._radiusKey = value;
       this.notifyPropertyListeners('radiusKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -312,7 +312,7 @@ export class PieSeries extends PolarSeries {
   private _radiusName: string | undefined;
   set radiusName(value: string | undefined) {
     const oldValue = this._radiusName;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._radiusName = value;
       this.notifyPropertyListeners('radiusName', oldValue, value);
       this.notifyEventListeners(['update']);
@@ -325,7 +325,7 @@ export class PieSeries extends PolarSeries {
   private _radiusMin: number | undefined;
   set radiusMin(value: number | undefined) {
     const oldValue = this._radiusMin;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._radiusMin = value;
       this.notifyPropertyListeners('radiusMin', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -338,7 +338,7 @@ export class PieSeries extends PolarSeries {
   private _radiusMax: number | undefined;
   set radiusMax(value: number | undefined) {
     const oldValue = this._radiusMax;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._radiusMax = value;
       this.notifyPropertyListeners('radiusMax', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -351,7 +351,7 @@ export class PieSeries extends PolarSeries {
   private _labelKey: string | undefined;
   set labelKey(value: string | undefined) {
     const oldValue = this._labelKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._labelKey = value;
       this.notifyPropertyListeners('labelKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -364,7 +364,7 @@ export class PieSeries extends PolarSeries {
   private _labelName: string | undefined;
   set labelName(value: string | undefined) {
     const oldValue = this._labelName;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._labelName = value;
       this.notifyPropertyListeners('labelName', oldValue, value);
       this.notifyEventListeners(['update']);
@@ -395,7 +395,7 @@ export class PieSeries extends PolarSeries {
   private _fillOpacity: number = 1;
   set fillOpacity(value: number) {
     const oldValue = this._fillOpacity;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._fillOpacity = value;
       this.notifyPropertyListeners('fillOpacity', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -408,7 +408,7 @@ export class PieSeries extends PolarSeries {
   private _strokeOpacity: number = 1;
   set strokeOpacity(value: number) {
     const oldValue = this._strokeOpacity;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._strokeOpacity = value;
       this.notifyPropertyListeners('strokeOpacity', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -434,7 +434,7 @@ export class PieSeries extends PolarSeries {
   private _lineDashOffset: number = 0;
   set lineDashOffset(value: number) {
     const oldValue = this._lineDashOffset;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._lineDashOffset = value;
       this.notifyPropertyListeners('lineDashOffset', oldValue, value);
       this.notifyEventListeners(['update']);
@@ -447,7 +447,7 @@ export class PieSeries extends PolarSeries {
   private _formatter: ((params: PieSeriesFormatterParams) => PieSeriesFormat) | undefined;
   set formatter(value: ((params: PieSeriesFormatterParams) => PieSeriesFormat) | undefined) {
     const oldValue = this._formatter;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._formatter = value;
       this.notifyPropertyListeners('formatter', oldValue, value);
       this.notifyEventListeners(['update']);
@@ -463,7 +463,7 @@ export class PieSeries extends PolarSeries {
   private _rotation: number = 0;
   set rotation(value: number) {
     const oldValue = this._rotation;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._rotation = value;
       this.notifyPropertyListeners('rotation', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -476,7 +476,7 @@ export class PieSeries extends PolarSeries {
   private _outerRadiusOffset: number = 0;
   set outerRadiusOffset(value: number) {
     const oldValue = this._outerRadiusOffset;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._outerRadiusOffset = value;
       this.notifyPropertyListeners('outerRadiusOffset', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -489,7 +489,7 @@ export class PieSeries extends PolarSeries {
   private _innerRadiusOffset: number = 0;
   set innerRadiusOffset(value: number) {
     const oldValue = this._innerRadiusOffset;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._innerRadiusOffset = value;
       this.notifyPropertyListeners('innerRadiusOffset', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -502,7 +502,7 @@ export class PieSeries extends PolarSeries {
   private _strokeWidth: number = 1;
   set strokeWidth(value: number) {
     const oldValue = this._strokeWidth;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._strokeWidth = value;
       this.notifyPropertyListeners('strokeWidth', oldValue, value);
       this.notifyEventListeners(['layoutChange']);

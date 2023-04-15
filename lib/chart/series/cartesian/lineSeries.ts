@@ -255,7 +255,7 @@ export class LineSeries extends CartesianSeries {
   private _xName: string = '';
   set xName(value: string) {
     const oldValue = this._xName;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._xName = value;
       this.notifyPropertyListeners('xName', oldValue, value);
       this.notifyEventListeners(['update']);
@@ -280,7 +280,7 @@ export class LineSeries extends CartesianSeries {
   private _yName: string = '';
   set yName(value: string) {
     const oldValue = this._yName;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._yName = value;
       this.notifyPropertyListeners('yName', oldValue, value);
       this.notifyEventListeners(['update']);

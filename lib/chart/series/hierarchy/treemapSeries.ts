@@ -172,7 +172,7 @@ export class TreemapSeries extends HierarchySeries {
   private _labelKey: string = 'label';
   set labelKey(value: string) {
     const oldValue = this._labelKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._labelKey = value;
       this.notifyPropertyListeners('labelKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -185,7 +185,7 @@ export class TreemapSeries extends HierarchySeries {
   private _sizeKey: string | undefined = 'size';
   set sizeKey(value: string | undefined) {
     const oldValue = this._sizeKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._sizeKey = value;
       this.notifyPropertyListeners('sizeKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -198,7 +198,7 @@ export class TreemapSeries extends HierarchySeries {
   private _colorKey: string | undefined = 'color';
   set colorKey(value: string | undefined) {
     const oldValue = this._colorKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._colorKey = value;
       this.notifyPropertyListeners('colorKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -237,7 +237,7 @@ export class TreemapSeries extends HierarchySeries {
   private _colorParents: boolean = false;
   set colorParents(value: boolean) {
     const oldValue = this._colorParents;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._colorParents = value;
       this.notifyPropertyListeners('colorParents', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -250,7 +250,7 @@ export class TreemapSeries extends HierarchySeries {
   private _gradient: boolean = true;
   set gradient(value: boolean) {
     const oldValue = this._gradient;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._gradient = value;
       this.notifyPropertyListeners('gradient', oldValue, value);
       this.notifyEventListeners(['update']);

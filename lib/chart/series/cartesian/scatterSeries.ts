@@ -90,7 +90,7 @@ export class ScatterSeries extends CartesianSeries {
   private _title: string | undefined;
   set title(value: string | undefined) {
     const oldValue = this._title;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._title = value;
       this.notifyPropertyListeners('title', oldValue, value);
       this.notifyEventListeners(['layoutChange']);
@@ -103,7 +103,7 @@ export class ScatterSeries extends CartesianSeries {
   private _xKey: string = '';
   set xKey(value: string) {
     const oldValue = this._xKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._xKey = value;
       this.notifyPropertyListeners('xKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -116,7 +116,7 @@ export class ScatterSeries extends CartesianSeries {
   private _yKey: string = '';
   set yKey(value: string) {
     const oldValue = this._yKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._yKey = value;
       this.notifyPropertyListeners('yKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -129,7 +129,7 @@ export class ScatterSeries extends CartesianSeries {
   private _sizeKey: string | undefined;
   set sizeKey(value: string | undefined) {
     const oldValue = this._sizeKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._sizeKey = value;
       this.notifyPropertyListeners('sizeKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
@@ -142,7 +142,7 @@ export class ScatterSeries extends CartesianSeries {
   private _labelKey: string | undefined;
   set labelKey(value: string | undefined) {
     const oldValue = this._labelKey;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._labelKey = value;
       this.notifyPropertyListeners('labelKey', oldValue, value);
       this.notifyEventListeners(['dataChange']);
