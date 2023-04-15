@@ -12,14 +12,11 @@
     "canvas"
   ],
   "type": "module",
-  "engines": {
-    "node": ">=18.15.0",
-    "yarn": ">=3.5.0"
-  },
   "scripts": {
     "dev": "vite",
     "test": "jest",
     "redecorate": "node redecorate.js",
+    "redecorate:test": "node redecorate.test.js",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "typecheck": " tsc --noEmit"
