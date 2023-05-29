@@ -48,15 +48,15 @@ document.addEventListener('DOMContentLoaded', () => {
   series3.fillOpacity = 0.3;
   series3.strokes = ['black'];
 
-  chart.series = [series1, series2] as any[];
+  chart.series = [series1, series2];
 
   document.body.appendChild(document.createElement('br'));
 
-  createButton('add 3 after 1', () => {
+  createButton('add stacked `series3` (v4, v5) after stacked `series1` (v1, v2)', () => {
     chart.addSeriesAfter(series3, series1);
   });
 
-  createButton('add 3 after 2', () => {
+  createButton('add stacked `series3` (v4, v5) after `series2` (v3)', () => {
     chart.addSeriesAfter(series3, series2);
   });
 
