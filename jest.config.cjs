@@ -1,23 +1,15 @@
 module.exports = {
   globals: {
-      'ts-jest': {
-          tsConfig: 'tsconfig.test.json'
-      }
+    'ts-jest': {
+      tsConfig: 'tsconfig.test.json',
+    },
   },
   testEnvironment: 'jsdom',
-  roots: [
-      "<rootDir>/lib"
-  ],
+  roots: ['<rootDir>/lib'],
   transform: {
-      "^.+\\.tsx?$": "ts-jest"
+    '^.+\\.tsx?$': 'ts-jest',
   },
-  testRegex: "(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$",
-  moduleFileExtensions: [
-      "ts",
-      "tsx",
-      "js",
-      "jsx",
-      "json",
-      "node"
-  ],
+  testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.tsx?$',
+  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
+  setupFiles: ['jest-canvas-mock'],
 };

@@ -321,22 +321,24 @@ export class Path2D {
 
     if (n < 2 || n % 2 === 1) {
       throw new Error('Fewer than two points or not an even count.');
-    } else if (n === 2 || t === 0) {
-      return points.slice(0, 2) as [number, number];
-    } else if (t === 1) {
-      return points.slice(-2) as [number, number];
-    } else {
-      const newPoints = [];
-      const last = n - 2;
-
-      for (let i = 0; i < last; i += 2) {
-        newPoints.push(
-          (1 - t) * points[i] + t * points[i + 2], // x
-          (1 - t) * points[i + 1] + t * points[i + 3] // y
-        );
-      }
-      return this.deCasteljau(newPoints, t);
     }
+    if (n === 2 || t === 0) {
+      return points.slice(0, 2) as [number, number];
+    }
+    if (t === 1) {
+      return points.slice(-2) as [number, number];
+    }
+
+    const last = n - 2;
+    const newPoints = [];
+
+    for (let i = 0; i < last; i += 2) {
+      newPoints.push(
+        (1 - t) * points[i] + t * points[i + 2], // x
+        (1 - t) * points[i + 1] + t * points[i + 3] // y
+      );
+    }
+    return this.deCasteljau(newPoints, t);
   }
 
   /**
