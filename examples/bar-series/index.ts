@@ -315,6 +315,7 @@ function createBarChart() {
   });
 
   createSlider('stroke width', [1, 2, 4, 6, 8, 10], (v) => {
+    // TODO: no visible difference until the chart is resized
     barSeries.strokeWidth = v;
   });
 

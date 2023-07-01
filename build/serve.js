@@ -30,13 +30,9 @@ const ctx = await esbuild.context({
 
 await ctx.watch(); // build and watch for changes
 
-console.log(process.env);
-
 const { host, port } = await ctx.serve({
   port: 8000,
   servedir: 'dist',
 });
 
 console.log(`Serving app at http://${host}:${port}.`);
-
-console.log('process.argv', process.argv.slice(2));

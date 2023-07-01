@@ -14,11 +14,9 @@
   "type": "module",
   "scripts": {
     "start": "node ./build/serve.js",
-    "test": "jest",
     "build": "node ./build/build.js",
     "analyze": "node ./build/analyze.js",
-    "redecorate": "node redecorate.js",
-    "redecorate:test": "node redecorate.test.js",
+    "test": "jest",
     "typecheck": " tsc --noEmit"
   },
   "files": [
