@@ -972,7 +972,7 @@ function makeAlienChart() {
   });
   createSlider('normalizeTo', [NaN, 100, 500, 1], (v) => {
     if (v && chart.title) {
-      chart.title.text = 'Normalize to WTFYW';
+      chart.title.text = 'Normalize to any value';
       if (chart.subtitle) {
         chart.subtitle.enabled = false;
       }

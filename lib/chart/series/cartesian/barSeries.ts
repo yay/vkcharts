@@ -469,13 +469,15 @@ export class BarSeries extends CartesianSeries {
 
   private _strokeWidth: number = 1;
   set strokeWidth(value: number) {
-    if (this._strokeWidth !== value) {
-      this._strokeWidth = value;
-      this.scheduleUpdate();
+    const oldValue = this._strokeWidth;
+    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+      this._fillOpacity = value;
+      this.notifyPropertyListeners('strokeWidth', oldValue, value);
+      this.notifyEventListeners(['layoutChange']);
     }
   }
   get strokeWidth(): number {
-    return this._strokeWidth;
+    return this._fillOpacity;
   }
 
   private _shadow?: DropShadow;

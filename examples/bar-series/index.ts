@@ -223,7 +223,7 @@ function createColumnChart() {
 
   createSlider('normalizeTo', [NaN, 100, 500, 1], (v) => {
     if (v && chart.title) {
-      chart.title.text = 'Normalize to WTFYW';
+      chart.title.text = 'Normalize to any value';
       if (chart.subtitle) {
         chart.subtitle.enabled = false;
       }
@@ -306,7 +306,7 @@ function createBarChart() {
 
   createSlider('normalizeTo', [NaN, 100, 500, 1], (v) => {
     if (v && chart.title) {
-      chart.title.text = 'Normalize to WTFYW';
+      chart.title.text = 'Normalize to any value';
       if (chart.subtitle) {
         chart.subtitle.enabled = false;
       }
@@ -315,7 +315,6 @@ function createBarChart() {
   });
 
   createSlider('stroke width', [1, 2, 4, 6, 8, 10], (v) => {
-    // TODO: no visible difference until the chart is resized
     barSeries.strokeWidth = v;
   });
 
@@ -529,7 +528,7 @@ function createGroupedAndStackedColumnChart() {
 
   createSlider('normalizeTo', [NaN, 100, 500, 1], (v) => {
     if (v && chart.title) {
-      chart.title.text = 'Normalize to WTFYW';
+      chart.title.text = 'Normalize to any value';
       if (chart.subtitle) {
         chart.subtitle.enabled = false;
       }
