@@ -17,7 +17,9 @@
     "build": "node ./build/build.js",
     "analyze": "node ./build/analyze.js",
     "test": "jest",
-    "typecheck": " tsc --noEmit"
+    "typecheck": " tsc --noEmit",
+    "redecorate": "node redecorate.js",
+    "redecorate:test": "node redecorate.test.js"
   },
   "files": [
     "dist",
@@ -36,7 +38,6 @@
   "devDependencies": {
     "@jest/globals": "29.5.0",
     "esbuild": "0.18.10",
-    "esbuild-plugin-tsc": "0.4.0",
     "jest": "29.5.0",
     "jest-canvas-mock": "2.5.2",
     "jest-environment-jsdom": "29.5.0",

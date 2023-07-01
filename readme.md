@@ -47,9 +47,8 @@ None.
 
 ## Dev Dependencies
 
-- `typescript` - vkCharts are written in TypeScript. This dependency is used for type checking and transpiling (see below).
-- `esbuild` - Used as the build tool and the development server.
-- `esbuild-plugin-tsc` - Even though esbuild natively parses TypeScript files and strips out the types, as of now (June 2023), it doesn't support Stage 3 decorators. This dependency allows us to use the tsc compiler itself instead of esbuild for transpiling.
+- `typescript` - vkCharts are written in TypeScript. This dependency is used for type checking.
+- `esbuild` - Used as the TypeScript transpiler, the build tool, and the development server.
 - `jest` - Testing framework with assertion and mocking libraries, and a test runner.
 - `ts-jest` - Jest can only run plain JavaScript and needs a transformer like this one for TypeScript.
 - `@jest/globals` - Declaration file for the `jest` object, matchers and other exported Jest functions. Jest exposes these on the `global` object, when the tests are running, so this is only needed to allow explicit imports and better IDE experience.

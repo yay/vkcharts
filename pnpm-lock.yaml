@@ -11,9 +11,6 @@ devDependencies:
   esbuild:
     specifier: 0.18.10
     version: 0.18.10
-  esbuild-plugin-tsc:
-    specifier: 0.4.0
-    version: 0.4.0(typescript@5.1.6)
   jest:
     specifier: 29.5.0
     version: 29.5.0
@@ -1357,15 +1354,6 @@ packages:
       is-arrayish: 0.2.1
     dev: true
 
-  /esbuild-plugin-tsc@0.4.0(typescript@5.1.6):
-    resolution: {integrity: sha512-q9gWIovt1nkwchMLc2zhyksaiHOv3kDK4b0AUol8lkMCRhJ1zavgfb2fad6BKp7FT9rh/OHmEBXVjczLoi/0yw==}
-    peerDependencies:
-      typescript: ^4.0.0 || ^5.0.0
-    dependencies:
-      strip-comments: 2.0.1
-      typescript: 5.1.6
-    dev: true
-
   /esbuild@0.18.10:
     resolution: {integrity: sha512-33WKo67auOXzZHBY/9DTJRo7kIvfU12S+D4sp2wIz39N88MDIaCGyCwbW01RR70pK6Iya0I74lHEpyLfFqOHPA==}
     engines: {node: '>=12'}
@@ -2639,11 +2627,6 @@ packages:
   /strip-bom@4.0.0:
     resolution: {integrity: sha512-3xurFv5tEgii33Zi8Jtp55wEIILR9eh34FAW00PZf+JnSsTmV/ioewSgQl97JHvgjoRGwPShsWm+IdrxB35d0w==}
     engines: {node: '>=8'}
-    dev: true
-
-  /strip-comments@2.0.1:
-    resolution: {integrity: sha512-ZprKx+bBLXv067WTCALv8SSz5l2+XhpYCsVtSqlMnkAXMWDq+/ekVbl1ghqP9rUHTzv6sm/DwCOiYutU/yp1fw==}
-    engines: {node: '>=10'}
     dev: true
 
   /strip-final-newline@2.0.0:

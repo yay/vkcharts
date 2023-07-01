@@ -18,6 +18,5 @@
     "noUnusedParameters": true,
     "verbatimModuleSyntax": true
   },
-  "include": ["lib", "examples", "utils", "redecorate.js"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["lib", "examples", "utils", "redecorate.js"]
 }
