@@ -2,11 +2,18 @@ import esbuild from 'esbuild';
 import { writeFile } from 'fs';
 import { defaultOptions } from './defaults.js';
 
-await writeFile('dist/index.html', '<script src="index.js"></script>', (err) => {
-  if (err) {
-    console.error(err);
+await writeFile(
+  'dist/index.html',
+  `
+  <script src="index.js"></script>
+  <link rel="stylesheet" type="text/css" href="index.css">
+  `,
+  (err) => {
+    if (err) {
+      console.error(err);
+    }
   }
-});
+);
 
 const args = process.argv.slice(2);
 const entryPath = args[0];
@@ -24,7 +31,7 @@ const ctx = await esbuild.context({
   banner: {
     // Inject the following JS at the beginning of the bundle
     // to connect to the esbuild server via server-sent events.
-    js: `new EventSource('/esbuild').addEventListener('change', () => location.reload())`,
+    js: `new EventSource('/esbuild').addEventListener('change', () => location.reload());`,
   },
 });
 

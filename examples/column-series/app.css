@@ -1,7 +1,7 @@
 .my-tooltip {
-    font: 16px Verdana, sans-serif;
+    font: 16px Verdana, sans-serif !important;
 }
 
-.my-tooltip .title {
-    background-color: #af20ef;
+.my-tooltip .vk-chart-tooltip-title {
+    background-color: #af20ef !important;
 }

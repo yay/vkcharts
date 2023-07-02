@@ -155,6 +155,8 @@ export class Axis<S extends Scale<D, number>, D = any> {
   //     return rect;
   // })();
 
+  static className = 'Axis';
+
   readonly id = createId(this);
 
   private groupSelection: Selection<Group, Group, D, D>;

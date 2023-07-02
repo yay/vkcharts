@@ -109,12 +109,7 @@ function createOldestCompaniesChart() {
   barSeries.fillOpacity = 0.7;
   barSeries.label.enabled = true;
   barSeries.label.formatter = (params) => params.value.toFixed(0);
-  barSeries.tooltip.renderer = (params) => {
-    const titleStyle = `style="color: white; background-color: ${params.color}"`;
-    const titleString = params.title ? `<div class="title" ${titleStyle}>${params.datum.name}</div>` : '';
-
-    return `${titleString}<div class="content">${params.datum.info}</div>`;
-  };
+  barSeries.tooltip.renderer = (params) => `<div style="padding: 5px">${params.datum.info}</div>`;
 
   chart.axes = [leftAxis, bottomAxis];
   chart.series = [barSeries];

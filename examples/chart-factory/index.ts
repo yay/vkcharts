@@ -193,6 +193,7 @@ function test() {
     },
   });
   VkChart.update(chart, {
+    autoSize: false,
     width: 500,
     height: 500,
     padding: {
@@ -236,7 +237,9 @@ function test() {
   console.assert(chart.padding.right === 40);
   console.assert(chart.padding.bottom === 50);
   console.assert(chart.padding.left === 60);
-  console.assert(chart.title === undefined);
+  console.assert(chart.title?.enabled === false);
+  console.assert(chart.title?.text === 'Title');
+  console.assert(chart.title?.fontSize === 16);
   console.assert(chart.subtitle?.text === 'My Subtitle');
   console.assert(chart.subtitle?.fontSize === 20);
   console.assert(chart.subtitle?.enabled === false);

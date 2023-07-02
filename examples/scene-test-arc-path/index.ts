@@ -81,12 +81,12 @@ function createTextExample() {
     const node = new Text();
     node.x = Math.random() * width;
     node.y = Math.random() * height;
-    node.text = 'ag-Grid';
+    node.text = 'abc';
     node.fill = 'red';
     node.fontSize = 20;
     node.fontWeight = 'bold';
     node.stroke = 'black';
-    node.strokeWidth = 2;
+    node.strokeWidth = 1;
     nodes.push(node);
 
     deltas.push([Math.random() - 0.5, Math.random() - 0.5]);
