@@ -97,9 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const star = new Path(); // heavy-weight instance
   star.fill = 'red';
-  // star.stroke = 'purple';
-  // star.strokeWidth = 4;
-  // star.lineJoin = 'round';
   star.svgPath = starPath;
   star.scalingX = 0.5;
   star.scalingY = 0.5;
@@ -112,20 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const star2 = Object.create(star); // light-weight instance
   star2._setParent(undefined);
   star2.id = 'blah';
-  star2.translationX = 100;
-  star2.translationY = 100;
   star2.fill = 'yellow';
 
   const data = spirograph();
   const instances = data.map((datum, _index) => {
     const instance = Shape.createInstance(star);
-    // const instance = new Path(); // heavy-weight instance
-    // instance.svgPath = starPath;
-    // instance.scalingX = 0.5;
-    // instance.scalingY = 0.5;
-    // instance.stroke = 'purple';
-    // instance.strokeWidth = 4;
-    // instance.lineJoin = 'round';
 
     instance.translationX = datum.x + centerX;
     instance.translationY = datum.y + centerY;
@@ -134,9 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
     return instance;
   });
 
-  console.log('prototype of the first instance:', Object.getPrototypeOf(instances[0]));
-
-  // const n = instances.length;
   function step() {
     fpsCounter.countFrame();
     instances.push(instances.shift()!);
@@ -145,13 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
       instance.translationX = datum.x + centerX;
       instance.translationY = datum.y + centerY;
     });
-    // for (let i = 0; i < n; i++) {
-    //     const instance = instances[i];
-    //     const datum = data[i];
-    //     instance.translationX = datum.x + centerX;
-    //     instance.translationY = datum.y + centerY;
-    //     instance.fill = data[Math.floor(Math.random() * n)].color;
-    // }
     requestAnimationFrame(step);
   }
   step();
@@ -181,26 +159,11 @@ document.addEventListener('DOMContentLoaded', () => {
   dog.translationY = 50;
   dog.lineJoin = 'round';
 
-  // rootGroup.append([star]);
   rootGroup.append(instances);
-  // rootGroup.appendChild(tplInstance);
   scene.root = rootGroup;
 
   setTimeout(() => {
     console.log(memorySizeOf(star));
     console.log(memorySizeOf(star2));
-    // console.log('tpl', memorySizeOf(tpl));
-    // console.log('tplInstance', memorySizeOf(tplInstance));
   }, 1000);
-
-  // document.body.appendChild(document.createElement('br'));
-  // createSlider('stroke width', [1, 2, 4, 6, 8, 10], v => {
-  //     dog.strokeWidth = v;
-  // });
-  // createSlider('stroke opacity', [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0], v => {
-  //     dog.strokeOpacity = v;
-  // });
-  // createSlider('fill opacity', [1, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0], v => {
-  //     dog.fillOpacity = v;
-  // });
 });
