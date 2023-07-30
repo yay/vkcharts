@@ -1,22 +1,22 @@
 import esbuild from 'esbuild';
-import { writeFile } from 'fs';
+import { readFile, writeFile } from 'fs';
 import { defaultOptions } from './defaults.js';
-
-await writeFile(
-  'dist/index.html',
-  `
-  <script src="index.js"></script>
-  <link rel="stylesheet" type="text/css" href="index.css">
-  `,
-  (err) => {
-    if (err) {
-      console.error(err);
-    }
-  }
-);
 
 const args = process.argv.slice(2);
 const entryPath = args[0];
+
+const html = `
+<script src="index.js"></script>
+<link rel="stylesheet" type="text/css" href="index.css">
+`;
+
+await readFile(`${entryPath}/index.html`, (err, data) => {
+  const template = err ? html : String(data);
+  writeFile('dist/index.html', template, (err) => {
+    if (err) throw err;
+  });
+});
+
 const inOutOptions = entryPath
   ? {
       entryPoints: [`${entryPath}/index.ts`],

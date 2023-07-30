@@ -1,3 +1,4 @@
+import './index.css';
 import { initFullScreenButton } from '../../utils/fullScreen';
 
 function interpolate(t: number, a: number, b: number): number {
