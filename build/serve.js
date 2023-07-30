@@ -1,5 +1,5 @@
 import esbuild from 'esbuild';
-import { readFile, writeFile } from 'fs';
+import { readFile, writeFile, existsSync } from 'fs';
 import { defaultOptions } from './defaults.js';
 
 const args = process.argv.slice(2);
@@ -10,16 +10,20 @@ const html = `
 <link rel="stylesheet" type="text/css" href="index.css">
 `;
 
-await readFile(`${entryPath}/index.html`, (err, data) => {
+readFile(`${entryPath}/index.html`, (err, data) => {
   const template = err ? html : String(data);
   writeFile('dist/index.html', template, (err) => {
     if (err) throw err;
   });
 });
 
+const tsEntry = `${entryPath}/index.ts`;
+const jsEntry = `${entryPath}/index.js`;
+const entryPoint = existsSync(jsEntry) ? jsEntry : tsEntry;
+
 const inOutOptions = entryPath
   ? {
-      entryPoints: [`${entryPath}/index.ts`],
+      entryPoints: [entryPoint],
       outfile: `dist/index.js`,
     }
   : {};
