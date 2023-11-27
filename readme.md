@@ -27,19 +27,15 @@ This code is based on a fork of AG Charts at the time of Vitalii's last commit.
 
 ## Getting Started
 
-`pnpm i`
+`npm i`
+
+`mkdir dist`
 
 ## Running Examples
 
-`pnpm start examples/<example-folder>`
+`npm start examples/<example-folder>`
 
-For example: `pnpm start examples/bar-series`
-
-## Package Manager
-
-We are using pnpm for this project for faster install times and more efficient disk space usage (due to hard/sym linking from the global store rather than copying), and also to avoid implicit dependencies. For example, installing `jest` with npm or yarn will allow you to import from `@jest/globals` even though it's not explicitly present in your `package.json`. With pnpm this will fail.
-
-To install pnpm run: `npm install -g pnpm`
+For example: `npm start examples/bar-series`
 
 ## Dependencies
 
