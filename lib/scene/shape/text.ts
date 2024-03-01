@@ -186,10 +186,6 @@ export class Text extends Shape {
   }
 
   computeBBox(): BBox | undefined {
-    return HdpiCanvas.has.textMetrics ? this.getPreciseBBox() : this.getApproximateBBox();
-  }
-
-  private getPreciseBBox(): BBox {
     const metrics = HdpiCanvas.measureText(this.text, this.font, this.textBaseline, this.textAlign);
 
     return new BBox(
@@ -198,40 +194,6 @@ export class Text extends Shape {
       metrics.width,
       metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
     );
-  }
-
-  private getApproximateBBox(): BBox {
-    const size = HdpiCanvas.getTextSize(this.text, this.font);
-    let { x, y } = this;
-
-    switch (this.textAlign) {
-      case 'end':
-      case 'right':
-        x -= size.width;
-        break;
-      case 'center':
-        x -= size.width / 2;
-    }
-
-    switch (this.textBaseline) {
-      case 'alphabetic':
-        y -= size.height * 0.7;
-        break;
-      case 'middle':
-        y -= size.height * 0.45;
-        break;
-      case 'ideographic':
-        y -= size.height;
-        break;
-      case 'hanging':
-        y -= size.height * 0.2;
-        break;
-      case 'bottom':
-        y -= size.height;
-        break;
-    }
-
-    return new BBox(x, y, size.width, size.height);
   }
 
   isPointInPath(x: number, y: number): boolean {

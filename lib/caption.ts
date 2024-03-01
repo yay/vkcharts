@@ -10,7 +10,7 @@ export class Caption extends Observable {
   private _enabled: boolean = false;
   set enabled(value: boolean) {
     const oldValue = this._enabled;
-    if (value !== oldValue || (typeof value === 'object' && value !== null)) {
+    if (value !== oldValue) {
       this._enabled = value;
       this.notifyPropertyListeners('enabled', oldValue, value);
       this.notifyEventListeners(['change']);
