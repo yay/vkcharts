@@ -1,6 +1,6 @@
-import { LinearScale } from '../../lib/scale/linearScale';
-import { BandScale } from '../../lib/scale/bandScale';
 import { createHdpiCanvas } from '../../lib/canvas/canvas';
+import { BandScale } from '../../lib/scale/bandScale';
+import { LinearScale } from '../../lib/scale/linearScale';
 import { Axis } from '../../utils/axis';
 
 const gradientTheme = [

@@ -1,8 +1,8 @@
-import { Padding } from './util/padding';
-import { Text } from './scene/shape/text';
 import { PointerEvents } from './scene/node';
-import { type FontStyle, type FontWeight } from './scene/shape/text';
+import { Text } from './scene/shape/text';
+import type { FontStyle, FontWeight } from './scene/shape/text';
 import { Observable, reactive } from './util/observable';
+import { Padding } from './util/padding';
 
 export class Caption extends Observable {
   readonly node: Text = new Text();

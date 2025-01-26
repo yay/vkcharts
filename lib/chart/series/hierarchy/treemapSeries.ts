@@ -1,20 +1,20 @@
-import { Selection } from '../../../scene/selection';
 import { HdpiCanvas } from '../../../canvas/hdpiCanvas';
-import { reactive, type TypedEvent } from '../../../util/observable';
+import { hierarchy } from '../../../layout/hierarchy';
+import { Treemap } from '../../../layout/treemap';
+import { LinearScale } from '../../../scale/linearScale';
+import { DropShadow } from '../../../scene/dropShadow';
+import { Group } from '../../../scene/group';
+import { Selection } from '../../../scene/selection';
+import { Rect } from '../../../scene/shape/rect';
+import { Text } from '../../../scene/shape/text';
+import { toFixed } from '../../../util/number';
+import { type TypedEvent, reactive } from '../../../util/observable';
+import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
+import type { ChartAxisDirection } from '../../chartAxis';
 import { Label } from '../../label';
+import type { LegendDatum } from '../../legend';
 import { type SeriesNodeDatum, SeriesTooltip, type TooltipRendererParams } from '../series';
 import { HierarchySeries } from './hierarchySeries';
-import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
-import { Group } from '../../../scene/group';
-import { Text } from '../../../scene/shape/text';
-import { Rect } from '../../../scene/shape/rect';
-import { DropShadow } from '../../../scene/dropShadow';
-import { LinearScale } from '../../../scale/linearScale';
-import { ChartAxisDirection } from '../../chartAxis';
-import { type LegendDatum } from '../../legend';
-import { Treemap } from '../../../layout/treemap';
-import { hierarchy } from '../../../layout/hierarchy';
-import { toFixed } from '../../../util/number';
 
 interface TreemapNodeDatum extends SeriesNodeDatum {
   parent?: TreemapNodeDatum;
@@ -68,7 +68,7 @@ export class TreemapSeries extends HierarchySeries {
   static type = 'treemap';
 
   private groupSelection: Selection<Group, Group, TreemapNodeDatum, any> = Selection.select(
-    this.pickGroup
+    this.pickGroup,
   ).selectAll<Group>();
 
   private labelMap = new Map<number, Text>();
@@ -195,7 +195,7 @@ export class TreemapSeries extends HierarchySeries {
       const font = node.depth > 1 ? subtitle : title;
       const textSize = HdpiCanvas.getTextSize(
         name,
-        [font.fontWeight, font.fontSize + 'px', font.fontFamily].join(' ').trim()
+        [font.fontWeight, `${font.fontSize}px`, font.fontFamily].join(' ').trim(),
       );
       const innerNodeWidth = node.x1 - node.x0 - nodePadding * 2;
       const hasTitle = node.depth > 0 && node.children && textSize.width <= innerNodeWidth;
@@ -241,7 +241,9 @@ export class TreemapSeries extends HierarchySeries {
       }
 
       if (children) {
-        children.forEach((child: any) => traverse(child, depth + 1));
+        for (const child of children) {
+          traverse(child, depth + 1);
+        }
       }
     }
     traverse(this.dataRoot);
@@ -292,8 +294,12 @@ export class TreemapSeries extends HierarchySeries {
 
     const enterGroups = updateGroups.enter.append(Group);
     enterGroups.append(Rect);
-    enterGroups.append(Text).each((node: any) => (node.tag = TextNodeTag.Name));
-    enterGroups.append(Text).each((node: any) => (node.tag = TextNodeTag.Value));
+    enterGroups.append(Text).each((node) => {
+      node.tag = TextNodeTag.Name;
+    });
+    enterGroups.append(Text).each((node) => {
+      node.tag = TextNodeTag.Value;
+    });
 
     this.groupSelection = updateGroups.merge(enterGroups) as any;
   }
@@ -325,8 +331,8 @@ export class TreemapSeries extends HierarchySeries {
         isDatumHighlighted && highlightedStroke !== undefined
           ? highlightedStroke
           : datum.depth < 2
-          ? undefined
-          : 'black';
+            ? undefined
+            : 'black';
       const strokeWidth =
         isDatumHighlighted && highlightedDatumStrokeWidth !== undefined
           ? highlightedDatumStrokeWidth
@@ -351,7 +357,7 @@ export class TreemapSeries extends HierarchySeries {
       const hasTitle = datum.hasTitle;
       const highlighted = datum === highlightedDatum;
 
-      let label;
+      let label: Label;
       if (isLeaf) {
         if (innerNodeWidth > 40 && innerNodeHeight > 40) {
           label = labels.large;
@@ -408,7 +414,7 @@ export class TreemapSeries extends HierarchySeries {
       text.fontWeight = label.fontWeight;
       text.textBaseline = 'top';
       text.textAlign = 'center';
-      text.text = typeof value === 'number' && isFinite(value) ? String(toFixed(datum.colorValue)) + '%' : '';
+      text.text = typeof value === 'number' && Number.isFinite(value) ? `${toFixed(datum.colorValue)}%` : '';
 
       const textBBox = text.computeBBox();
       const nameNode = labelMap.get(index);
@@ -423,7 +429,7 @@ export class TreemapSeries extends HierarchySeries {
         text.x = this.getLabelCenterX(datum);
         text.y = this.getLabelCenterY(datum);
       } else {
-        if (nameNode && !(datum.children && datum.children.length)) {
+        if (nameNode && !datum.children?.length) {
           nameNode.textBaseline = 'middle';
           nameNode.y = this.getLabelCenterY(datum);
         }
@@ -458,7 +464,7 @@ export class TreemapSeries extends HierarchySeries {
 
     if (colorKey && colorName) {
       const colorValue = datum[colorKey];
-      if (typeof colorValue === 'number' && isFinite(colorValue)) {
+      if (typeof colorValue === 'number' && Number.isFinite(colorValue)) {
         content = `<b>${colorName}</b>: ${toFixed(datum[colorKey])}`;
       }
     }
@@ -479,7 +485,7 @@ export class TreemapSeries extends HierarchySeries {
           title,
           color,
         }),
-        defaults
+        defaults,
       );
     }
 
