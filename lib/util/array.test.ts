@@ -1,4 +1,4 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from 'vitest';
 import { extent } from './array';
 import { isComparable, isContinuous } from './value';
 
@@ -10,7 +10,7 @@ describe('extent with isComparable', () => {
   });
 
   test('returns undefined for invalid values', () => {
-    const result = extent([NaN, null, undefined], isComparable);
+    const result = extent([Number.NaN, null, undefined], isComparable);
     expect(result).toBe(undefined);
   });
 
@@ -41,7 +41,7 @@ describe('extent with isComparable', () => {
       expect(result![1]).toBe(5);
     }
     {
-      const result = extent([5, NaN], isComparable);
+      const result = extent([5, Number.NaN], isComparable);
       expect(result![0]).toBe(5);
       expect(result![1]).toBe(5);
     }
@@ -103,7 +103,7 @@ describe('extent with isContinuous', () => {
   });
 
   test('returns undefined for list of invalid values', () => {
-    const result = extent([NaN, null, undefined], isContinuous);
+    const result = extent([Number.NaN, null, undefined], isContinuous);
     expect(result).toBe(undefined);
   });
 
@@ -146,7 +146,7 @@ describe('extent with isContinuous', () => {
     const result = extent(
       [new Date(2019, 7, 20), new Date(earliest), latest, new Date(1985, 5, 5)],
       isContinuous,
-      (x) => +x
+      (x) => +x,
     );
 
     expect(result![0]).toBe(earliest);

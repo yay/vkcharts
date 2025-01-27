@@ -1,7 +1,7 @@
+import type { BBox } from '../../scene/bbox';
 import { Group } from '../../scene/group';
 import { RangeHandle } from './rangeHandle';
 import { RangeMask } from './rangeMask';
-import { BBox } from '../../scene/bbox';
 
 export class RangeSelector extends Group {
   static className = 'Range';
@@ -39,7 +39,7 @@ export class RangeSelector extends Group {
 
     mask.onRangeChange = (min, max) => {
       this.updateHandles();
-      this.onRangeChange && this.onRangeChange(min, max);
+      this.onRangeChange?.(min, max);
     };
 
     return mask;

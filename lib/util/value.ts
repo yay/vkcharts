@@ -14,7 +14,7 @@ export function isNumber(value: any): boolean {
 }
 
 export function isNumberObject(value: any): boolean {
-  return !!value && value.hasOwnProperty('valueOf') && isNumber(value.valueOf());
+  return !!value && Object.prototype.hasOwnProperty.call(value, 'valueOf') && isNumber(value.valueOf());
 }
 
 export function isNumeric(value: any): boolean {
@@ -22,7 +22,7 @@ export function isNumeric(value: any): boolean {
 }
 
 export function isDate(value: any): boolean {
-  return value instanceof Date && !isNaN(+value);
+  return value instanceof Date && !Number.isNaN(+value);
 }
 
 export function isString(value: any): boolean {
@@ -30,7 +30,7 @@ export function isString(value: any): boolean {
 }
 
 export function isStringObject(value: any): boolean {
-  return !!value && value.hasOwnProperty('toString') && isString(value.toString());
+  return !!value && Object.prototype.hasOwnProperty.call(value, 'toString') && isString(value.toString());
 }
 
 export function isDiscrete(value: any): boolean {
@@ -42,5 +42,6 @@ export function isContinuous(value: any): boolean {
 }
 
 export function isComparable(value: any): boolean {
+  // biome-ignore lint/suspicious/noSelfCompare: <explanation>
   return isContinuous(value) || (isDiscrete(value) && value >= value);
 }

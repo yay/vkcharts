@@ -232,7 +232,8 @@ export class Matrix {
     let h_h = bbox.height * 0.5;
     const cx = bbox.x + h_w;
     const cy = bbox.y + h_h;
-    let w, h;
+    let w: number;
+    let h: number;
 
     if (radius) {
       h_w -= radius;

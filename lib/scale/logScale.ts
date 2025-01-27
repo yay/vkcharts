@@ -1,6 +1,6 @@
-import { ContinuousScale } from './continuousScale';
-import ticks from '../util/ticks';
 import { format } from '../util/numberFormat';
+import ticks from '../util/ticks';
+import { ContinuousScale } from './continuousScale';
 
 const identity = (x: any) => x;
 export class LogScale extends ContinuousScale {
@@ -112,11 +112,11 @@ export class LogScale extends ContinuousScale {
   }
 
   static pow10(x: number): number {
-    return isFinite(x)
+    return Number.isFinite(x)
       ? +('1e' + x) // to avoid precision issues, e.g. Math.pow(10, -4) is not 0.0001
       : x < 0
-      ? 0
-      : x;
+        ? 0
+        : x;
   }
 
   static makePowFn(base: number): (x: number) => number {
@@ -169,7 +169,7 @@ export class LogScale extends ContinuousScale {
       if (d0 > 0) {
         for (; p0 < p1; ++p0) {
           for (let k = 1, p = this.basePow(p0); k < base; ++k) {
-            let t = p * k;
+            const t = p * k;
             // The `t` checks are needed because we expanded the [p0, p1] by 1 in each direction.
             if (t < d0) continue;
             if (t > d1) break;
@@ -179,7 +179,7 @@ export class LogScale extends ContinuousScale {
       } else {
         for (; p0 < p1; ++p0) {
           for (let k = base - 1, p = this.basePow(p0); k >= 1; --k) {
-            let t = p * k;
+            const t = p * k;
             if (t < d0) continue;
             if (t > d1) break;
             z.push(t);
@@ -210,7 +210,7 @@ export class LogScale extends ContinuousScale {
       specifier = format(specifier as string);
     }
 
-    if (count === Infinity) {
+    if (count === Number.POSITIVE_INFINITY) {
       return specifier;
     }
 

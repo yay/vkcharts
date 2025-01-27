@@ -1,5 +1,6 @@
 import { BBox } from '../scene/bbox';
 import { ClipRect } from '../scene/clipRect';
+import type { Node } from '../scene/node';
 import { Chart } from './chart';
 
 export class HierarchyChart extends Chart {
@@ -9,11 +10,10 @@ export class HierarchyChart extends Chart {
   constructor(document = window.document) {
     super(document);
 
+    const root = this.scene.root as Node;
     // Prevent the scene from rendering chart components in an invalid state
     // (before first layout is performed).
-    this.scene.root!!.visible = false;
-
-    const root = this.scene.root!;
+    root.visible = false;
     root.append(this.seriesRoot);
     root.append(this.legend.group);
   }
@@ -30,7 +30,7 @@ export class HierarchyChart extends Chart {
       return;
     }
 
-    this.scene.root!!.visible = true;
+    (this.scene.root as Node).visible = true;
 
     const { width, height, legend } = this;
 

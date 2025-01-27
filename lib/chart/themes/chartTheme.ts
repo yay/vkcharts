@@ -1,10 +1,10 @@
-import { deepMerge, defaultIsMergeableObject, getValue, isObject } from '../../util/object';
 import { copy } from '../../util/array';
-import { type VkChartThemePalette, type VkChartThemeOptions, type VkChartThemeOverrides } from '../vkChartOptions';
-import { Series } from '../series/series';
+import { deepMerge, defaultIsMergeableObject, getValue, isObject } from '../../util/object';
 import { Padding } from '../../util/padding';
-import { Chart } from '../chart';
 import { TimeInterval } from '../../util/time/interval';
+import { Chart } from '../chart';
+import type { Series } from '../series/series';
+import type { VkChartThemeOptions, VkChartThemeOverrides, VkChartThemePalette } from '../vkChartOptions';
 
 const palette: VkChartThemePalette = {
   fills: ['#f3622d', '#fba71b', '#57b757', '#41a9c9', '#4258c9', '#9a42c8', '#c84164', '#888888'],
@@ -50,14 +50,14 @@ export class ChartTheme {
         fontStyle: undefined,
         fontWeight: 'bold',
         fontSize: 12,
-        fontFamily: this.fontFamily,
+        fontFamily: ChartTheme.fontFamily,
         color: 'rgb(70, 70, 70)',
       },
       label: {
         fontStyle: undefined,
         fontWeight: undefined,
         fontSize: 12,
-        fontFamily: this.fontFamily,
+        fontFamily: ChartTheme.fontFamily,
         padding: 5,
         rotation: 0,
         color: 'rgb(87, 87, 87)',
@@ -105,7 +105,7 @@ export class ChartTheme {
 
   private static getBarSeriesDefaults(): any {
     return {
-      ...this.getSeriesDefaults(),
+      ...ChartTheme.getSeriesDefaults(),
       flipXY: false,
       fillOpacity: 1,
       strokeOpacity: 1,
@@ -124,7 +124,7 @@ export class ChartTheme {
         fontStyle: undefined,
         fontWeight: undefined,
         fontSize: 12,
-        fontFamily: this.fontFamily,
+        fontFamily: ChartTheme.fontFamily,
         color: 'rgb(70, 70, 70)',
         formatter: undefined,
         placement: 'inside',
@@ -177,7 +177,7 @@ export class ChartTheme {
         fontStyle: undefined,
         fontWeight: 'bold',
         fontSize: 16,
-        fontFamily: this.fontFamily,
+        fontFamily: ChartTheme.fontFamily,
         color: 'rgb(70, 70, 70)',
       },
       subtitle: {
@@ -192,7 +192,7 @@ export class ChartTheme {
         fontStyle: undefined,
         fontWeight: undefined,
         fontSize: 12,
-        fontFamily: this.fontFamily,
+        fontFamily: ChartTheme.fontFamily,
         color: 'rgb(140, 140, 140)',
       },
       legend: {
@@ -213,7 +213,7 @@ export class ChartTheme {
             fontStyle: undefined,
             fontWeight: undefined,
             fontSize: 12,
-            fontFamily: this.fontFamily,
+            fontFamily: ChartTheme.fontFamily,
             formatter: undefined,
           },
         },
@@ -505,7 +505,7 @@ export class ChartTheme {
   };
 
   constructor(options?: VkChartThemeOptions) {
-    let defaults = this.createChartConfigPerSeries(this.getDefaults());
+    const defaults = this.createChartConfigPerSeries(this.getDefaults());
     if (isObject(options)) {
       options = deepMerge({}, options, mergeOptions) as VkChartThemeOptions;
       const overrides = options.overrides;
@@ -544,7 +544,7 @@ export class ChartTheme {
         });
       }
     }
-    this.palette = options && options.palette ? options.palette : this.getPalette();
+    this.palette = options?.palette ? options.palette : this.getPalette();
 
     this.config = Object.freeze(defaults);
   }
@@ -553,7 +553,7 @@ export class ChartTheme {
   private static polarSeriesTypes: (keyof VkChartThemeOverrides)[] = ['pie'];
   private static hierarchySeriesTypes: (keyof VkChartThemeOverrides)[] = ['treemap'];
   private static seriesTypes: (keyof VkChartThemeOverrides)[] = ChartTheme.cartesianSeriesTypes.concat(
-    ChartTheme.polarSeriesTypes
+    ChartTheme.polarSeriesTypes,
   );
 
   private createChartConfigPerSeries(config: any) {
@@ -612,7 +612,7 @@ export class ChartTheme {
     const { palette } = this;
     const colorCount = this.getSeriesColorCount(seriesOptions);
 
-    if (colorCount === Infinity) {
+    if (colorCount === Number.POSITIVE_INFINITY) {
       series.setColors(palette.fills, palette.strokes);
     } else {
       const fills = copy(palette.fills, firstColorIndex, colorCount);
@@ -651,7 +651,7 @@ export class ChartTheme {
       case 'area':
         return this.getYKeyCount(seriesOptions.yKeys);
       case 'pie':
-        return Infinity;
+        return Number.POSITIVE_INFINITY;
       default:
         return 1;
     }

@@ -1,4 +1,4 @@
-import { describe, expect, it } from '@jest/globals';
+import { describe, expect, it } from 'vitest';
 import { interpolate } from './string';
 import { locale } from './time/format/defaultLocale';
 
@@ -62,7 +62,7 @@ describe('interpolate', () => {
           options,
         },
         date: '%A, %b %d %Y',
-      }
+      },
     );
     expect(result1).toBe(`I drank ${formattedAmount1} of beer and ${formattedAmount2} of vodka on ${formattedDate}`);
   });

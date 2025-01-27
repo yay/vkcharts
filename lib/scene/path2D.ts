@@ -171,7 +171,7 @@ export class Path2D {
     phi: number,
     theta1: number,
     theta2: number,
-    anticlockwise: number
+    anticlockwise: number,
   ) {
     if (anticlockwise) {
       const temp = theta1;
@@ -233,7 +233,7 @@ export class Path2D {
         xx * f90 + xy + cx,
         yx * f90 + yy + cy,
         Math.abs(lastX) < 1e-8 ? 0 : lastX,
-        yy + cy
+        yy + cy,
       );
       // Prepend π/2 rotation matrix.
       // |xx xy| | 0 1| -> | xy -xx|
@@ -269,7 +269,7 @@ export class Path2D {
         xx * C2x + xy * C2y + cx,
         yx * C2x + yy * C2y + cy,
         Math.abs(lastX) < 1e-8 ? 0 : lastX,
-        yx * cosPhi2 + yy * sinPhi2 + cy
+        yx * cosPhi2 + yy * sinPhi2 + cy,
       );
     }
     if (anticlockwise) {
@@ -292,7 +292,7 @@ export class Path2D {
     phi: number,
     theta1: number,
     theta2: number,
-    anticlockwise: number
+    anticlockwise: number,
   ) {
     const commands = this.commands;
     const params = this.params;
@@ -332,7 +332,7 @@ export class Path2D {
       for (let i = 0; i < last; i += 2) {
         newPoints.push(
           (1 - t) * points[i] + t * points[i + 2], // x
-          (1 - t) * points[i + 1] + t * points[i + 3] // y
+          (1 - t) * points[i + 1] + t * points[i + 3], // y
         );
       }
       return this.deCasteljau(newPoints, t);
@@ -373,7 +373,7 @@ export class Path2D {
       (2 * cx + x) / 3,
       (2 * cy + y) / 3, // 2/3 control + 1/3 end
       x,
-      y
+      y,
     );
   }
 
@@ -426,8 +426,8 @@ export class Path2D {
     const ox = -10000;
     const oy = -10000;
     // the starting point of the  current path
-    let sx: number = NaN;
-    let sy: number = NaN;
+    let sx: number = Number.NaN;
+    let sy: number = Number.NaN;
     // the previous point of the current path
     let px = 0;
     let py = 0;
@@ -436,7 +436,7 @@ export class Path2D {
     for (let ci = 0, pi = 0; ci < cn; ci++) {
       switch (commands[ci]) {
         case 'M':
-          if (!isNaN(sx)) {
+          if (!Number.isNaN(sx)) {
             if (segmentIntersection(sx, sy, px, py, ox, oy, x, y)) {
               intersectionCount++;
             }
@@ -462,11 +462,11 @@ export class Path2D {
             ox,
             oy,
             x,
-            y
+            y,
           ).length;
           break;
         case 'Z':
-          if (!isNaN(sx)) {
+          if (!Number.isNaN(sx)) {
             if (segmentIntersection(sx, sy, px, py, ox, oy, x, y)) {
               intersectionCount++;
             }
@@ -497,7 +497,7 @@ export class Path2D {
         const strParams = part.match(Path2D.matchParamsRe);
         return {
           command: part.substr(0, 1),
-          params: strParams ? strParams.map(parseFloat) : [],
+          params: strParams ? strParams.map(Number.parseFloat) : [],
         };
       });
   }
@@ -584,7 +584,7 @@ export class Path2D {
               (cpx = x + p[i++]),
               (cpy = y + p[i++]),
               (x += p[i++]),
-              (y += p[i++])
+              (y += p[i++]),
             );
           }
           break;
@@ -603,7 +603,7 @@ export class Path2D {
               (cpx = x + p[i++]),
               (cpy = y + p[i++]),
               (x += p[i++]),
-              (y += p[i++])
+              (y += p[i++]),
             );
           }
           break;
@@ -739,13 +739,14 @@ export class Path2D {
           path = [(sx = px = params[i++]), (sy = py = params[i++])];
           paths.push(path);
           break;
-        case 'L':
+        case 'L': {
           const x = params[i++];
           const y = params[i++];
           // Place control points along the line `a + (b - a) * t`
           // at t = 1/3 and 2/3:
           path.push((px + px + x) / 3, (py + py + y) / 3, (px + x + x) / 3, (py + y + y) / 3, (px = x), (py = y));
           break;
+        }
         case 'C':
           path.push(params[i++], params[i++], params[i++], params[i++], (px = params[i++]), (py = params[i++]));
           break;
@@ -756,7 +757,7 @@ export class Path2D {
             (px + sx + sx) / 3,
             (py + sy + sy) / 3,
             (px = sx),
-            (py = sy)
+            (py = sy),
           );
           break;
       }

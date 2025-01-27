@@ -1,25 +1,25 @@
-import { ContinuousScale } from './continuousScale';
-import timeMillisecond from '../util/time/millisecond';
-import timeSecond from '../util/time/second';
-import timeMinute from '../util/time/minute';
-import timeHour from '../util/time/hour';
-import timeDay from '../util/time/day';
-import timeWeek from '../util/time/week';
-import timeMonth from '../util/time/month';
-import timeYear from '../util/time/year';
-import {
-  durationSecond,
-  durationMinute,
-  durationHour,
-  durationDay,
-  durationWeek,
-  durationMonth,
-  durationYear,
-} from '../util/time/duration';
-import { CountableTimeInterval, TimeInterval } from '../util/time/interval';
 import { complexBisectRight } from '../util/bisect';
 import { tickStep } from '../util/ticks';
+import timeDay from '../util/time/day';
+import {
+  durationDay,
+  durationHour,
+  durationMinute,
+  durationMonth,
+  durationSecond,
+  durationWeek,
+  durationYear,
+} from '../util/time/duration';
 import { locale } from '../util/time/format/defaultLocale';
+import timeHour from '../util/time/hour';
+import type { CountableTimeInterval, TimeInterval } from '../util/time/interval';
+import timeMillisecond from '../util/time/millisecond';
+import timeMinute from '../util/time/minute';
+import timeMonth from '../util/time/month';
+import timeSecond from '../util/time/second';
+import timeWeek from '../util/time/week';
+import timeYear from '../util/time/year';
+import { ContinuousScale } from './continuousScale';
 
 export class TimeScale extends ContinuousScale {
   readonly type = 'time';
@@ -78,18 +78,18 @@ export class TimeScale extends ContinuousScale {
       this.second.floor(date) < date
         ? this.formatMillisecond
         : this.minute.floor(date) < date
-        ? this.formatSecond
-        : this.hour.floor(date) < date
-        ? this.formatMinute
-        : this.day.floor(date) < date
-        ? this.formatHour
-        : this.month.floor(date) < date
-        ? this.week.floor(date) < date
-          ? this.formatDay
-          : this.formatWeek
-        : this.year.floor(date) < date
-        ? this.formatMonth
-        : this.formatYear
+          ? this.formatSecond
+          : this.hour.floor(date) < date
+            ? this.formatMinute
+            : this.day.floor(date) < date
+              ? this.formatHour
+              : this.month.floor(date) < date
+                ? this.week.floor(date) < date
+                  ? this.formatDay
+                  : this.formatWeek
+                : this.year.floor(date) < date
+                  ? this.formatMonth
+                  : this.formatYear
     )(date);
   }
 
@@ -107,7 +107,7 @@ export class TimeScale extends ContinuousScale {
     interval: number | CountableTimeInterval,
     start: number,
     stop: number,
-    step?: number
+    step?: number,
   ): CountableTimeInterval | TimeInterval | undefined {
     if (typeof interval === 'number') {
       const tickCount = interval;
@@ -125,7 +125,7 @@ export class TimeScale extends ContinuousScale {
       }
     }
 
-    return step == undefined ? interval : interval.every(step);
+    return step === undefined ? interval : interval.every(step);
   }
 
   protected _domain: Date[] = [new Date(2000, 0, 1), new Date(2000, 0, 2)];
@@ -169,7 +169,7 @@ export class TimeScale extends ContinuousScale {
    * If no specifier is provided, this method returns the default time format function.
    */
   tickFormat(_count: any, specifier?: string): (date: Date) => string {
-    return specifier == undefined ? this.defaultTickFormat.bind(this) : this.format(specifier);
+    return specifier === undefined ? this.defaultTickFormat.bind(this) : this.format(specifier);
   }
 
   /**

@@ -1,6 +1,6 @@
-import { expect, test } from '@jest/globals';
-import { Rect } from './shape/rect';
+import { expect, test } from 'vitest';
 import { Group } from './group';
+import { Rect } from './shape/rect';
 
 test('isNode', () => {
   const rect = new Rect();
@@ -22,5 +22,5 @@ test('nextSibling', () => {
 
   expect(node1.nextSibling).toBe(node2);
   expect(node2.nextSibling).toBe(node3);
-  expect(node1.nextSibling && node1.nextSibling.nextSibling).toBe(node3);
+  expect(node1.nextSibling?.nextSibling).toBe(node3);
 });

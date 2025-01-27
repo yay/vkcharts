@@ -1,8 +1,8 @@
-import { Path } from './path';
-import { Shape } from './shape';
+import { Color } from '../../util/color';
 import { BBox } from '../bbox';
 import { LinearGradient } from '../gradient/linearGradient';
-import { Color } from '../../util/color';
+import { Path } from './path';
+import { Shape } from './shape';
 
 export enum RectSizing {
   Content,
@@ -235,7 +235,7 @@ export class Rect extends Path {
       // has no effect on shadows, so we have to account for the pixel ratio
       // manually here.
       const fillShadow = this.fillShadow;
-      if (fillShadow && fillShadow.enabled) {
+      if (fillShadow?.enabled) {
         ctx.shadowColor = fillShadow.color;
         ctx.shadowOffsetX = fillShadow.xOffset * pixelRatio;
         ctx.shadowOffsetY = fillShadow.yOffset * pixelRatio;
@@ -265,7 +265,7 @@ export class Rect extends Path {
       }
 
       const strokeShadow = this.strokeShadow;
-      if (strokeShadow && strokeShadow.enabled) {
+      if (strokeShadow?.enabled) {
         ctx.shadowColor = strokeShadow.color;
         ctx.shadowOffsetX = strokeShadow.xOffset * pixelRatio;
         ctx.shadowOffsetY = strokeShadow.yOffset * pixelRatio;

@@ -13,7 +13,7 @@ export class FpsCounter {
   }
 
   private fps = 0;
-  private minFps = Infinity;
+  private minFps = Number.POSITIVE_INFINITY;
   private maxFps = 0;
   private pastFps: number[] = []; // A queue of recent FPS values.
   // Number of recent FPS values to keep for average FPS calculation.

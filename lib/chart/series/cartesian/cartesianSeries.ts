@@ -1,7 +1,7 @@
-import { Series } from '../series';
-import { ChartAxis, ChartAxisDirection } from '../../chartAxis';
-import { SeriesMarker, type SeriesMarkerFormatterParams } from '../seriesMarker';
 import { isContinuous, isDiscrete } from '../../../util/value';
+import { type ChartAxis, ChartAxisDirection } from '../../chartAxis';
+import { Series } from '../series';
+import { SeriesMarker, type SeriesMarkerFormatterParams } from '../seriesMarker';
 
 export abstract class CartesianSeries extends Series {
   directionKeys: { [key in ChartAxisDirection]?: string[] } = {
@@ -35,7 +35,7 @@ export abstract class CartesianSeries extends Series {
    * @returns
    */
   protected checkRangeXY(x: number, y: number, xAxis: ChartAxis, yAxis: ChartAxis): boolean {
-    return !isNaN(x) && !isNaN(y) && xAxis.inRange(x) && yAxis.inRange(y);
+    return !Number.isNaN(x) && !Number.isNaN(y) && xAxis.inRange(x) && yAxis.inRange(y);
   }
 }
 

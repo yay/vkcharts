@@ -1,12 +1,12 @@
 import { Group } from '../../scene/group';
-import { type LegendDatum } from '../legend';
-import { Observable, reactive } from '../../util/observable';
-import { ChartAxis, ChartAxisDirection } from '../chartAxis';
-import { Chart } from '../chart';
 import { createId } from '../../util/id';
-import { Label } from '../label';
-import { type PointLabelDatum } from '../../util/labelPlacement';
+import type { PointLabelDatum } from '../../util/labelPlacement';
+import { Observable, reactive } from '../../util/observable';
 import { isNumber } from '../../util/value';
+import type { Chart } from '../chart';
+import { type ChartAxis, ChartAxisDirection } from '../chartAxis';
+import { Label } from '../label';
+import type { LegendDatum } from '../legend';
 
 /**
  * Processed series datum used in node selections,
@@ -112,7 +112,7 @@ export abstract class Series extends Observable {
   // Returns the actual keys used (to fetch the values from `data` items) for the given direction.
   getKeys(direction: ChartAxisDirection): string[] {
     const { directionKeys } = this;
-    const keys = directionKeys && directionKeys[direction];
+    const keys = directionKeys?.[direction];
     const values: string[] = [];
 
     if (keys) {
@@ -210,8 +210,7 @@ export abstract class Series extends Observable {
         series: { strokeWidth },
       },
     } = this;
-    return chart &&
-      chart.highlightedDatum &&
+    return chart?.highlightedDatum &&
       chart.highlightedDatum.series === this &&
       (!datum || chart.highlightedDatum.itemId === datum.itemId) &&
       strokeWidth !== undefined

@@ -12,7 +12,6 @@ import { Padding } from '../../lib/util/padding';
 import { LogScale } from '../../lib/scale/logScale';
 import { LinearScale } from '../../lib/scale/linearScale';
 import { type VkCartesianAxisType, type VkCartesianChartOptions } from '../../lib/chart/vkChartOptions';
-import { Observable } from '../../lib/util/observable';
 
 type Datum = {
   category: string;

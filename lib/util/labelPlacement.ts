@@ -28,8 +28,8 @@ interface Bounds {
 
 function circleRectOverlap(cx: number, cy: number, r: number, x: number, y: number, w: number, h: number): boolean {
   // Find closest horizontal and vertical edges.
-  let edgeX = cx < x ? x : cx > x + w ? x + w : cx;
-  let edgeY = cy < y ? y : cy > y + h ? y + h : cy;
+  const edgeX = cx < x ? x : cx > x + w ? x + w : cx;
+  const edgeY = cy < y ? y : cy > y + h ? y + h : cy;
   // Find distance to closest edges.
   const dx = cx - edgeX;
   const dy = cy - edgeY;
@@ -45,7 +45,7 @@ function rectRectOverlap(
   x2: number,
   y2: number,
   w2: number,
-  h2: number
+  h2: number,
 ): boolean {
   const xOverlap = x1 + w1 > x2 && x1 < x2 + w2;
   const yOverlap = y1 + h1 > y2 && y1 < y2 + h2;
@@ -60,7 +60,7 @@ function rectContainsRect(
   r2x: number,
   r2y: number,
   r2w: number,
-  r2h: number
+  r2h: number,
 ) {
   return r2x + r2w < r1x + r1w && r2x > r1x && r2y > r1y && r2y + r2h < r1y + r1h;
 }
@@ -73,7 +73,7 @@ function rectContainsRect(
 export function placeLabels(
   data: readonly (readonly PointLabelDatum[])[],
   bounds?: Bounds,
-  padding = 5
+  padding = 5,
 ): PlacedLabel[][] {
   const result: PlacedLabel[][] = [];
 
@@ -81,7 +81,7 @@ export function placeLabels(
   for (let j = 0; j < data.length; j++) {
     const labels: PlacedLabel[] = (result[j] = []);
     const datum = data[j];
-    if (!(datum && datum.length && datum[0].label)) {
+    if (!(datum?.length && datum[0].label)) {
       continue;
     }
     for (let i = 0, ln = datum.length; i < ln; i++) {
@@ -99,14 +99,14 @@ export function placeLabels(
       }
 
       const overlapPoints = data.some((datum) =>
-        datum.some((d) => circleRectOverlap(d.point.x, d.point.y, d.size * 0.5, x, y, width, height))
+        datum.some((d) => circleRectOverlap(d.point.x, d.point.y, d.size * 0.5, x, y, width, height)),
       );
       if (overlapPoints) {
         continue;
       }
 
       const overlapLabels = result.some((labels) =>
-        labels.some((l) => rectRectOverlap(l.x, l.y, l.width, l.height, x, y, width, height))
+        labels.some((l) => rectRectOverlap(l.x, l.y, l.width, l.height, x, y, width, height)),
       );
       if (overlapLabels) {
         continue;

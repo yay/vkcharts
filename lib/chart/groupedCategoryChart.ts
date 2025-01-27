@@ -1,8 +1,8 @@
-import { CartesianChart } from './cartesianChart';
 import { extent } from '../util/array';
-import { GroupedCategoryAxis } from './axis/groupedCategoryAxis';
-import { ChartAxis, ChartAxisDirection } from './chartAxis';
 import { isContinuous } from '../util/value';
+import type { GroupedCategoryAxis } from './axis/groupedCategoryAxis';
+import { CartesianChart } from './cartesianChart';
+import { type ChartAxis, ChartAxisDirection } from './chartAxis';
 
 export type GroupedCategoryChartAxis = GroupedCategoryAxis | ChartAxis;
 

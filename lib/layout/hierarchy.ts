@@ -11,8 +11,8 @@ export class HierarchyNode {
   }
 
   private countFn(node: HierarchyNode) {
-    var sum = 0,
-      children = node.children;
+    let sum = 0;
+    const children = node.children;
 
     if (!children || !children.length) {
       sum = 1;
@@ -121,7 +121,7 @@ export class HierarchyNode {
   }
 
   sort(compare?: (a: HierarchyNode, b: HierarchyNode) => number): this {
-    return this.eachBefore(function (node) {
+    return this.eachBefore((node) => {
       if (node.children) {
         node.children.sort(compare);
       }
@@ -177,10 +177,9 @@ export class HierarchyNode {
   }
 
   links() {
-    let root = this;
     const links: { source: HierarchyNode | undefined; target: HierarchyNode }[] = [];
-    root.each((node) => {
-      if (node !== root) {
+    this.each((node) => {
+      if (node !== this) {
         // Don’t include the root’s parent, if any.
         links.push({ source: node.parent, target: node });
       }
@@ -195,7 +194,7 @@ export class HierarchyNode {
   iterator(callback: (node: HierarchyNode) => any) {
     let node: HierarchyNode | undefined = this;
     let next: HierarchyNode[] = [node];
-    let current;
+    let current = [];
 
     doLoop: do {
       current = next.reverse();
@@ -228,12 +227,14 @@ export function hierarchy(data: any[], children?: (d: any) => any[]): HierarchyN
   const root = new HierarchyNode(data);
   const nodes = [root];
   let node: HierarchyNode | undefined;
-  let child, childs, i, n;
+  let child: HierarchyNode;
+  let childs: HierarchyNode[];
+  let n: number;
 
   while ((node = nodes.pop())) {
     if ((childs = children(node.datum)) && (n = (childs = Array.from(childs)).length)) {
       node.children = childs;
-      for (i = n - 1; i >= 0; --i) {
+      for (let i = n - 1; i >= 0; --i) {
         nodes.push((child = childs[i] = new HierarchyNode(childs[i])));
         child.parent = node;
         child.depth = node.depth + 1;

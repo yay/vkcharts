@@ -1,5 +1,5 @@
+import type { VkChartThemePalette } from '../vkChartOptions';
 import { DarkTheme } from './darkTheme';
-import { type VkChartThemePalette } from '../vkChartOptions';
 
 const palette: VkChartThemePalette = {
   fills: ['#5BC0EB', '#FDE74C', '#9BC53D', '#E55934', '#FA7921', '#fa3081'],

@@ -28,21 +28,21 @@ export class Observable {
   addPropertyListener<K extends string & keyof this>(
     name: K,
     listener: PropertyChangeEventListener<this, this[K]>,
-    scope: Object = this
+    scope: object = this,
   ): void {
     const allPropertyListeners = this.allPropertyListeners as Map<
       K,
-      Map<PropertyChangeEventListener<this, this[K]>, Set<Object>>
+      Map<PropertyChangeEventListener<this, this[K]>, Set<object>>
     >;
     let propertyListeners = allPropertyListeners.get(name);
 
     if (!propertyListeners) {
-      propertyListeners = new Map<PropertyChangeEventListener<this, this[K]>, Set<Object>>();
+      propertyListeners = new Map<PropertyChangeEventListener<this, this[K]>, Set<object>>();
       allPropertyListeners.set(name, propertyListeners);
     }
 
     if (!propertyListeners.has(listener)) {
-      const scopes = new Set<Object>();
+      const scopes = new Set<object>();
       propertyListeners.set(listener, scopes);
     }
     const scopes = propertyListeners.get(listener);
@@ -54,13 +54,13 @@ export class Observable {
   removePropertyListener<K extends string & keyof this>(
     name: K,
     listener?: PropertyChangeEventListener<this, this[K]>,
-    scope: Object = this
+    scope: object = this,
   ): void {
     const allPropertyListeners = this.allPropertyListeners as Map<
       K,
-      Map<PropertyChangeEventListener<this, this[K]>, Set<Object>>
+      Map<PropertyChangeEventListener<this, this[K]>, Set<object>>
     >;
-    let propertyListeners = allPropertyListeners.get(name);
+    const propertyListeners = allPropertyListeners.get(name);
 
     if (propertyListeners) {
       if (listener) {
@@ -80,7 +80,7 @@ export class Observable {
   protected notifyPropertyListeners<K extends string & keyof this>(name: K, oldValue: this[K], value: this[K]): void {
     const allPropertyListeners = this.allPropertyListeners as Map<
       K,
-      Map<PropertyChangeEventListener<this, this[K]>, Set<Object>>
+      Map<PropertyChangeEventListener<this, this[K]>, Set<object>>
     >;
     const propertyListeners = allPropertyListeners.get(name);
 
@@ -91,17 +91,17 @@ export class Observable {
     }
   }
 
-  addEventListener(type: string, listener: SourceEventListener<this>, scope: Object = this): void {
-    const allEventListeners = this.allEventListeners as Map<string, Map<SourceEventListener<this>, Set<Object>>>;
+  addEventListener(type: string, listener: SourceEventListener<this>, scope: object = this): void {
+    const allEventListeners = this.allEventListeners as Map<string, Map<SourceEventListener<this>, Set<object>>>;
     let eventListeners = allEventListeners.get(type);
 
     if (!eventListeners) {
-      eventListeners = new Map<SourceEventListener<this>, Set<Object>>();
+      eventListeners = new Map<SourceEventListener<this>, Set<object>>();
       allEventListeners.set(type, eventListeners);
     }
 
     if (!eventListeners.has(listener)) {
-      const scopes = new Set<Object>();
+      const scopes = new Set<object>();
       eventListeners.set(listener, scopes);
     }
     const scopes = eventListeners.get(listener);
@@ -110,9 +110,9 @@ export class Observable {
     }
   }
 
-  removeEventListener(type: string, listener?: SourceEventListener<this>, scope: Object = this): void {
-    const allEventListeners = this.allEventListeners as Map<string, Map<SourceEventListener<this>, Set<Object>>>;
-    let eventListeners = allEventListeners.get(type);
+  removeEventListener(type: string, listener?: SourceEventListener<this>, scope: object = this): void {
+    const allEventListeners = this.allEventListeners as Map<string, Map<SourceEventListener<this>, Set<object>>>;
+    const eventListeners = allEventListeners.get(type);
 
     if (eventListeners) {
       if (listener) {
@@ -130,7 +130,7 @@ export class Observable {
   }
 
   protected notifyEventListeners(types: string[]): void {
-    const allEventListeners = this.allEventListeners as Map<string, Map<SourceEventListener<this>, Set<Object>>>;
+    const allEventListeners = this.allEventListeners as Map<string, Map<SourceEventListener<this>, Set<object>>>;
 
     types.forEach((type) => {
       const listeners = allEventListeners.get(type);
@@ -144,8 +144,8 @@ export class Observable {
 
   // 'source' is added automatically and is always the object this method belongs to.
   fireEvent<E extends TypedEvent>(event: Omit<E, 'source'>): void {
-    const listeners = (this.allEventListeners as Map<string, Map<SourceEventListener<this>, Set<Object>>>).get(
-      event.type
+    const listeners = (this.allEventListeners as Map<string, Map<SourceEventListener<this>, Set<object>>>).get(
+      event.type,
     );
 
     if (listeners) {
@@ -157,8 +157,8 @@ export class Observable {
 }
 
 export function reactive(...events: string[]) {
-  let debug = events.indexOf('debugger') >= 0;
-  return function (target: any, key: string) {
+  const debug = events.indexOf('debugger') >= 0;
+  return (target: any, key: string) => {
     // `target` is either a constructor (static member) or prototype (instance member)
     const privateKey = Observable.privateKeyPrefix + key;
     const privateKeyEvents = privateKey + 'Events';
@@ -175,6 +175,7 @@ export function reactive(...events: string[]) {
           //  @reactive('layoutChange', 'debugger') title?: Caption;
           if (debug) {
             // DO NOT REMOVE
+            // biome-ignore lint/suspicious/noDebugger: `debug` is always false, unless explicitly enabled
             debugger;
           }
           if (value !== oldValue || (typeof value === 'object' && value !== null)) {

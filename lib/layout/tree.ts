@@ -13,8 +13,8 @@ class TreeNode {
   label: string;
   x: number = 0;
   y: number = 0;
-  subtreeLeft: number = NaN;
-  subtreeRight: number = NaN;
+  subtreeLeft: number = Number.NaN;
+  subtreeRight: number = Number.NaN;
   screenX: number = 0;
   screenY: number = 0;
   parent?: TreeNode;
@@ -214,10 +214,10 @@ function firstWalk(node: TreeNode, distance: number) {
 }
 
 class Dimensions {
-  top: number = Infinity;
-  right: number = -Infinity;
-  bottom: number = -Infinity;
-  left: number = Infinity;
+  top: number = Number.POSITIVE_INFINITY;
+  right: number = Number.NEGATIVE_INFINITY;
+  bottom: number = Number.NEGATIVE_INFINITY;
+  left: number = Number.POSITIVE_INFINITY;
 
   update(node: TreeNode, xy: (node: TreeNode) => { x: number; y: number }) {
     const { x, y } = xy(node);

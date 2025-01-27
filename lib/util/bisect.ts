@@ -19,7 +19,7 @@ export function bisectLeft<T>(
   x: T,
   comparator: Comparator<T>,
   lo: number = 0,
-  hi: number = list.length
+  hi: number = list.length,
 ): number {
   while (lo < hi) {
     const mid = (lo + hi) >>> 1;
@@ -38,7 +38,7 @@ export function bisectRight<T>(
   x: T,
   comparator: Comparator<T>,
   lo: number = 0,
-  hi: number = list.length
+  hi: number = list.length,
 ): number {
   while (lo < hi) {
     const mid = (lo + hi) >>> 1;
@@ -67,7 +67,7 @@ export function complexBisectLeft<T, U>(
   x: U,
   map: (item: T) => U,
   lo: number = 0,
-  hi: number = list.length
+  hi: number = list.length,
 ): number {
   const comparator = ascendingComparator(map);
   while (lo < hi) {
@@ -86,7 +86,7 @@ export function complexBisectRight<T, U>(
   x: U,
   map: (item: T) => U,
   lo: number = 0,
-  hi: number = list.length
+  hi: number = list.length,
 ): number {
   const comparator = ascendingComparator(map);
   while (lo < hi) {
@@ -101,7 +101,5 @@ export function complexBisectRight<T, U>(
 }
 
 function ascendingComparator<T, U>(map: (item: T) => U) {
-  return function (item: T, x: U) {
-    return ascending(map(item), x);
-  };
+  return (item: T, x: U) => ascending(map(item), x);
 }

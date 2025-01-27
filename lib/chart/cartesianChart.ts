@@ -1,11 +1,12 @@
-import { Chart } from './chart';
-import { CategoryAxis } from './axis/categoryAxis';
-import { GroupedCategoryAxis } from './axis/groupedCategoryAxis';
-import { ChartAxisPosition, ChartAxisDirection } from './chartAxis';
-import { Series } from './series/series';
 import { BBox } from '../scene/bbox';
 import { ClipRect } from '../scene/clipRect';
+import type { Node } from '../scene/node';
+import { CategoryAxis } from './axis/categoryAxis';
+import { GroupedCategoryAxis } from './axis/groupedCategoryAxis';
+import { Chart } from './chart';
+import { ChartAxisDirection, ChartAxisPosition } from './chartAxis';
 import { Navigator } from './navigator/navigator';
+import type { Series } from './series/series';
 
 export class CartesianChart extends Chart {
   static className = 'CartesianChart';
@@ -14,11 +15,10 @@ export class CartesianChart extends Chart {
   constructor(document = window.document) {
     super(document);
 
+    const root = this.scene.root as Node;
     // Prevent the scene from rendering chart components in an invalid state
     // (before first layout is performed).
-    this.scene.root!!.visible = false;
-
-    const root = this.scene.root!;
+    root.visible = false;
     root.append(this.seriesRoot);
     root.append(this.legend.group);
 
@@ -37,7 +37,7 @@ export class CartesianChart extends Chart {
       return;
     }
 
-    this.scene.root!!.visible = true;
+    (this.scene.root as Node).visible = true;
 
     const { width, height, axes, legend, navigator } = this;
 

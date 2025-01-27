@@ -1,7 +1,7 @@
 export function createButton(
   text: string,
   action: EventListenerOrEventListenerObject,
-  parent = document.body
+  parent = document.body,
 ): HTMLButtonElement {
   const button = document.createElement('button');
   button.textContent = text;
@@ -22,7 +22,7 @@ const wrapInLabel = (labelText: string, ele: HTMLElement) => {
 export function createDropdown<D>(
   labelText: string,
   values: D[] | { [label: string]: D },
-  action: (value: D) => void
+  action: (value: D) => void,
 ): void {
   const select: HTMLSelectElement = document.createElement('select');
 
@@ -31,7 +31,7 @@ export function createDropdown<D>(
 
     option.setAttribute('value', key);
 
-    if (values instanceof Array) {
+    if (Array.isArray(values)) {
       option.appendChild(document.createTextNode(String(value)));
     } else {
       option.appendChild(document.createTextNode(key));
@@ -45,7 +45,7 @@ export function createDropdown<D>(
 
     let selectionOption: D;
 
-    if (values instanceof Array) {
+    if (Array.isArray(values)) {
       selectionOption = values[Number(selectedKey)];
     } else {
       selectionOption = values[selectedKey];
@@ -70,7 +70,7 @@ export function createSlider<D>(
   text: string,
   values: D[],
   action: (value: D) => any,
-  parent = document.body
+  parent = document.body,
 ): HTMLInputElement {
   const n = values.length;
   const id = String(Date.now());
@@ -133,7 +133,7 @@ export function createRangeSlider(
   text: string,
   range: [number, number],
   step: number,
-  action: (min: number, max: number) => any
+  action: (min: number, max: number) => any,
 ): HTMLInputElement {
   const id = String(Date.now());
   const sliderId = 'slider-' + id;
@@ -210,12 +210,12 @@ export function createRangeSlider(
 }
 
 export function createSlider2(options = {} as any) {
-  var values = options.values;
-  var n = values && values.length;
-  var id = String(Date.now());
-  var sliderId = 'slider-' + id;
+  const values = options.values;
+  const n = values?.length;
+  const id = String(Date.now());
+  const sliderId = 'slider-' + id;
 
-  var wrapper = document.createElement('div');
+  const wrapper = document.createElement('div');
   wrapper.style.display = 'inline-flex';
   wrapper.style.alignItems = 'center';
   wrapper.style.width = (options.width || 300) + 'px';
@@ -225,7 +225,7 @@ export function createSlider2(options = {} as any) {
   wrapper.style.borderRadius = '5px';
   wrapper.style.backgroundColor = 'white';
 
-  var slider = document.createElement('input');
+  const slider = document.createElement('input');
   slider.type = 'range';
   slider.setAttribute('id', sliderId);
   slider.style.height = '1.8em';
@@ -237,14 +237,14 @@ export function createSlider2(options = {} as any) {
     }
   }
 
-  var label = document.createElement('label');
+  const label = document.createElement('label');
   label.setAttribute('for', sliderId);
   label.style.font = '12px sans-serif';
   label.style.marginRight = '5px';
 
   if (values) {
     values.forEach((value: any, index: any) => {
-      var option = document.createElement('option');
+      const option = document.createElement('option');
       option.setAttribute('value', String(index));
       option.setAttribute('label', String(value));
     });
@@ -264,10 +264,10 @@ export function createSlider2(options = {} as any) {
   wrapper.appendChild(slider);
   document.body.appendChild(wrapper);
 
-  var action = options.action;
+  const action = options.action;
   if (action) {
-    slider.addEventListener('input', function (e: any) {
-      var value = +e.target.value;
+    slider.addEventListener('input', (e: any) => {
+      let value = +e.target.value;
       if (values) {
         value = values[value];
       }

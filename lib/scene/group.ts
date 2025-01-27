@@ -1,6 +1,6 @@
-import { Node } from './node';
 import { BBox } from './bbox';
 import { Matrix } from './matrix';
+import { Node } from './node';
 
 export class Group extends Node {
   static className = 'Group';
@@ -25,10 +25,10 @@ export class Group extends Node {
   }
 
   computeBBox(): BBox {
-    let left = Infinity;
-    let right = -Infinity;
-    let top = Infinity;
-    let bottom = -Infinity;
+    let left = Number.POSITIVE_INFINITY;
+    let right = Number.NEGATIVE_INFINITY;
+    let top = Number.POSITIVE_INFINITY;
+    let bottom = Number.NEGATIVE_INFINITY;
 
     if (this.dirtyTransform) {
       this.computeTransformMatrix();

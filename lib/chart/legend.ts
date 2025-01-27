@@ -1,12 +1,12 @@
+import type { BBox } from '../scene/bbox';
 import { Group } from '../scene/group';
 import { Selection } from '../scene/selection';
-import { MarkerLabel } from './markerLabel';
-import { BBox } from '../scene/bbox';
-import { type FontStyle, type FontWeight } from '../scene/shape/text';
-import { Marker } from './marker/marker';
-import { reactive, Observable, type PropertyChangeEvent, type SourceEvent } from '../util/observable';
-import { getMarker } from './marker/util';
+import type { FontStyle, FontWeight } from '../scene/shape/text';
 import { createId } from '../util/id';
+import { Observable, type PropertyChangeEvent, type SourceEvent, reactive } from '../util/observable';
+import type { Marker } from './marker/marker';
+import { getMarker } from './marker/util';
+import { MarkerLabel } from './markerLabel';
 
 export interface LegendDatum {
   id: string; // component ID
@@ -110,7 +110,7 @@ export class Legend extends Observable {
   readonly group: Group = new Group();
 
   private itemSelection: Selection<MarkerLabel, Group, any, any> = Selection.select(
-    this.group
+    this.group,
   ).selectAll<MarkerLabel>();
 
   private oldSize: [number, number] = [0, 0];
@@ -231,8 +231,8 @@ export class Legend extends Observable {
     height = Math.max(1, height);
 
     switch (this.orientation) {
-      case LegendOrientation.Horizontal:
-        if (!(isFinite(width) && width > 0)) {
+      case LegendOrientation.Horizontal: {
+        if (!(Number.isFinite(width) && width > 0)) {
           return false;
         }
 
@@ -270,9 +270,10 @@ export class Legend extends Observable {
         paddedItemsHeight = itemHeight * rowCount + (rowCount - 1) * paddingY;
 
         break;
+      }
 
       case LegendOrientation.Vertical:
-        if (!(isFinite(height) && height > 0)) {
+        if (!(Number.isFinite(height) && height > 0)) {
           return false;
         }
 
@@ -373,7 +374,7 @@ export class Legend extends Observable {
   getDatumForPoint(x: number, y: number): LegendDatum | undefined {
     const node = this.group.pickNode(x, y);
 
-    if (node && node.parent) {
+    if (node?.parent) {
       return node.parent.datum;
     }
 

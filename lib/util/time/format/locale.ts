@@ -1,9 +1,9 @@
 import timeDay from '../day';
-import year from '../year';
-import { sunday as timeSunday, monday as timeMonday, thursday as timeThursday } from '../week';
 import utcDay from '../utcDay';
-import utcYear from '../utcYear';
 import utcSunday, { utcMonday, utcThursday } from '../utcWeek';
+import utcYear from '../utcYear';
+import { monday as timeMonday, sunday as timeSunday, thursday as timeThursday } from '../week';
+import year from '../year';
 
 type FormatKeys =
   | 'a'
@@ -395,11 +395,11 @@ export default function formatLocale(timeLocale: TimeLocaleDefinition): TimeLoca
   utcFormats.c = newFormat(lDateTime, utcFormats);
 
   function newParse(specifier: string, newDate: (d: ParsedDate) => Date): (str: string) => Date | undefined {
-    return function (str: string) {
+    return (str: string) => {
       const d = newYear(1900);
       const i = parseSpecifier(d, specifier, (str += ''), 0);
 
-      if (i != str.length) {
+      if (i !== str.length) {
         return undefined;
       }
 
@@ -481,7 +481,7 @@ export default function formatLocale(timeLocale: TimeLocaleDefinition): TimeLoca
           string.push(specifier.slice(j, i)); // copy the chunks of specifier with no directives as is
           let c: string | number = specifier.charAt(++i);
           let pad = pads[c];
-          if (pad != undefined) {
+          if (pad !== undefined) {
             // if format directive has a padding modifier in front of it
             c = specifier.charAt(++i); // fetch the directive itself
           } else {
@@ -522,7 +522,7 @@ export default function formatLocale(timeLocale: TimeLocaleDefinition): TimeLoca
         if (!parse || (j = parse(d, string, j)) < 0) {
           return -1;
         }
-      } else if (code != string.charCodeAt(j++)) {
+      } else if (code !== string.charCodeAt(j++)) {
         return -1;
       }
     }
@@ -601,6 +601,7 @@ export default function formatLocale(timeLocale: TimeLocaleDefinition): TimeLoca
   }
   function formatZone(date: Date): string {
     let z = date.getTimezoneOffset();
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return (z > 0 ? '-' : ((z *= -1), '+')) + pad(Math.floor(z / 60), '0', 2) + pad(z % 60, '0', 2);
   }
 
@@ -690,75 +691,93 @@ export default function formatLocale(timeLocale: TimeLocaleDefinition): TimeLoca
 
   function parseMicroseconds(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 6));
-    return n ? ((d.L = Math.floor(parseFloat(n[0]) / 1000)), i + n[0].length) : -1;
+    // biome-ignore lint/style/noCommaOperator: <explanation>
+    return n ? ((d.L = Math.floor(Number.parseFloat(n[0]) / 1000)), i + n[0].length) : -1;
   }
   function parseMilliseconds(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 3));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.L = +n[0]), i + n[0].length) : -1;
   }
   function parseSeconds(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 2));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.S = +n[0]), i + n[0].length) : -1;
   }
   function parseMinutes(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 2));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.M = +n[0]), i + n[0].length) : -1;
   }
   function parseHour24(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 2));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.H = +n[0]), i + n[0].length) : -1;
   }
   function parsePeriod(d: ParsedDate, string: string, i: number): number {
     const n = periodRe.exec(string.slice(i));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.p = periodLookup[n[0].toLowerCase()]), i + n[0].length) : -1;
   }
   function parseDayOfMonth(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 2));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.d = +n[0]), i + n[0].length) : -1;
   }
   function parseDayOfYear(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 3));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.m = 0), (d.d = +n[0]), i + n[0].length) : -1;
   }
   function parseShortWeekday(d: ParsedDate, string: string, i: number): number {
     const n = shortWeekdayRe.exec(string.slice(i));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.w = shortWeekdayLookup[n[0].toLowerCase()]), i + n[0].length) : -1;
   }
   function parseWeekday(d: ParsedDate, string: string, i: number): number {
     const n = weekdayRe.exec(string.slice(i));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.w = weekdayLookup[n[0].toLowerCase()]), i + n[0].length) : -1;
   }
   function parseWeekdayNumberMonday(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 1));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.u = +n[0]), i + n[0].length) : -1;
   }
   function parseWeekNumberSunday(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 2));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.U = +n[0]), i + n[0].length) : -1;
   }
   function parseWeekNumberISO(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 2));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.V = +n[0]), i + n[0].length) : -1;
   }
   function parseWeekNumberMonday(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 2));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.W = +n[0]), i + n[0].length) : -1;
   }
   function parseWeekdayNumberSunday(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 1));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.w = +n[0]), i + n[0].length) : -1;
   }
   function parseShortMonth(d: ParsedDate, string: string, i: number): number {
     const n = shortMonthRe.exec(string.slice(i));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.m = shortMonthLookup[n[0].toLowerCase()]), i + n[0].length) : -1;
   }
   function parseMonth(d: ParsedDate, string: string, i: number): number {
     const n = monthRe.exec(string.slice(i));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.m = monthLookup[n[0].toLowerCase()]), i + n[0].length) : -1;
   }
   function parseMonthNumber(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 2));
-    return n ? ((d.m = parseFloat(n[0]) - 1), i + n[0].length) : -1;
+    // biome-ignore lint/style/noCommaOperator: <explanation>
+    return n ? ((d.m = Number.parseFloat(n[0]) - 1), i + n[0].length) : -1;
   }
   function parseLocaleDateTime(d: ParsedDate, string: string, i: number): number {
     return parseSpecifier(d, lDateTime, string, i);
@@ -771,22 +790,27 @@ export default function formatLocale(timeLocale: TimeLocaleDefinition): TimeLoca
   }
   function parseUnixTimestamp(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.Q = +n[0]), i + n[0].length) : -1;
   }
   function parseUnixTimestampSeconds(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.Q = +n[0] * 1000), i + n[0].length) : -1;
   }
   function parseYear(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 2));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.y = +n[0] + (+n[0] > 68 ? 1900 : 2000)), i + n[0].length) : -1;
   }
   function parseFullYear(d: ParsedDate, string: string, i: number): number {
     const n = numberRe.exec(string.slice(i, i + 4));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.y = +n[0]), i + n[0].length) : -1;
   }
   function parseZone(d: ParsedDate, string: string, i: number): number {
     const n = /^(Z)|^([+-]\d\d)(?::?(\d\d))?/.exec(string.slice(i, i + 6));
+    // biome-ignore lint/style/noCommaOperator: <explanation>
     return n ? ((d.Z = n[1] ? 0 : -(n[2] + (n[3] || '00'))), i + n[0].length) : -1;
   }
   function parseLiteralPercent(_d: ParsedDate, string: string, i: number): number {

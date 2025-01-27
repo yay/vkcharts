@@ -1,4 +1,4 @@
-import { expect, test } from '@jest/globals';
+import { expect, test } from 'vitest';
 import { Observable, reactive } from './observable';
 
 class Component extends Observable {
@@ -6,7 +6,7 @@ class Component extends Observable {
   @reactive('name', 'misc') bob = 'marley';
   @reactive('change') foo: string = '';
   @reactive() arr: [] | undefined | null = [];
-  @reactive() obj: {} | undefined | null = {};
+  @reactive() obj: object | undefined | null = {};
 }
 
 class BaseClass extends Observable {
@@ -130,7 +130,7 @@ test('addEventListener', () => {
       eventSource = event.source;
       listener1Scope = this;
       sum += 1;
-    })
+    }),
   ).toBe(undefined);
 
   const that = {};
@@ -140,7 +140,7 @@ test('addEventListener', () => {
     function (this: Component) {
       listener2Scope = this;
     },
-    that
+    that,
   );
 
   c.john = 'test';

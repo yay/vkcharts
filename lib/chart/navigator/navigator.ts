@@ -1,9 +1,9 @@
-import { RangeSelector } from '../shapes/rangeSelector';
-import { CartesianChart } from '../cartesianChart';
-import { ChartAxisDirection } from '../chartAxis';
 import { BBox } from '../../scene/bbox';
-import { NavigatorMask } from './navigatorMask';
+import type { CartesianChart } from '../cartesianChart';
+import { ChartAxisDirection } from '../chartAxis';
+import { RangeSelector } from '../shapes/rangeSelector';
 import { NavigatorHandle } from './navigatorHandle';
+import { NavigatorMask } from './navigatorMask';
 
 interface Offset {
   offsetX: number;
@@ -20,7 +20,7 @@ export class Navigator {
 
   private minHandleDragging = false;
   private maxHandleDragging = false;
-  private panHandleOffset = NaN;
+  private panHandleOffset = Number.NaN;
 
   set enabled(value: boolean) {
     this.rs.visible = value;
@@ -85,7 +85,7 @@ export class Navigator {
   constructor(chart: CartesianChart) {
     this.chart = chart;
 
-    chart.scene.root!!.append(this.rs);
+    chart.scene.root!.append(this.rs);
     this.rs.onRangeChange = (min, max) => this.updateAxes(min, max);
   }
 
@@ -157,7 +157,7 @@ export class Navigator {
       rs.min = getRatio();
     } else if (this.maxHandleDragging) {
       rs.max = getRatio();
-    } else if (!isNaN(panHandleOffset)) {
+    } else if (!Number.isNaN(panHandleOffset)) {
       const span = rs.max - rs.min;
       const min = Math.min(getRatio() - panHandleOffset, 1 - span);
       if (min <= rs.min) {
@@ -178,6 +178,6 @@ export class Navigator {
 
   stopHandleDragging() {
     this.minHandleDragging = this.maxHandleDragging = false;
-    this.panHandleOffset = NaN;
+    this.panHandleOffset = Number.NaN;
   }
 }

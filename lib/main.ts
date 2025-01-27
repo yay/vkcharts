@@ -33,19 +33,19 @@ export * from './util/angle';
 export * from './util/array';
 export * from './util/padding';
 
-import { millisecond } from './util/time/millisecond';
-import { second } from './util/time/second';
-import { minute } from './util/time/minute';
-import { hour } from './util/time/hour';
 import { day } from './util/time/day';
-import { sunday, monday, tuesday, wednesday, thursday, friday, saturday } from './util/time/week';
+import { hour } from './util/time/hour';
+import { millisecond } from './util/time/millisecond';
+import { minute } from './util/time/minute';
 import { month } from './util/time/month';
-import { year } from './util/time/year';
-import { utcMinute } from './util/time/utcMinute';
-import { utcHour } from './util/time/utcHour';
+import { second } from './util/time/second';
 import { utcDay } from './util/time/utcDay';
+import { utcHour } from './util/time/utcHour';
+import { utcMinute } from './util/time/utcMinute';
 import { utcMonth } from './util/time/utcMonth';
 import { utcYear } from './util/time/utcYear';
+import { friday, monday, saturday, sunday, thursday, tuesday, wednesday } from './util/time/week';
+import { year } from './util/time/year';
 export const time = {
   millisecond,
   second,

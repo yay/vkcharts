@@ -13,7 +13,7 @@ export function segmentIntersection(
   bx1: number,
   by1: number,
   bx2: number,
-  by2: number
+  by2: number,
 ): { x: number; y: number } | null {
   const d = (ax2 - ax1) * (by2 - by1) - (ay2 - ay1) * (bx2 - bx1);
 
@@ -52,7 +52,7 @@ export function cubicSegmentIntersections(
   x1: number,
   y1: number,
   x2: number,
-  y2: number
+  y2: number,
 ): { x: number; y: number }[] {
   const intersections: { x: number; y: number }[] = [];
 

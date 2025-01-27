@@ -1,13 +1,14 @@
 export function equal(a: any, b: any): boolean {
   if (a === b) return true;
 
-  if (a && b && typeof a == 'object' && typeof b == 'object') {
+  if (a && b && typeof a === 'object' && typeof b === 'object') {
     if (a.constructor !== b.constructor) return false;
 
-    let length, i;
+    let length: number;
+    let i: number;
     if (Array.isArray(a)) {
       length = a.length;
-      if (length != b.length) return false;
+      if (length !== b.length) return false;
       for (i = length; i-- !== 0; ) if (!equal(a[i], b[i])) return false;
       return true;
     }
@@ -55,5 +56,6 @@ export function equal(a: any, b: any): boolean {
   }
 
   // true if both NaN, false otherwise
+  // biome-ignore lint/suspicious/noSelfCompare: <explanation>
   return a !== a && b !== b;
 }

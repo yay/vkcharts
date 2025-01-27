@@ -19,10 +19,10 @@ export function linearRegression(X: number[], Y: number[]): { slope: number; int
     const x = X[i];
     const y = Y[i];
 
-    if (isNaN(x) || !isFinite(x)) {
+    if (Number.isNaN(x) || !Number.isFinite(x)) {
       return;
     }
-    if (isNaN(y) || !isFinite(y)) {
+    if (Number.isNaN(y) || !Number.isFinite(y)) {
       return;
     }
 

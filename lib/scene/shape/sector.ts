@@ -1,7 +1,7 @@
-import { Path } from './path';
 import { normalizeAngle360 } from '../../util/angle';
 import { isEqual } from '../../util/number';
 import { BBox } from '../bbox';
+import { Path } from './path';
 
 export class Sector extends Path {
   static className = 'Sector';

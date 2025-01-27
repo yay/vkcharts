@@ -1,4 +1,4 @@
-import { BBox } from '../bbox';
+import type { BBox } from '../bbox';
 
 export interface GradientColorStop {
   offset: number;

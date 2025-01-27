@@ -1,7 +1,7 @@
-import { Shape } from './shape';
+import { HdpiCanvas } from '../../canvas/hdpiCanvas';
 import { chainObjects } from '../../util/object';
 import { BBox } from '../bbox';
-import { HdpiCanvas } from '../../canvas/hdpiCanvas';
+import { Shape } from './shape';
 
 export type FontStyle = 'normal' | 'italic' | 'oblique';
 export type FontWeight =
@@ -121,7 +121,7 @@ export class Text extends Shape {
 
   private _fontSize: number = 10;
   set fontSize(value: number) {
-    if (!isFinite(value)) {
+    if (!Number.isFinite(value)) {
       value = 10;
     }
     if (this._fontSize !== value) {
@@ -196,7 +196,7 @@ export class Text extends Shape {
       this.x - metrics.actualBoundingBoxLeft,
       this.y - metrics.actualBoundingBoxAscent,
       metrics.width,
-      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
+      metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
     );
   }
 
@@ -271,7 +271,7 @@ export class Text extends Shape {
 
       const { fillShadow, text, x, y } = this;
 
-      if (fillShadow && fillShadow.enabled) {
+      if (fillShadow?.enabled) {
         ctx.shadowColor = fillShadow.color;
         ctx.shadowOffsetX = fillShadow.xOffset * pixelRatio;
         ctx.shadowOffsetY = fillShadow.yOffset * pixelRatio;
@@ -304,7 +304,7 @@ export class Text extends Shape {
         ctx.lineJoin = lineJoin;
       }
 
-      if (strokeShadow && strokeShadow.enabled) {
+      if (strokeShadow?.enabled) {
         ctx.shadowColor = strokeShadow.color;
         ctx.shadowOffsetX = strokeShadow.xOffset * pixelRatio;
         ctx.shadowOffsetY = strokeShadow.yOffset * pixelRatio;

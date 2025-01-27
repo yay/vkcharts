@@ -1,30 +1,22 @@
-import { Chart } from './chart';
-import { Series } from './series/series';
-import { ChartAxis } from './chartAxis';
-import { LegendMarker } from './legend';
-import { ChartTheme, mergeOptions } from './themes/chartTheme';
-import { DarkTheme } from './themes/darkTheme';
-import { MaterialLight } from './themes/materialLight';
-import { MaterialDark } from './themes/materialDark';
-import { PastelLight } from './themes/pastelLight';
-import { PastelDark } from './themes/pastelDark';
-import { SolarLight } from './themes/solarLight';
-import { SolarDark } from './themes/solarDark';
-import { VividLight } from './themes/vividLight';
-import { VividDark } from './themes/vividDark';
 import { find } from '../util/array';
 import { deepMerge, getValue, isObject } from '../util/object';
-import {
-  type VkCartesianChartOptions,
-  type VkChartOptions,
-  type VkPolarChartOptions,
-  type VkChartTheme,
-  type VkChartThemeName,
-  type VkHierarchyChartOptions,
-} from './vkChartOptions';
-import { CartesianChart } from './cartesianChart';
-import { PolarChart } from './polarChart';
-import { HierarchyChart } from './hierarchyChart';
+import type { CartesianChart } from './cartesianChart';
+import type { Chart } from './chart';
+import type { ChartAxis } from './chartAxis';
+import type { HierarchyChart } from './hierarchyChart';
+import { LegendMarker } from './legend';
+import type { PolarChart } from './polarChart';
+import { Series } from './series/series';
+import { ChartTheme, mergeOptions } from './themes/chartTheme';
+import { DarkTheme } from './themes/darkTheme';
+import { MaterialDark } from './themes/materialDark';
+import { MaterialLight } from './themes/materialLight';
+import { PastelDark } from './themes/pastelDark';
+import { PastelLight } from './themes/pastelLight';
+import { SolarDark } from './themes/solarDark';
+import { SolarLight } from './themes/solarLight';
+import { VividDark } from './themes/vividDark';
+import { VividLight } from './themes/vividLight';
 // In the config object consumed by the factory we don't specify the types of objects we want to create,
 // and in the rare cases when we do, the string type is not the same as corresponding constructor's name.
 // Also, the user provided config might miss certain mandatory properties.
@@ -32,6 +24,14 @@ import { HierarchyChart } from './hierarchyChart';
 // property's name and position in the config's hierarchy. To be able to do that we need the extra
 // information missing from the user provided config. Such information is provided by chart mappings.
 import { mappings } from './vkChartMappings';
+import type {
+  VkCartesianChartOptions,
+  VkChartOptions,
+  VkChartTheme,
+  VkChartThemeName,
+  VkHierarchyChartOptions,
+  VkPolarChartOptions,
+} from './vkChartOptions';
 
 type ThemeMap = { [key in VkChartThemeName | 'undefined' | 'null']?: ChartTheme };
 
@@ -88,10 +88,10 @@ export function getChartTheme(value?: string | ChartTheme | VkChartTheme): Chart
 type VkChartType<T> = T extends VkCartesianChartOptions
   ? CartesianChart
   : T extends VkPolarChartOptions
-  ? PolarChart
-  : T extends VkHierarchyChartOptions
-  ? HierarchyChart
-  : never;
+    ? PolarChart
+    : T extends VkHierarchyChartOptions
+      ? HierarchyChart
+      : never;
 
 let firstColorIndex = 0;
 
@@ -157,7 +157,7 @@ const actualSeriesTypeMap = (() => {
   const actualSeries = ['area', 'bar', 'line', 'pie', 'scatter'];
   actualSeries.forEach((series) => (map[series] = series));
   // Aliases:
-  map['column'] = 'bar';
+  map.column = 'bar';
   return map;
 })();
 
@@ -257,9 +257,9 @@ function create(options: any, path?: string, component?: any, theme?: ChartTheme
     }
 
     const listeners = options.listeners;
-    if (component && component.addEventListener && listeners) {
+    if (component?.addEventListener && listeners) {
       for (const key in listeners) {
-        if (listeners.hasOwnProperty(key)) {
+        if (Object.prototype.hasOwnProperty.call(listeners, key)) {
           const listener = listeners[key];
           if (typeof listener === 'function') {
             component.addEventListener(key, listener);
@@ -304,7 +304,7 @@ function update(component: any, options: any, path?: string, theme?: ChartTheme)
     options = provideDefaultOptions(path, options, mapping, theme);
 
     const meta = mapping.meta || {};
-    const constructorParams = (meta && meta.constructorParams) || [];
+    const constructorParams = meta?.constructorParams || [];
     const skipKeys = ['type'].concat(constructorParams);
 
     for (const key in options) {
@@ -419,9 +419,9 @@ function provideDefaultChartType(options: any): any {
     return options;
   }
   // If chart type is not specified, try to infer it from the type of first series.
-  const series = options.series && options.series[0];
+  const series = options.series?.[0];
 
-  if (series && series.type) {
+  if (series?.type) {
     outerLoop: for (const chartType in mappings) {
       for (const seriesType in mappings[chartType].series) {
         if (series.type === seriesType) {
@@ -470,8 +470,8 @@ const enabledKey = 'enabled';
  */
 function provideDefaultOptions(path: string, options: any, mapping: any, theme?: ChartTheme): any {
   const isChartConfig = path.indexOf('.') < 0;
-  const themeDefaults = theme && theme.getConfig(path);
-  const defaults = mapping && mapping.meta && mapping.meta.defaults;
+  const themeDefaults = theme?.getConfig(path);
+  const defaults = mapping?.meta?.defaults;
   const isExplicitlyDisabled = options.enabled === false; // by the user
 
   if (defaults || themeDefaults) {

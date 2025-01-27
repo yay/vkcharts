@@ -1,8 +1,8 @@
-import interpolateValue from '../interpolate/value';
 import interpolateNumber from '../interpolate/number';
-import { type Scale, type Deinterpolator, type Reinterpolator } from './scale';
+import interpolateValue from '../interpolate/value';
 import { bisectRight } from '../util/bisect';
 import { ascending } from '../util/compare';
+import type { Deinterpolator, Reinterpolator, Scale } from './scale';
 
 const constant = (x: any) => () => x;
 const identity = (x: any) => x;
@@ -19,20 +19,14 @@ export function clamper(domain: number[]): (x: number) => number {
 }
 
 /**
- * An Interpolator factory returns an interpolator function.
- *
+ * Construct a new interpolator function, based on the provided interpolation boundaries.
  * The first generic corresponds to the data type of the interpolation boundaries.
  * The second generic corresponds to the data type of the return type of the interpolator.
+ *
+ * @param a Start boundary of the interpolation interval.
+ * @param b End boundary of the interpolation interval.
  */
-export interface InterpolatorFactory<T, U> {
-  /**
-   * Construct a new interpolator function, based on the provided interpolation boundaries.
-   *
-   * @param a Start boundary of the interpolation interval.
-   * @param b End boundary of the interpolation interval.
-   */
-  (a: T, b: T): (t: number) => U;
-}
+export type InterpolatorFactory<T, U> = (a: T, b: T) => (t: number) => U;
 
 export abstract class ContinuousScale implements Scale<any, any> {
   /**
@@ -86,7 +80,7 @@ export abstract class ContinuousScale implements Scale<any, any> {
   private piecewise?: (
     domain: any[],
     range: any[],
-    interpolate: (a: any, b: any) => (t: number) => any
+    interpolate: (a: any, b: any) => (t: number) => any,
   ) => (x: any) => any;
 
   protected transform: (x: any) => any = identity; // transforms domain value
@@ -117,7 +111,7 @@ export abstract class ContinuousScale implements Scale<any, any> {
    * @param b
    */
   private normalize(a: any, b: any): (x: any) => number {
-    return (b -= a = +a) ? (x: any) => (x - a) / b : constant(isNaN(b) ? NaN : 0.5);
+    return (b -= a = +a) ? (x: any) => (x - a) / b : constant(Number.isNaN(b) ? Number.NaN : 0.5);
   }
 
   private bimap(domain: any[], range: any[], interpolate: (a: any, b: any) => (t: number) => any): (x: any) => any {
@@ -143,7 +137,7 @@ export abstract class ContinuousScale implements Scale<any, any> {
   private polymap(
     domain: any[],
     range: any[],
-    interpolate: (a: any, b: any) => (t: number) => any
+    interpolate: (a: any, b: any) => (t: number) => any,
   ): Reinterpolator<any> {
     // number of segments in the polylinear scale
     const n = Math.min(domain.length, range.length) - 1;
@@ -167,12 +161,13 @@ export abstract class ContinuousScale implements Scale<any, any> {
 
   convert(x: any): any {
     x = +x;
-    if (isNaN(x)) {
+    if (Number.isNaN(x)) {
       return this.unknown;
     }
     if (!this.output) {
       this.output = this.piecewise!(this.domain.map(this.transform), this.range, this.interpolate);
     }
+    // biome-ignore lint/style/noArguments: <explanation>
     const clamper: (domain: number[]) => (x: number) => number = arguments[1];
     const clamp = clamper ? clamper(this.domain) : this._clamp;
     return this.output(this.transform(clamp(x)));

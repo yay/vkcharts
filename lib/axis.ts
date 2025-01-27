@@ -1,15 +1,15 @@
-import { type Scale } from './scale/scale';
-import { Group } from './scene/group';
-import { Selection } from './scene/selection';
-import { Line } from './scene/shape/line';
-import { Text, type FontStyle, type FontWeight } from './scene/shape/text';
-import { Arc } from './scene/shape/arc';
-import { Shape } from './scene/shape/shape';
+import type { Caption } from './caption';
+import type { Scale } from './scale/scale';
 import { BBox } from './scene/bbox';
+import { Group } from './scene/group';
 import { Matrix } from './scene/matrix';
-import { Caption } from './caption';
-import { createId } from './util/id';
+import { Selection } from './scene/selection';
+import { Arc } from './scene/shape/arc';
+import { Line } from './scene/shape/line';
+import type { Shape } from './scene/shape/shape';
+import { type FontStyle, type FontWeight, Text } from './scene/shape/text';
 import { normalizeAngle360, normalizeAngle360Inclusive, toRadians } from './util/angle';
+import { createId } from './util/id';
 // import { Rect } from "./scene/shape/rect"; // debug (bbox)
 
 enum Tags {
@@ -425,10 +425,8 @@ export class Axis<S extends Scale<D, number>, D = any> {
     const groupSelection = update.merge(enter);
 
     groupSelection
-      .attrFn('translationY', function (_, datum) {
-        return Math.round(scale.convert(datum) + halfBandwidth);
-      })
-      .attrFn('visible', function (node) {
+      .attrFn('translationY', (_, datum) => Math.round(scale.convert(datum) + halfBandwidth))
+      .attrFn('visible', (node) => {
         const min = Math.floor(requestedRangeMin);
         const max = Math.ceil(requestedRangeMax);
         return node.translationY >= min && node.translationY <= max;
@@ -501,8 +499,8 @@ export class Axis<S extends Scale<D, number>, D = any> {
             : 'start'
           : 'center'
         : sideFlag * regularFlipFlag === -1
-        ? 'end'
-        : 'start';
+          ? 'end'
+          : 'start';
     });
 
     const labelX = sideFlag * (tick.size + label.padding);
@@ -529,7 +527,7 @@ export class Axis<S extends Scale<D, number>, D = any> {
     const title = this.title;
 
     let titleVisible = false;
-    if (title && title.enabled && lineNode.visible) {
+    if (title?.enabled && lineNode.visible) {
       titleVisible = true;
       const padding = title.padding.bottom;
       const titleNode = title.node;
@@ -575,12 +573,12 @@ export class Axis<S extends Scale<D, number>, D = any> {
           axis: meta,
         })
       : labelFormatter
-      ? labelFormatter(datum)
-      : typeof datum === 'number' && fractionDigits >= 0
-      ? // the `datum` is a floating point number
-        datum.toFixed(fractionDigits)
-      : // the`datum` is an integer, a string or an object
-        String(datum);
+        ? labelFormatter(datum)
+        : typeof datum === 'number' && fractionDigits >= 0
+          ? // the `datum` is a floating point number
+            datum.toFixed(fractionDigits)
+          : // the`datum` is an integer, a string or an object
+            String(datum);
   }
 
   // For formatting arbitrary values between the ticks.
@@ -594,10 +592,10 @@ export class Axis<S extends Scale<D, number>, D = any> {
     const { title, lineNode } = this;
     const labels = this.groupSelection.selectByClass(Text);
 
-    let left = Infinity;
-    let right = -Infinity;
-    let top = Infinity;
-    let bottom = -Infinity;
+    let left = Number.POSITIVE_INFINITY;
+    let right = Number.NEGATIVE_INFINITY;
+    let top = Number.POSITIVE_INFINITY;
+    let bottom = Number.NEGATIVE_INFINITY;
 
     labels.each((label) => {
       // The label itself is rotated, but not translated, the group that
@@ -626,7 +624,7 @@ export class Axis<S extends Scale<D, number>, D = any> {
       }
     });
 
-    if (title && title.enabled && lineNode.visible && (!options || !options.excludeTitle)) {
+    if (title?.enabled && lineNode.visible && (!options || !options.excludeTitle)) {
       const label = title.node;
       label.computeTransformMatrix();
       const matrix = Matrix.flyweight(label.matrix);

@@ -97,7 +97,9 @@ export class TimeInterval {
   // day.filter(date => (date.getDate() - 1) % 10 === 0)
   filter(test: (date: Date) => boolean): TimeInterval {
     const floor = (date: Date): Date => {
+      // biome-ignore lint/suspicious/noSelfCompare: <explanation>
       if (date >= date) {
+        // biome-ignore lint/style/noCommaOperator: <explanation>
         while ((this._floor(date), !test(date))) {
           date.setTime(date.getTime() - 1);
         }
@@ -105,6 +107,7 @@ export class TimeInterval {
       return date;
     };
     const offset = (date: Date, step: number): Date => {
+      // biome-ignore lint/suspicious/noSelfCompare: <explanation>
       if (date >= date) {
         if (step < 0) {
           while (++step <= 0) {
@@ -159,7 +162,7 @@ export class CountableTimeInterval extends TimeInterval {
     let result: TimeInterval | undefined;
 
     step = Math.floor(step);
-    if (isFinite(step) && step > 0) {
+    if (Number.isFinite(step) && step > 0) {
       if (step > 1) {
         const field = this._field;
         if (field) {

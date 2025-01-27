@@ -7,7 +7,7 @@
 export function chainObjects<P extends object, C extends object>(parent: P, child: C): P & C {
   const obj = Object.create(parent) as P;
   for (const prop in child) {
-    if (child.hasOwnProperty(prop)) {
+    if (Object.prototype.hasOwnProperty.call(child, prop)) {
       (obj as any)[prop] = child[prop];
     }
   }
@@ -22,6 +22,7 @@ export function getValue(object: any, path: string | string[], defaultValue?: an
       value = value[part];
     });
   } catch (e) {
+    // biome-ignore lint/style/noArguments: <explanation>
     if (arguments.length === 3) {
       value = defaultValue;
     } else {
@@ -42,9 +43,7 @@ export function cloneUnlessOtherwiseSpecified(value: any, options: any) {
 }
 
 export function defaultArrayMerge(target: any, source: any, options: any) {
-  return target.concat(source).map(function (element: any) {
-    return cloneUnlessOtherwiseSpecified(element, options);
-  });
+  return target.concat(source).map((element: any) => cloneUnlessOtherwiseSpecified(element, options));
 }
 
 function getMergeFunction(key: string, options: any) {
@@ -57,9 +56,9 @@ function getMergeFunction(key: string, options: any) {
 
 function getEnumerableOwnPropertySymbols(target: any): any[] {
   return Object.getOwnPropertySymbols
-    ? Object.getOwnPropertySymbols(target).filter(function (symbol) {
-        return target.propertyIsEnumerable(symbol);
-      })
+    ? Object.getOwnPropertySymbols(target).filter((symbol) =>
+        Object.prototype.propertyIsEnumerable.call(target, symbol),
+      )
     : [];
 }
 
@@ -89,11 +88,11 @@ function propertyIsUnsafe(target: any, key: string) {
 function mergeObject(target: any, source: any, options: any) {
   const destination: any = {};
   if (options.isMergeableObject(target)) {
-    getKeys(target).forEach(function (key) {
+    getKeys(target).forEach((key) => {
       destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
     });
   }
-  getKeys(source).forEach(function (key) {
+  getKeys(source).forEach((key) => {
     if (propertyIsUnsafe(target, key)) {
       return;
     }

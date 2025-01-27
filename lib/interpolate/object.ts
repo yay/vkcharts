@@ -3,7 +3,6 @@ import value from './value';
 export default function (a: any, b: any): (t: number) => object {
   const i: any = {};
   const c: any = {};
-  let k;
 
   if (a === null || typeof a !== 'object') {
     a = {};
@@ -12,6 +11,7 @@ export default function (a: any, b: any): (t: number) => object {
     b = {};
   }
 
+  let k: string;
   for (k in b) {
     if (k in a) {
       i[k] = value(a[k], b[k]);

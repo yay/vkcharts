@@ -1,6 +1,6 @@
-import { Shape } from './shape';
 import { chainObjects } from '../../util/object';
 import { BBox } from '../bbox';
+import { Shape } from './shape';
 
 export class Line extends Shape {
   static className = 'Line';

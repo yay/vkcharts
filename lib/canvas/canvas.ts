@@ -51,7 +51,7 @@ export function applyHdpiOverrides(canvas: HTMLCanvasElement): number {
   // if overrides haven't been applied and actually needed
   if (!canvasDpr && dpr !== 1) {
     const overrides = makeHdpiOverrides(dpr);
-    const ctx = canvas.getContext('2d')!;
+    const ctx = canvas.getContext('2d') as CanvasRenderingContext2D;
     const ctxObj = ctx as any;
     for (const name in overrides) {
       // Save native methods under prefixed names.
@@ -89,5 +89,5 @@ export function resizeCanvas(canvas: HTMLCanvasElement, width: number, height: n
   canvas.style.width = Math.round(width) + 'px';
   canvas.style.height = Math.round(height) + 'px';
 
-  canvas.getContext('2d')!.resetTransform();
+  canvas.getContext('2d')?.resetTransform();
 }

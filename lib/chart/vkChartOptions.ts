@@ -96,10 +96,7 @@ export interface VkCartesianSeriesTheme {
   column?: VkBarSeriesOptions;
 }
 
-export interface VkPolarAxesTheme {
-  // polar charts don't support axes at the moment
-  // (used by radar charts, for example)
-}
+export type VkPolarAxesTheme = Record<string, never>;
 
 export interface VkPolarSeriesTheme {
   pie?: VkPieSeriesOptions;
@@ -226,6 +223,7 @@ interface VkBaseChartOptions {
   tooltip?: VkChartTooltipOptions;
   navigator?: VkNavigatorOptions;
   legend?: VkChartLegendOptions;
+  // biome-ignore lint/complexity/noBannedTypes: <explanation>
   listeners?: { [key: string]: Function };
   theme?: string | VkChartTheme; // | ChartTheme
 }
@@ -329,6 +327,7 @@ interface VkBaseSeriesOptions {
   visible?: boolean;
   showInLegend?: boolean;
   cursor?: string;
+  // biome-ignore lint/complexity/noBannedTypes: <explanation>
   listeners?: { [key: string]: Function };
   highlightStyle?: {
     item?: {
@@ -408,7 +407,7 @@ export interface VkCartesianSeriesMarkerFormat {
 }
 
 export type VkCartesianSeriesMarkerFormatter = (
-  params: VkCartesianSeriesMarkerFormatterParams
+  params: VkCartesianSeriesMarkerFormatterParams,
 ) => VkCartesianSeriesMarkerFormat;
 
 interface VkCartesianSeriesMarker extends VkSeriesMarker {
@@ -656,7 +655,7 @@ type VkHierarchySeriesOptions = VkTreemapSeriesOptions;
 
 export interface VkCartesianChartOptions<
   TAxisOptions = VkCartesianAxisOptions[],
-  TSeriesOptions = VkCartesianSeriesOptions[]
+  TSeriesOptions = VkCartesianSeriesOptions[],
 > extends VkBaseChartOptions {
   type?: 'cartesian' | 'groupedCategory' | 'line' | 'bar' | 'column' | 'area' | 'scatter';
   axes?: TAxisOptions;

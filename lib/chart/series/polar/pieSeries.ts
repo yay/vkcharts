@@ -1,21 +1,21 @@
-import { Group } from '../../../scene/group';
-import { Line } from '../../../scene/shape/line';
-import { Text } from '../../../scene/shape/text';
-import { Selection } from '../../../scene/selection';
-import { DropShadow } from '../../../scene/dropShadow';
+import { Caption } from '../../../caption';
 import { LinearScale } from '../../../scale/linearScale';
-import { Sector } from '../../../scene/shape/sector';
-import { type PolarTooltipRendererParams, type SeriesNodeDatum, HighlightStyle, SeriesTooltip } from '../series';
-import { Label } from '../../label';
+import type { DropShadow } from '../../../scene/dropShadow';
+import { Group } from '../../../scene/group';
 import { PointerEvents } from '../../../scene/node';
+import { Selection } from '../../../scene/selection';
+import { Line } from '../../../scene/shape/line';
+import { Sector } from '../../../scene/shape/sector';
+import { Text } from '../../../scene/shape/text';
 import { normalizeAngle180, toRadians } from '../../../util/angle';
 import { toFixed } from '../../../util/number';
-import { type LegendDatum } from '../../legend';
-import { Caption } from '../../../caption';
-import { reactive, Observable, type TypedEvent } from '../../../util/observable';
-import { PolarSeries } from './polarSeries';
-import { ChartAxisDirection } from '../../chartAxis';
+import { Observable, type TypedEvent, reactive } from '../../../util/observable';
 import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
+import { ChartAxisDirection } from '../../chartAxis';
+import { Label } from '../../label';
+import type { LegendDatum } from '../../legend';
+import { HighlightStyle, type PolarTooltipRendererParams, type SeriesNodeDatum, SeriesTooltip } from '../series';
+import { PolarSeries } from './polarSeries';
 
 export interface PieSeriesNodeClickEvent extends TypedEvent {
   readonly type: 'nodeClick';
@@ -100,7 +100,7 @@ export class PieSeries extends PolarSeries {
 
   private radiusScale: LinearScale = new LinearScale();
   private groupSelection: Selection<Group, Group, PieNodeDatum, any> = Selection.select(
-    this.pickGroup
+    this.pickGroup,
   ).selectAll<Group>();
 
   /**
@@ -254,7 +254,7 @@ export class PieSeries extends PolarSeries {
     const data = angleKey && this.data ? this.data : [];
 
     const angleData: number[] = data.map(
-      (datum, index) => (seriesItemEnabled[index] && Math.abs(+datum[angleKey])) || 0
+      (datum, index) => (seriesItemEnabled[index] && Math.abs(+datum[angleKey])) || 0,
     );
     const angleDataTotal = angleData.reduce((a, b) => a + b, 0);
 
@@ -456,7 +456,7 @@ export class PieSeries extends PolarSeries {
       }
 
       // Bring highlighted slice's parent group to front.
-      const parent = sector.parent && sector.parent.parent;
+      const parent = sector.parent?.parent;
       if (isDatumHighlighted && parent) {
         parent.removeChild(sector.parent!);
         parent.appendChild(sector.parent!);
@@ -468,8 +468,8 @@ export class PieSeries extends PolarSeries {
       sector.startAngle = datum.startAngle;
       sector.endAngle = datum.endAngle;
 
-      sector.fill = (format && format.fill) || fill;
-      sector.stroke = (format && format.stroke) || stroke;
+      sector.fill = format?.fill || fill;
+      sector.stroke = format?.stroke || stroke;
       sector.strokeWidth = format && format.strokeWidth !== undefined ? format.strokeWidth : strokeWidth;
       sector.fillOpacity = fillOpacity;
       sector.strokeOpacity = strokeOpacity;
@@ -576,7 +576,7 @@ export class PieSeries extends PolarSeries {
           title,
           color,
         }),
-        defaults
+        defaults,
       );
     }
 
@@ -586,12 +586,12 @@ export class PieSeries extends PolarSeries {
   listSeriesItems(legendData: LegendDatum[]): void {
     const { labelKey, data } = this;
 
-    if (data && data.length && labelKey) {
+    if (data?.length && labelKey) {
       const { fills, strokes, id } = this;
 
-      const titleText = this.title && this.title.showInLegend && this.title.text;
+      const titleText = this.title?.showInLegend && this.title.text;
       data.forEach((datum, index) => {
-        let labelParts = [];
+        const labelParts = [];
         titleText && labelParts.push(titleText);
         labelParts.push(String(datum[labelKey]));
 

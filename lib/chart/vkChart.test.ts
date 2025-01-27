@@ -1,13 +1,13 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from 'vitest';
 import 'jest-canvas-mock';
-import { VkChart } from './vkChart';
+import { NumberAxis } from './axis/numberAxis';
+import { type ChartAxis, ChartAxisPosition } from './chartAxis';
 import { LegendPosition } from './legend';
 import { AreaSeries } from './series/cartesian/areaSeries';
 import { BarSeries } from './series/cartesian/barSeries';
 import { LineSeries } from './series/cartesian/lineSeries';
-import { ChartAxis, ChartAxisPosition } from './chartAxis';
-import { NumberAxis } from './axis/numberAxis';
 import { ChartTheme } from './themes/chartTheme';
+import { VkChart } from './vkChart';
 
 const revenueProfitData = [
   {

@@ -1,4 +1,4 @@
-import { type Scale } from '../lib/scale/scale';
+import type { Scale } from '../lib/scale/scale';
 import { normalizeAngle360 } from '../lib/util/angle';
 
 export class Axis<D> {

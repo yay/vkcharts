@@ -1,4 +1,4 @@
-import { expect, test } from '@jest/globals';
+import { expect, test } from 'vitest';
 import { toFixed, toReadableNumber } from './number';
 
 test('toFixed', () => {

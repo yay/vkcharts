@@ -14,7 +14,7 @@ export class HdpiCanvas {
   constructor(document = window.document, width = 600, height = 300) {
     this.document = document;
     this.element = document.createElement('canvas');
-    this.context = this.element.getContext('2d')!;
+    this.context = this.element.getContext('2d') as CanvasRenderingContext2D;
 
     this.element.style.userSelect = 'none';
     this.element.style.display = 'block';
@@ -85,7 +85,7 @@ export class HdpiCanvas {
 
   // `NaN` is deliberate here, so that overrides are always applied
   // and the `resetTransform` inside the `resize` method works in IE11.
-  _pixelRatio: number = NaN;
+  _pixelRatio: number = Number.NaN;
   get pixelRatio(): number {
     return this._pixelRatio;
   }
@@ -143,11 +143,11 @@ export class HdpiCanvas {
   // 2D canvas context used for measuring text.
   private static _textMeasuringContext?: CanvasRenderingContext2D;
   private static get textMeasuringContext(): CanvasRenderingContext2D {
-    if (this._textMeasuringContext) {
-      return this._textMeasuringContext;
+    if (HdpiCanvas._textMeasuringContext) {
+      return HdpiCanvas._textMeasuringContext;
     }
     const canvas = document.createElement('canvas');
-    return (this._textMeasuringContext = canvas.getContext('2d')!);
+    return (HdpiCanvas._textMeasuringContext = canvas.getContext('2d') as CanvasRenderingContext2D);
   }
 
   // Offscreen SVGTextElement for measuring text. This fallback method
@@ -156,8 +156,8 @@ export class HdpiCanvas {
   // is also slow and often results in a grossly incorrect measured height.
   private static _svgText?: SVGTextElement;
   private static get svgText(): SVGTextElement {
-    if (this._svgText) {
-      return this._svgText;
+    if (HdpiCanvas._svgText) {
+      return HdpiCanvas._svgText;
     }
 
     const xmlns = 'http://www.w3.org/2000/svg';
@@ -184,7 +184,7 @@ export class HdpiCanvas {
     svg.appendChild(svgText);
     document.body.appendChild(svg);
 
-    this._svgText = svgText;
+    HdpiCanvas._svgText = svgText;
 
     return svgText;
   }
@@ -194,21 +194,21 @@ export class HdpiCanvas {
     getTransform: boolean;
   };
   static get has() {
-    if (this._has) {
-      return this._has;
+    if (HdpiCanvas._has) {
+      return HdpiCanvas._has;
     }
     const isChrome = navigator.userAgent.indexOf('Chrome') > -1;
     const isFirefox = navigator.userAgent.indexOf('Firefox') > -1;
     const isSafari = !isChrome && navigator.userAgent.indexOf('Safari') > -1;
-    return (this._has = Object.freeze({
+    return (HdpiCanvas._has = Object.freeze({
       textMetrics:
-        this.textMeasuringContext.measureText('test').actualBoundingBoxDescent !== undefined &&
+        HdpiCanvas.textMeasuringContext.measureText('test').actualBoundingBoxDescent !== undefined &&
         // Firefox implemented advanced TextMetrics object in v74:
         // https://bugzilla.mozilla.org/show_bug.cgi?id=1102584
         // but it's buggy, so we'll keed using the SVG for text measurement in Firefox for now.
         !isFirefox &&
         !isSafari,
-      getTransform: this.textMeasuringContext.getTransform !== undefined,
+      getTransform: HdpiCanvas.textMeasuringContext.getTransform !== undefined,
     }));
   }
 
@@ -216,9 +216,9 @@ export class HdpiCanvas {
     text: string,
     font: string,
     textBaseline: CanvasTextBaseline,
-    textAlign: CanvasTextAlign
+    textAlign: CanvasTextAlign,
   ): TextMetrics {
-    const ctx = this.textMeasuringContext;
+    const ctx = HdpiCanvas.textMeasuringContext;
     ctx.font = font;
     ctx.textBaseline = textBaseline;
     ctx.textAlign = textAlign;
@@ -231,8 +231,8 @@ export class HdpiCanvas {
    * @param font The font shorthand string.
    */
   static getTextSize(text: string, font: string): Size {
-    if (this.has.textMetrics) {
-      const ctx = this.textMeasuringContext;
+    if (HdpiCanvas.has.textMetrics) {
+      const ctx = HdpiCanvas.textMeasuringContext;
       ctx.font = font;
       const metrics = ctx.measureText(text);
 
@@ -241,14 +241,14 @@ export class HdpiCanvas {
         height: metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent,
       };
     } else {
-      return this.measureSvgText(text, font);
+      return HdpiCanvas.measureSvgText(text, font);
     }
   }
 
   private static textSizeCache: { [font: string]: { [text: string]: Size } } = {};
 
   private static measureSvgText(text: string, font: string): Size {
-    const cache = this.textSizeCache;
+    const cache = HdpiCanvas.textSizeCache;
     const fontCache = cache[font];
 
     // Note: consider not caching the size of numeric strings.
@@ -263,7 +263,7 @@ export class HdpiCanvas {
       cache[font] = {};
     }
 
-    const svgText = this.svgText;
+    const svgText = HdpiCanvas.svgText;
 
     svgText.style.font = font;
     svgText.textContent = text;
@@ -312,7 +312,7 @@ export class HdpiCanvas {
     } as any;
 
     for (const name in overrides) {
-      if (overrides.hasOwnProperty(name)) {
+      if (Object.prototype.hasOwnProperty.call(overrides, name)) {
         // Save native methods under prefixed names,
         // if this hasn't been done by the previous overrides already.
         if (!(ctx as any)['$' + name]) {

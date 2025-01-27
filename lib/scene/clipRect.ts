@@ -1,6 +1,6 @@
+import { BBox } from './bbox';
 import { Node } from './node';
 import { Path2D } from './path2D';
-import { BBox } from './bbox';
 
 /**
  * Acts as `Group` node but with specified bounds that form a rectangle.

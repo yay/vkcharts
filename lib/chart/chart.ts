@@ -1,19 +1,19 @@
-import { Scene } from '../scene/scene';
-import { Group } from '../scene/group';
-import { Series, type SeriesNodeDatum } from './series/series';
-import { Padding } from '../util/padding';
-import { Shape } from '../scene/shape/shape';
-import { Node } from '../scene/node';
-import { Rect } from '../scene/shape/rect';
-import { Legend, type LegendClickEvent, type LegendDatum } from './legend';
+import type { Caption } from '../caption';
 import { BBox } from '../scene/bbox';
+import { Group } from '../scene/group';
+import type { Node } from '../scene/node';
+import { Scene } from '../scene/scene';
+import { Rect } from '../scene/shape/rect';
+import { Shape } from '../scene/shape/shape';
 import { find } from '../util/array';
-import { SizeMonitor } from '../util/sizeMonitor';
-import { Caption } from '../caption';
-import { Observable, reactive, type PropertyChangeEvent, type SourceEvent } from '../util/observable';
-import { ChartAxis, ChartAxisDirection } from './chartAxis';
 import { createId } from '../util/id';
-import { type PlacedLabel, placeLabels, type PointLabelDatum } from '../util/labelPlacement';
+import { type PlacedLabel, type PointLabelDatum, placeLabels } from '../util/labelPlacement';
+import { Observable, type PropertyChangeEvent, type SourceEvent, reactive } from '../util/observable';
+import { Padding } from '../util/padding';
+import { SizeMonitor } from '../util/sizeMonitor';
+import type { ChartAxis, ChartAxisDirection } from './chartAxis';
+import { Legend, type LegendClickEvent, type LegendDatum } from './legend';
+import type { Series, SeriesNodeDatum } from './series/series';
 
 const defaultTooltipCss = `
 .vk-chart-tooltip {
@@ -184,7 +184,7 @@ export class ChartTooltip extends Observable {
             }
           }
         },
-        { root: tooltipRoot }
+        { root: tooltipRoot },
       );
       observer.observe(target);
       this.observer = observer;
@@ -206,13 +206,13 @@ export class ChartTooltip extends Observable {
     const { element } = this;
     if (element.classList) {
       // if not IE11
-      return !element.classList.contains(Chart.defaultTooltipClass + '-hidden');
+      return !element.classList.contains(`${Chart.defaultTooltipClass}-hidden`);
     }
 
     // IE11 part.
     const classes = element.getAttribute('class');
     if (classes) {
-      return classes.split(' ').indexOf(Chart.defaultTooltipClass + '-hidden') < 0;
+      return classes.split(' ').indexOf(`${Chart.defaultTooltipClass}-hidden`) < 0;
     }
     return false;
   }
@@ -255,15 +255,18 @@ export class ChartTooltip extends Observable {
       const maxLeft = window.innerWidth - tooltipRect.width - 1;
       if (left < minLeft) {
         left = minLeft;
-        this.updateClass(true, (this.constrained = true));
+        this.constrained = true;
+        this.updateClass(true, this.constrained);
       } else if (left > maxLeft) {
         left = maxLeft;
-        this.updateClass(true, (this.constrained = true));
+        this.constrained = true;
+        this.updateClass(true, this.constrained);
       }
 
       if (top < window.pageYOffset) {
         top = meta.pageY + 20;
-        this.updateClass(true, (this.constrained = true));
+        this.constrained = true;
+        this.updateClass(true, this.constrained);
       }
     }
 
@@ -362,11 +365,10 @@ export abstract class Chart extends Observable {
       this._autoSize = value;
       const { style } = this.element;
       if (value) {
-        const chart = this; // capture `this` for IE11
         SizeMonitor.observe(this.element, (size) => {
-          if (size.width !== chart.width || size.height !== chart.height) {
-            chart.scene.resize(size.width, size.height);
-            chart.fireEvent({ type: 'layoutChange' });
+          if (size.width !== this.width || size.height !== this.height) {
+            this.scene.resize(size.width, size.height);
+            this.fireEvent({ type: 'layoutChange' });
           }
         });
         style.display = 'block';
@@ -405,7 +407,8 @@ export abstract class Chart extends Observable {
     background.fill = 'white';
     root.appendChild(background);
 
-    const element = (this._element = document.createElement('div'));
+    const element = document.createElement('div');
+    this._element = element;
     element.setAttribute('class', 'vk-chart-wrapper');
 
     const scene = new Scene(document);
@@ -434,7 +437,9 @@ export abstract class Chart extends Observable {
 
     this.addPropertyListener('title', this.onCaptionChange);
     this.addPropertyListener('subtitle', this.onCaptionChange);
-    this.addEventListener('layoutChange', () => (this.layoutPending = true));
+    this.addEventListener('layoutChange', () => {
+      this.layoutPending = true;
+    });
   }
 
   destroy() {
@@ -460,11 +465,11 @@ export abstract class Chart extends Observable {
 
     if (oldValue) {
       oldValue.removeEventListener('change', this.onLayoutChange, this);
-      this.scene.root!.removeChild(oldValue.node);
+      this.scene.root?.removeChild(oldValue.node);
     }
     if (value) {
       value.addEventListener('change', this.onLayoutChange, this);
-      this.scene.root!.appendChild(value.node);
+      this.scene.root?.appendChild(value.node);
     }
   }
 
@@ -477,10 +482,14 @@ export abstract class Chart extends Observable {
 
   protected _axes: ChartAxis[] = [];
   set axes(values: ChartAxis[]) {
-    this._axes.forEach((axis) => this.detachAxis(axis));
+    for (const axis of this._axes) {
+      this.detachAxis(axis);
+    }
     // make linked axes go after the regular ones (simulates stable sort by `linkedTo` property)
     this._axes = values.filter((a) => !a.linkedTo).concat(values.filter((a) => a.linkedTo));
-    this._axes.forEach((axis) => this.attachAxis(axis));
+    for (const axis of this._axes) {
+      this.attachAxis(axis);
+    }
     this.axesChanged = true;
   }
   get axes(): ChartAxis[] {
@@ -488,17 +497,19 @@ export abstract class Chart extends Observable {
   }
 
   protected attachAxis(axis: ChartAxis) {
-    this.scene.root!.insertBefore(axis.group, this.seriesRoot);
+    this.scene.root?.insertBefore(axis.group, this.seriesRoot);
   }
 
   protected detachAxis(axis: ChartAxis) {
-    this.scene.root!.removeChild(axis.group);
+    this.scene.root?.removeChild(axis.group);
   }
 
   protected _series: Series[] = [];
   set series(values: Series[]) {
     this.removeAllSeries();
-    values.forEach((series) => this.addSeries(series));
+    for (const series of values) {
+      this.addSeries(series);
+    }
   }
   get series(): Series[] {
     return this._series;
@@ -524,7 +535,7 @@ export abstract class Chart extends Observable {
 
       if (beforeIndex >= 0) {
         allSeries.splice(beforeIndex, 0, series);
-        seriesRoot.insertBefore(series.group, before!.group);
+        seriesRoot.insertBefore(series.group, before?.group);
       } else {
         allSeries.push(series);
         seriesRoot.append(series.group);
@@ -607,10 +618,10 @@ export abstract class Chart extends Observable {
   }
 
   removeAllSeries(): void {
-    this.series.forEach((series) => {
+    for (const series of this.series) {
       this.freeSeries(series);
       this.seriesRoot.removeChild(series.group);
-    });
+    }
     this._series = []; // using `_series` instead of `series` to prevent infinite recursion
     this.seriesChanged = true;
   }
@@ -702,7 +713,9 @@ export abstract class Chart extends Observable {
     if (value) {
       if (!(this.layoutCallbackId || this.dataPending)) {
         this.layoutCallbackId = requestAnimationFrame(this._performLayout);
-        this.series.forEach((s) => (s.nodeDataPending = true));
+        for (const s of this.series) {
+          s.nodeDataPending = true;
+        }
       }
     } else if (this.layoutCallbackId) {
       cancelAnimationFrame(this.layoutCallbackId);
@@ -759,7 +772,9 @@ export abstract class Chart extends Observable {
       this.assignSeriesToAxes();
     }
 
-    this.series.forEach((s) => s.processData());
+    for (const s of this.series) {
+      s.processData();
+    }
 
     this.updateLegend();
 
@@ -769,10 +784,10 @@ export abstract class Chart extends Observable {
   private nodeData: Map<Series, readonly SeriesNodeDatum[]> = new Map();
   createNodeData(): void {
     this.nodeData.clear();
-    this.series.forEach((s) => {
+    for (const s of this.series) {
       const data = s.visible ? s.createNodeData() : [];
       this.nodeData.set(s, data);
-    });
+    }
   }
 
   placeLabels(): Map<Series, PlacedLabel[]> {
@@ -794,18 +809,19 @@ export abstract class Chart extends Observable {
   private updateLegend() {
     const legendData: LegendDatum[] = [];
 
-    this.series.filter((s) => s.showInLegend).forEach((series) => series.listSeriesItems(legendData));
+    for (const series of this.series.filter((s) => s.showInLegend)) {
+      series.listSeriesItems(legendData);
+    }
 
     const { formatter } = this.legend.item.label;
     if (formatter) {
-      legendData.forEach(
-        (datum) =>
-          (datum.label.text = formatter({
-            id: datum.id,
-            itemId: datum.itemId,
-            value: datum.label.text,
-          }))
-      );
+      legendData.forEach((datum) => {
+        datum.label.text = formatter({
+          id: datum.id,
+          itemId: datum.itemId,
+          value: datum.label.text,
+        });
+      });
     }
 
     this.legend.data = legendData;
@@ -847,7 +863,7 @@ export abstract class Chart extends Observable {
     const spacing = 10;
     let paddingTop = spacing;
 
-    if (title && title.enabled) {
+    if (title?.enabled) {
       title.node.x = this.width / 2;
       title.node.y = paddingTop;
       titleVisible = true;
@@ -856,7 +872,7 @@ export abstract class Chart extends Observable {
         paddingTop = titleBBox.y + titleBBox.height;
       }
 
-      if (subtitle && subtitle.enabled) {
+      if (subtitle?.enabled) {
         subtitle.node.x = this.width / 2;
         subtitle.node.y = paddingTop + spacing;
         subtitleVisible = true;
@@ -974,14 +990,14 @@ export abstract class Chart extends Observable {
   // x/y are local canvas coordinates in CSS pixels, not actual pixels
   private pickSeriesNode(
     x: number,
-    y: number
+    y: number,
   ):
     | {
         series: Series;
         node: Node;
       }
     | undefined {
-    if (!(this.seriesRect && this.seriesRect.containsPoint(x, y))) {
+    if (!this.seriesRect?.containsPoint(x, y)) {
       return undefined;
     }
 
@@ -1024,7 +1040,7 @@ export abstract class Chart extends Observable {
       return Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
     }
 
-    let minDistance = Infinity;
+    let minDistance = Number.POSITIVE_INFINITY;
     let closestDatum: SeriesNodeDatum | undefined;
 
     for (let i = allSeries.length - 1; i >= 0; i--) {
@@ -1102,7 +1118,7 @@ export abstract class Chart extends Observable {
     // to not render markers.
     if (tooltipTracking) {
       const closestDatum = this.pickClosestSeriesNodeDatum(offsetX, offsetY);
-      if (closestDatum && closestDatum.point) {
+      if (closestDatum?.point) {
         const { x, y } = closestDatum.point;
         const { canvas } = this.scene;
         const point = closestDatum.series.group.inverseTransformPoint(x, y);
@@ -1114,7 +1130,7 @@ export abstract class Chart extends Observable {
           },
           closestDatum,
           nodeDatum === closestDatum && pick ? (pick.node as Shape) : undefined,
-          event
+          event,
         );
       } else {
         hideTooltip = true;
@@ -1152,7 +1168,7 @@ export abstract class Chart extends Observable {
   private checkSeriesNodeClick(): boolean {
     const { lastPick } = this;
 
-    if (lastPick && lastPick.event && lastPick.node) {
+    if (lastPick?.event && lastPick.node) {
       const { event, datum } = lastPick;
       datum.series.fireNodeClickEvent(event, datum);
       return true;

@@ -1,6 +1,6 @@
-import { expect, test } from '@jest/globals';
-import { Rect } from './shape/rect';
+import { expect, test } from 'vitest';
 import { Group } from './group';
+import { Rect } from './shape/rect';
 
 test('insertBefore', () => {
   const group = new Group();

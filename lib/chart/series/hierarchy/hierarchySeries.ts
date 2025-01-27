@@ -1,6 +1,6 @@
-import { HierarchyChart } from '../../hierarchyChart';
-import { Series } from '../series';
 import { reactive } from '../../../util/observable';
+import type { HierarchyChart } from '../../hierarchyChart';
+import { Series } from '../series';
 
 export abstract class HierarchySeries extends Series {
   chart?: HierarchyChart = undefined;

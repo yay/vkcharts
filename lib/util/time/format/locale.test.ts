@@ -1,4 +1,4 @@
-import { expect, test } from '@jest/globals';
+import { expect, test } from 'vitest';
 import formatLocale, { formatRe, pad, requote, type TimeLocaleDefinition } from './locale';
 
 const defaultLocaleDefinition: TimeLocaleDefinition = {

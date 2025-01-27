@@ -1,4 +1,4 @@
-import { type Scale } from './scale';
+import type { Scale } from './scale';
 
 /**
  * Maps a discrete domain to a continuous numeric range.
@@ -64,12 +64,12 @@ export class BandScale<D> implements Scale<D, number> {
   convert(d: D): number {
     const i = this.index.get(d);
     if (i === undefined) {
-      return NaN;
+      return Number.NaN;
     }
 
     const r = this.ordinalRange[i];
     if (r === undefined) {
-      return NaN;
+      return Number.NaN;
     }
 
     return r;

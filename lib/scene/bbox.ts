@@ -23,7 +23,9 @@ export class BBox {
   }
 
   isValid(): boolean {
-    return isFinite(this.x) && isFinite(this.y) && isFinite(this.width) && isFinite(this.height);
+    return (
+      Number.isFinite(this.x) && Number.isFinite(this.y) && Number.isFinite(this.width) && Number.isFinite(this.height)
+    );
   }
 
   dilate(value: number) {
@@ -45,7 +47,7 @@ export class BBox {
       fillStyle?: string;
       lineWidth?: number;
       strokeStyle?: string;
-    } = BBox.noParams
+    } = BBox.noParams,
   ) {
     ctx.save();
 

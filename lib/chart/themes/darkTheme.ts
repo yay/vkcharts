@@ -1,4 +1,3 @@
-import { type VkChartThemeOptions } from '../vkChartOptions';
 import { ChartTheme } from './chartTheme';
 
 export class DarkTheme extends ChartTheme {
@@ -81,9 +80,5 @@ export class DarkTheme extends ChartTheme {
         },
       },
     });
-  }
-
-  constructor(options?: VkChartThemeOptions) {
-    super(options);
   }
 }

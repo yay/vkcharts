@@ -1,9 +1,9 @@
-import { Shape } from './shape';
-import { Path } from './path';
-import { BBox } from '../bbox';
 import { normalizeAngle360 } from '../../util/angle';
-import { chainObjects } from '../../util/object';
 import { isEqual } from '../../util/number';
+import { chainObjects } from '../../util/object';
+import { BBox } from '../bbox';
+import { Path } from './path';
+import { Shape } from './shape';
 
 export enum ArcType {
   Open,
@@ -148,7 +148,7 @@ export class Arc extends Path {
       0,
       this.startAngle,
       this.endAngle,
-      this.counterClockwise ? 1 : 0
+      this.counterClockwise ? 1 : 0,
     );
 
     if (this.type === ArcType.Chord) {

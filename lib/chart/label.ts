@@ -12,8 +12,4 @@ export class Label extends Observable {
   getFont(): string {
     return getFont(this.fontSize, this.fontFamily, this.fontStyle, this.fontWeight);
   }
-
-  constructor() {
-    super();
-  }
 }

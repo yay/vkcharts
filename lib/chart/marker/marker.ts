@@ -1,5 +1,5 @@
-import { Path } from '../../scene/shape/path';
 import { BBox } from '../../scene/bbox';
+import { Path } from '../../scene/shape/path';
 
 export abstract class Marker extends Path {
   protected _x: number = 0;

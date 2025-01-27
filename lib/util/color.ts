@@ -64,14 +64,14 @@ export class Color {
       case 8:
         parts = [];
         for (let i = 0; i < input.length; i += 2) {
-          parts.push(parseInt(`${input[i]}${input[i + 1]}`, 16));
+          parts.push(Number.parseInt(`${input[i]}${input[i + 1]}`, 16));
         }
         break;
       case 3:
       case 4:
         parts = input
           .split('')
-          .map((p) => parseInt(p, 16))
+          .map((p) => Number.parseInt(p, 16))
           .map((p) => p + p * 16);
         break;
     }
@@ -88,7 +88,7 @@ export class Color {
   }
 
   static fromHexString(str: string): Color {
-    let values = Color.parseHex(str);
+    const values = Color.parseHex(str);
     if (values) {
       const [r, g, b, a] = values;
       return new Color(r / 255, g / 255, b / 255, a / 255);
@@ -99,7 +99,7 @@ export class Color {
 
   private static stringToRgba(str: string): number[] | undefined {
     // Find positions of opening and closing parentheses.
-    let [po, pc] = [NaN, NaN];
+    let [po, pc] = [Number.NaN, Number.NaN];
     for (let i = 0; i < str.length; i++) {
       const c = str[i];
       if (!po && c === '(') {
@@ -120,8 +120,8 @@ export class Color {
 
     for (let i = 0; i < parts.length; i++) {
       const part = parts[i];
-      let value = parseFloat(part);
-      if (isNaN(value)) {
+      let value = Number.parseFloat(part);
+      if (Number.isNaN(value)) {
         return;
       }
       if (part.indexOf('%') >= 0) {
@@ -225,7 +225,7 @@ export class Color {
     const max = Math.max(r, g, b);
 
     const S = max !== 0 ? (max - min) / max : 0;
-    let H = NaN;
+    let H = Number.NaN;
 
     // min == max, means all components are the same
     // and the color is a shade of gray with no hue (H is NaN)
@@ -254,7 +254,7 @@ export class Color {
    * Converts the given HSB (HSV) triple to an array of RGB components.
    */
   static HSBtoRGB(H: number, S: number, B: number): [number, number, number] {
-    if (isNaN(H)) {
+    if (Number.isNaN(H)) {
       H = 0;
     }
     H = (((H % 360) + 360) % 360) / 360; // normalize hue to [0, 360] interval, then scale to [0, 1]
@@ -313,7 +313,7 @@ export class Color {
     const hsb = Color.RGBtoHSB(this.r, this.g, this.b);
 
     let b = hsb[2];
-    if (b == 0 && brightnessFactor > 1.0) {
+    if (b === 0 && brightnessFactor > 1.0) {
       b = 0.05;
     }
 

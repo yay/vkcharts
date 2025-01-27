@@ -1,29 +1,29 @@
-import { Padding } from '../util/padding';
-import { CartesianChart } from './cartesianChart';
-import { GroupedCategoryChart } from './groupedCategoryChart';
-import { NumberAxis } from './axis/numberAxis';
-import { CategoryAxis } from './axis/categoryAxis';
-import { GroupedCategoryAxis } from './axis/groupedCategoryAxis';
-import { LineSeries } from './series/cartesian/lineSeries';
-import { BarSeries } from './series/cartesian/barSeries';
-import { ScatterSeries } from './series/cartesian/scatterSeries';
-import { AreaSeries } from './series/cartesian/areaSeries';
-import { PolarChart } from './polarChart';
-import { PieSeries, PieTitle } from './series/polar/pieSeries';
 import { AxisLabel, AxisTick } from '../axis';
-import { TimeAxis } from './axis/timeAxis';
 import { Caption } from '../caption';
 import { DropShadow } from '../scene/dropShadow';
-import { Legend, LegendPosition, LegendItem, LegendMarker, LegendLabel } from './legend';
-import { Navigator } from './navigator/navigator';
-import { NavigatorMask } from './navigator/navigatorMask';
-import { NavigatorHandle } from './navigator/navigatorHandle';
-import { CartesianSeriesMarker } from './series/cartesian/cartesianSeries';
-import { Chart } from './chart';
-import { HierarchyChart } from './hierarchyChart';
-import { TreemapSeries } from './series/hierarchy/treemapSeries';
+import { Padding } from '../util/padding';
+import { CategoryAxis } from './axis/categoryAxis';
+import { GroupedCategoryAxis } from './axis/groupedCategoryAxis';
 import { LogAxis } from './axis/logAxis';
+import { NumberAxis } from './axis/numberAxis';
+import { TimeAxis } from './axis/timeAxis';
+import { CartesianChart } from './cartesianChart';
+import { Chart } from './chart';
+import { GroupedCategoryChart } from './groupedCategoryChart';
+import { HierarchyChart } from './hierarchyChart';
 import { Label } from './label';
+import { Legend, LegendItem, LegendLabel, LegendMarker, LegendPosition } from './legend';
+import { Navigator } from './navigator/navigator';
+import { NavigatorHandle } from './navigator/navigatorHandle';
+import { NavigatorMask } from './navigator/navigatorMask';
+import { PolarChart } from './polarChart';
+import { AreaSeries } from './series/cartesian/areaSeries';
+import { BarSeries } from './series/cartesian/barSeries';
+import { CartesianSeriesMarker } from './series/cartesian/cartesianSeries';
+import { LineSeries } from './series/cartesian/lineSeries';
+import { ScatterSeries } from './series/cartesian/scatterSeries';
+import { TreemapSeries } from './series/hierarchy/treemapSeries';
+import { PieSeries, PieTitle } from './series/polar/pieSeries';
 
 /*
     This file defines the specs for creating different kinds of charts, but
@@ -873,7 +873,7 @@ export const mappings: any = {
 }
 
 // Special handling for scatter charts, for which both axes should default to type `number`.
-mappings['scatter'] = {
+mappings.scatter = {
   ...mappings.cartesian,
   meta: {
     ...mappings.cartesian.meta,

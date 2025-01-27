@@ -13,11 +13,24 @@
     "rules": {
       "style": {
         "useEnumInitializers": "off",
-        "noInferrableTypes": "off"
+        "noInferrableTypes": "off",
+        "useTemplate": "off",
+        "noParameterAssign": "off",
+        "noUselessElse": "off",
+        "useExponentiationOperator": "off",
+        "noNonNullAssertion": "off"
       },
       "suspicious": {
-        "noExplicitAny": "off"
+        "noExplicitAny": "off",
+        "noAssignInExpressions": "off"
+      },
+      "complexity": {
+        "noForEach": "off",
+        "noStaticOnlyClass": "off"
       }
     }
+  },
+  "files": {
+    "ignore": ["examples", "./dist", ".vscode"]
   }
 }

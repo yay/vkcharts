@@ -1,5 +1,5 @@
 import { Node } from './node';
-import { Scene } from './scene';
+import type { Scene } from './scene';
 
 type ValueFn<P, GDatum, PDatum> = (parent: P, data: PDatum, index: number, groups: (P | undefined)[]) => GDatum[];
 type KeyFn<N, G, GDatum> = (node: N, datum: GDatum, index: number, groups: (G | undefined)[]) => string;
@@ -92,7 +92,7 @@ export class Selection<G extends Node | EnterNode, P extends Node | EnterNode, G
    * The selected nodes inherit the datums and the parents of the original nodes.
    */
   select<N extends Node>(
-    selector: (node: G, datum: GDatum, index: number, group: (G | undefined)[]) => N | undefined
+    selector: (node: G, datum: GDatum, index: number, group: (G | undefined)[]) => N | undefined,
   ): Selection<N, P, GDatum, GDatum> {
     const groups = this.groups;
     const numGroups = groups.length;
@@ -213,7 +213,7 @@ export class Selection<G extends Node | EnterNode, P extends Node | EnterNode, G
    * node in this selection.
    */
   selectAll<N extends Node, NDatum = any>(
-    selectorAll?: (node: G, datum: GDatum, index: number, group: (G | undefined)[]) => N[]
+    selectorAll?: (node: G, datum: GDatum, index: number, group: (G | undefined)[]) => N[],
   ): Selection<N, G, NDatum, GDatum> {
     if (!selectorAll) {
       selectorAll = this.selectNone;
@@ -334,6 +334,7 @@ export class Selection<G extends Node | EnterNode, P extends Node | EnterNode, G
     return null;
   }
 
+  // biome-ignore lint/complexity/noBannedTypes: <explanation>
   attr<K extends keyof G>(name: K, value: Exclude<G[K], Function>): this {
     this.each((node) => {
       node[name] = value;
@@ -344,7 +345,8 @@ export class Selection<G extends Node | EnterNode, P extends Node | EnterNode, G
 
   attrFn<K extends keyof G>(
     name: K,
-    value: (node: G, datum: GDatum, index: number, group: (G | undefined)[]) => Exclude<G[K], Function>
+    // biome-ignore lint/complexity/noBannedTypes: <explanation>
+    value: (node: G, datum: GDatum, index: number, group: (G | undefined)[]) => Exclude<G[K], Function>,
   ): this {
     this.each((node, datum, index, group) => {
       node[name] = value(node, datum, index, group);
@@ -432,7 +434,7 @@ export class Selection<G extends Node | EnterNode, P extends Node | EnterNode, G
    */
   setData<GDatum>(
     values: GDatum[] | ValueFn<P, GDatum, PDatum>,
-    key?: KeyFn<Node | EnterNode, G | GDatum, GDatum>
+    key?: KeyFn<Node | EnterNode, G | GDatum, GDatum>,
   ): Selection<G, P, GDatum, PDatum> {
     if (typeof values !== 'function') {
       const data = values;
@@ -477,7 +479,7 @@ export class Selection<G extends Node | EnterNode, P extends Node | EnterNode, G
           if (i0 >= i1) {
             i1 = i0 + 1;
           }
-          let next;
+          let next: G | undefined;
           while (!(next = updateGroup[i1]) && i1 < dataSize) {
             i1++;
           }
@@ -499,7 +501,7 @@ export class Selection<G extends Node | EnterNode, P extends Node | EnterNode, G
     enter: (EnterNode | undefined)[],
     update: (G | undefined)[],
     exit: (G | undefined)[],
-    data: GDatum[]
+    data: GDatum[],
   ) {
     const groupSize = group.length;
     const dataSize = data.length;
@@ -537,7 +539,7 @@ export class Selection<G extends Node | EnterNode, P extends Node | EnterNode, G
     update: (G | undefined)[],
     exit: (G | undefined)[],
     data: GDatum[],
-    key: KeyFn<Node | EnterNode, G | GDatum, GDatum>
+    key: KeyFn<Node | EnterNode, G | GDatum, GDatum>,
   ) {
     const groupSize = group.length;
     const dataSize = data.length;

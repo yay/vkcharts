@@ -1,6 +1,6 @@
-import { ContinuousScale } from './continuousScale';
-import ticks, { tickIncrement } from '../util/ticks';
 import { tickFormat } from '../util/numberFormat';
+import ticks, { tickIncrement } from '../util/ticks';
+import { ContinuousScale } from './continuousScale';
 
 /**
  * Maps continuous domain to a continuous range.
@@ -23,7 +23,7 @@ export class LinearScale extends ContinuousScale {
     let i1 = d.length - 1;
     let start = d[i0];
     let stop = d[i1];
-    let step;
+    let step: number;
 
     if (stop < start) {
       step = start;
@@ -60,6 +60,6 @@ export class LinearScale extends ContinuousScale {
 
   tickFormat(count?: number, specifier?: string) {
     const d = this.domain;
-    return tickFormat(d[0], d[d.length - 1], count == undefined ? 10 : count, specifier);
+    return tickFormat(d[0], d[d.length - 1], count === undefined ? 10 : count, specifier);
   }
 }

@@ -1,22 +1,22 @@
-import { describe, expect, test } from '@jest/globals';
-import { format, formatDecimalParts, formatPrefix } from './numberFormat';
+import { describe, expect, test } from 'vitest';
 import { LinearScale } from '../scale/linearScale';
+import { format, formatDecimalParts, formatPrefix } from './numberFormat';
 
 describe('formatDecimalParts', () => {
   test('1.23', () => {
     const v = formatDecimalParts(1.23);
-    expect(v && v[0]).toBe('123');
-    expect(v && v[1]).toBe(0);
+    expect(v?.[0]).toBe('123');
+    expect(v?.[1]).toBe(0);
   });
   test('1.23, 5', () => {
     const v = formatDecimalParts(1.23, 5);
-    expect(v && v[0]).toBe('12300');
-    expect(v && v[1]).toBe(0);
+    expect(v?.[0]).toBe('12300');
+    expect(v?.[1]).toBe(0);
   });
   test('1.23, 2', () => {
     const v = formatDecimalParts(1.23, 2);
-    expect(v && v[0]).toBe('12');
-    expect(v && v[1]).toBe(0);
+    expect(v?.[0]).toBe('12');
+    expect(v?.[1]).toBe(0);
   });
 });
 

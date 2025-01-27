@@ -1,4 +1,4 @@
-import { Chart } from '../lib/chart/chart';
+import type { Chart } from '../lib/chart/chart';
 
 export function makeChartResizeable(chart: Chart) {
   let startX = 0;

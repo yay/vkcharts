@@ -1,6 +1,6 @@
-import { Path } from '../../scene/shape/path';
 import { BBox } from '../../scene/bbox';
-import { type ShapeLineCap } from '../../scene/shape/shape';
+import { Path } from '../../scene/shape/path';
+import type { ShapeLineCap } from '../../scene/shape/shape';
 
 export class RangeMask extends Path {
   static className = 'RangeMask';
@@ -59,14 +59,14 @@ export class RangeMask extends Path {
 
   protected _min: number = 0;
   set min(value: number) {
-    value = Math.min(Math.max(value, 0), this.max - this.minRange);
-    if (isNaN(value)) {
+    if (Number.isNaN(value)) {
       return;
     }
-    if (this._min !== value) {
-      this._min = value;
+    const clampedValue = Math.min(Math.max(value, 0), this.max - this.minRange);
+    if (this._min !== clampedValue) {
+      this._min = clampedValue;
       this.dirtyPath = true;
-      this.onRangeChange && this.onRangeChange(value, this.max);
+      this.onRangeChange?.(clampedValue, this.max);
     }
   }
   get min(): number {
@@ -75,14 +75,15 @@ export class RangeMask extends Path {
 
   protected _max: number = 1;
   set max(value: number) {
-    value = Math.max(Math.min(value, 1), this.min + this.minRange);
-    if (isNaN(value)) {
+    if (Number.isNaN(value)) {
       return;
     }
-    if (this._max !== value) {
-      this._max = value;
+    const clampedValue = Math.max(Math.min(value, 1), this.min + this.minRange);
+
+    if (this._max !== clampedValue) {
+      this._max = clampedValue;
       this.dirtyPath = true;
-      this.onRangeChange && this.onRangeChange(this.min, value);
+      this.onRangeChange?.(this.min, clampedValue);
     }
   }
   get max(): number {

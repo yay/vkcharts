@@ -1,23 +1,23 @@
+import { BandScale } from '../../../scale/bandScale';
+import { ContinuousScale, clamper } from '../../../scale/continuousScale';
+import type { Scale } from '../../../scale/scale';
+import type { DropShadow } from '../../../scene/dropShadow';
 import { Group } from '../../../scene/group';
+import { PointerEvents } from '../../../scene/node';
 import { Selection } from '../../../scene/selection';
 import { Rect } from '../../../scene/shape/rect';
-import { Text, type FontStyle, type FontWeight } from '../../../scene/shape/text';
-import { BandScale } from '../../../scale/bandScale';
-import { DropShadow } from '../../../scene/dropShadow';
-import { type SeriesNodeDatum, type CartesianTooltipRendererParams, SeriesTooltip, Series } from '../series';
-import { Label } from '../../label';
-import { PointerEvents } from '../../../scene/node';
-import { type LegendDatum } from '../../legend';
-import { CartesianSeries } from './cartesianSeries';
-import { ChartAxis, ChartAxisDirection, flipChartAxisDirection } from '../../chartAxis';
-import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
+import { type FontStyle, type FontWeight, Text } from '../../../scene/shape/text';
 import { findMinMax } from '../../../util/array';
 import { equal } from '../../../util/equal';
-import { reactive, type TypedEvent } from '../../../util/observable';
-import { type Scale } from '../../../scale/scale';
+import { type TypedEvent, reactive } from '../../../util/observable';
 import { sanitizeHtml } from '../../../util/sanitize';
 import { isNumber } from '../../../util/value';
-import { clamper, ContinuousScale } from '../../../scale/continuousScale';
+import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
+import { type ChartAxis, ChartAxisDirection, flipChartAxisDirection } from '../../chartAxis';
+import { Label } from '../../label';
+import type { LegendDatum } from '../../legend';
+import { type CartesianTooltipRendererParams, Series, type SeriesNodeDatum, SeriesTooltip } from '../series';
+import { CartesianSeries } from './cartesianSeries';
 
 export interface BarSeriesNodeClickEvent extends TypedEvent {
   readonly type: 'nodeClick';
@@ -116,7 +116,7 @@ export class BarSeries extends CartesianSeries {
 
   private rectSelection: Selection<Rect, Group, BarNodeDatum, any> = Selection.select(this.rectGroup).selectAll<Rect>();
   private labelSelection: Selection<Text, Group, BarNodeDatum, any> = Selection.select(
-    this.labelGroup
+    this.labelGroup,
   ).selectAll<Text>();
 
   private nodeData: BarNodeDatum[] = [];
@@ -169,7 +169,7 @@ export class BarSeries extends CartesianSeries {
 
   getKeys(direction: ChartAxisDirection): string[] {
     const { directionKeys } = this;
-    const keys = directionKeys && directionKeys[this.flipXY ? flipChartAxisDirection(direction) : direction];
+    const keys = directionKeys?.[this.flipXY ? flipChartAxisDirection(direction) : direction];
     let values: string[] = [];
 
     if (keys) {
@@ -380,9 +380,9 @@ export class BarSeries extends CartesianSeries {
           }
           const value = datum[yKey];
 
-          return isFinite(value) && seriesItemEnabled.get(yKey) ? value : 0;
+          return Number.isFinite(value) && seriesItemEnabled.get(yKey) ? value : 0;
         });
-      })
+      }),
     );
 
     // Used for normalization of stacked bars. Contains min/max values for each stack in each group,
@@ -395,7 +395,7 @@ export class BarSeries extends CartesianSeries {
 
     let yMin: number;
     let yMax: number;
-    if (normalizedTo && isFinite(normalizedTo)) {
+    if (normalizedTo && Number.isFinite(normalizedTo)) {
       yMin = yLargestMinMax.min < 0 ? -normalizedTo : 0;
       yMax = normalizedTo;
       yData.forEach((group, i) => {
@@ -690,8 +690,8 @@ export class BarSeries extends CartesianSeries {
       rect.y = datum.y;
       rect.width = datum.width;
       rect.height = datum.height;
-      rect.fill = (format && format.fill) || fill;
-      rect.stroke = (format && format.stroke) || stroke;
+      rect.fill = format?.fill || fill;
+      rect.stroke = format?.stroke || stroke;
       rect.strokeWidth = format && format.strokeWidth !== undefined ? format.strokeWidth : strokeWidth;
       rect.fillOpacity = fillOpacity;
       rect.strokeOpacity = strokeOpacity;
@@ -807,7 +807,7 @@ export class BarSeries extends CartesianSeries {
           yName,
           color,
         }),
-        defaults
+        defaults,
       );
     }
 
@@ -830,7 +830,7 @@ export class BarSeries extends CartesianSeries {
       strokeOpacity,
     } = this;
 
-    if (data && data.length && xKey && yKeys.length) {
+    if (data?.length && xKey && yKeys.length) {
       this.yKeys.forEach((stack, stackIndex) => {
         stack.forEach((yKey, levelIndex) => {
           if (hideInLegend.indexOf(yKey) < 0) {

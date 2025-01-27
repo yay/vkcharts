@@ -1,9 +1,9 @@
-import { Chart } from './chart';
-import { Node } from '../scene/node';
-import { PolarSeries } from './series/polar/polarSeries';
+import { BBox } from '../scene/bbox';
+import type { Node } from '../scene/node';
 import { reactive } from '../util/observable';
 import { Padding } from '../util/padding';
-import { BBox } from '../scene/bbox';
+import { Chart } from './chart';
+import { PolarSeries } from './series/polar/polarSeries';
 
 export class PolarChart extends Chart {
   static className = 'PolarChart';
@@ -68,13 +68,13 @@ export class PolarChart extends Chart {
     const centerY = shrinkRect.y + shrinkRect.height / 2;
     const radius = Math.min(shrinkRect.width, shrinkRect.height) / 2;
 
-    this.series.forEach((series) => {
+    for (const series of this.series) {
       if (series instanceof PolarSeries) {
         series.centerX = centerX;
         series.centerY = centerY;
         series.radius = radius;
         series.update();
       }
-    });
+    }
   }
 }

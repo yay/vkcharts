@@ -1,7 +1,7 @@
-import { Scene } from './scene';
-import { Matrix } from './matrix';
-import { BBox } from './bbox';
 import { createId } from '../util/id';
+import type { BBox } from './bbox';
+import { Matrix } from './matrix';
+import type { Scene } from './scene';
 
 export enum PointerEvents {
   All,
@@ -29,7 +29,7 @@ export abstract class Node {
    * Some number to identify this node, typically within a `Group` node.
    * Usually this will be some enum value used as a selector.
    */
-  tag: number = NaN;
+  tag: number = Number.NaN;
 
   /**
    * This is meaningfully faster than `instanceof` and should be the preferred way
@@ -184,7 +184,7 @@ export abstract class Node {
         return node;
       }
     }
-    throw new Error(`The node to be removed is not a child of this node.`);
+    throw new Error('The node to be removed is not a child of this node.');
   }
 
   /**
@@ -211,7 +211,7 @@ export abstract class Node {
         node._setParent(this);
         node._setScene(this.scene);
       } else {
-        throw new Error(`${nextNode} has ${parent} as the parent, ` + `but is not in its list of children.`);
+        throw new Error(`${nextNode} has ${parent} as the parent, but is not in its list of children.`);
       }
 
       this.dirty = true;
@@ -447,7 +447,7 @@ export abstract class Node {
   }
 
   computeBBoxCenter(): [number, number] {
-    const bbox = this.computeBBox && this.computeBBox();
+    const bbox = this.computeBBox?.();
     if (bbox) {
       return [bbox.x + bbox.width * 0.5, bbox.y + bbox.height * 0.5];
     }

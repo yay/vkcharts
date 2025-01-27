@@ -1,10 +1,9 @@
 export function createId(instance: any): string {
-  const constructor = instance.constructor;
-  const className = constructor.className;
+  const className = instance.constructor.className;
 
   if (!className) {
-    throw new Error(`The ${constructor} is missing the 'className' property.`);
+    throw new Error(`The ${instance.constructor} is missing the 'className' property.`);
   }
 
-  return className + '-' + (constructor.id = (constructor.id || 0) + 1);
+  return className + '-' + (instance.constructor.id = (instance.constructor.id || 0) + 1);
 }

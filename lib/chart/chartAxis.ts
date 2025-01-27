@@ -1,6 +1,6 @@
-import { type Scale } from '../scale/scale';
 import { Axis } from '../axis';
-import { Series } from './series/series';
+import type { Scale } from '../scale/scale';
+import type { Series } from './series/series';
 
 export enum ChartAxisDirection {
   X = 'x', // means 'angle' in polar charts

@@ -1,26 +1,26 @@
-import { Path } from '../../../scene/shape/path';
 import { ContinuousScale } from '../../../scale/continuousScale';
-import { Selection } from '../../../scene/selection';
 import { Group } from '../../../scene/group';
+import { PointerEvents } from '../../../scene/node';
+import { Selection } from '../../../scene/selection';
+import { Path } from '../../../scene/shape/path';
+import { Text } from '../../../scene/shape/text';
+import type { FontStyle, FontWeight } from '../../../scene/shape/text';
+import { extent } from '../../../util/array';
+import { type PropertyChangeEvent, type TypedEvent, reactive } from '../../../util/observable';
+import { sanitizeHtml } from '../../../util/sanitize';
+import { interpolate } from '../../../util/string';
+import { isContinuous } from '../../../util/value';
+import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
+import { ChartAxisDirection } from '../../chartAxis';
+import { Label } from '../../label';
+import type { LegendDatum } from '../../legend';
+import { getMarker } from '../../marker/util';
 import {
-  type SeriesNodeDatum,
   type CartesianTooltipRendererParams as LineTooltipRendererParams,
+  type SeriesNodeDatum,
   SeriesTooltip,
 } from '../series';
-import { extent } from '../../../util/array';
-import { PointerEvents } from '../../../scene/node';
-import { Text } from '../../../scene/shape/text';
-import { type LegendDatum } from '../../legend';
 import { CartesianSeries, CartesianSeriesMarker, type CartesianSeriesMarkerFormat } from './cartesianSeries';
-import { ChartAxisDirection } from '../../chartAxis';
-import { getMarker } from '../../marker/util';
-import { reactive, type PropertyChangeEvent, type TypedEvent } from '../../../util/observable';
-import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
-import { interpolate } from '../../../util/string';
-import { type FontStyle, type FontWeight } from '../../../scene/shape/text';
-import { Label } from '../../label';
-import { sanitizeHtml } from '../../../util/sanitize';
-import { isContinuous } from '../../../util/value';
 
 interface LineNodeDatum extends SeriesNodeDatum {
   readonly point: {
@@ -73,7 +73,7 @@ export class LineSeries extends CartesianSeries {
   // We use groups for this selection even though each group only contains a marker ATM
   // because in the future we might want to add label support as well.
   private nodeSelection: Selection<Group, Group, LineNodeDatum, any> = Selection.select(
-    this.pickGroup
+    this.pickGroup,
   ).selectAll<Group>();
   private nodeData: LineNodeDatum[] = [];
 
@@ -255,7 +255,7 @@ export class LineSeries extends CartesianSeries {
       } else {
         const [xDatum, yDatum] = xyDatums;
         const x = xScale.convert(xDatum) + xOffset;
-        if (isNaN(x)) {
+        if (Number.isNaN(x)) {
           prevXInRange = undefined;
           moveTo = true;
           continue;
@@ -289,7 +289,8 @@ export class LineSeries extends CartesianSeries {
         if (label.formatter) {
           labelText = label.formatter({ value: yDatum });
         } else {
-          labelText = typeof yDatum === 'number' && isFinite(yDatum) ? yDatum.toFixed(2) : yDatum ? String(yDatum) : '';
+          labelText =
+            typeof yDatum === 'number' && Number.isFinite(yDatum) ? yDatum.toFixed(2) : yDatum ? String(yDatum) : '';
         }
 
         nodeData.push({
@@ -395,8 +396,8 @@ export class LineSeries extends CartesianSeries {
         });
       }
 
-      node.fill = (format && format.fill) || fill;
-      node.stroke = (format && format.stroke) || stroke;
+      node.fill = format?.fill || fill;
+      node.stroke = format?.stroke || stroke;
       node.strokeWidth = format && format.strokeWidth !== undefined ? format.strokeWidth : strokeWidth;
       node.size = format && format.size !== undefined ? format.size : size;
 
@@ -485,7 +486,7 @@ export class LineSeries extends CartesianSeries {
           {
             content: interpolate(tooltipFormat, params),
           },
-          defaults
+          defaults,
         );
       }
       if (tooltipRenderer) {
@@ -499,7 +500,7 @@ export class LineSeries extends CartesianSeries {
   listSeriesItems(legendData: LegendDatum[]): void {
     const { id, data, xKey, yKey, yName, visible, title, marker, stroke, strokeOpacity } = this;
 
-    if (data && data.length && xKey && yKey) {
+    if (data?.length && xKey && yKey) {
       legendData.push({
         id: id,
         itemId: undefined,

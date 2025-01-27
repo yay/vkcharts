@@ -1,8 +1,8 @@
-import { Group } from '../scene/group';
-import { Text, type FontStyle, type FontWeight } from '../scene/shape/text';
-import { Square } from './marker/square';
-import { Marker } from './marker/marker';
 import { HdpiCanvas } from '../canvas/hdpiCanvas';
+import { Group } from '../scene/group';
+import { type FontStyle, type FontWeight, Text } from '../scene/shape/text';
+import type { Marker } from './marker/marker';
+import { Square } from './marker/square';
 
 export class MarkerLabel extends Group {
   static className = 'MarkerLabel';

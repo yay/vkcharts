@@ -1,4 +1,4 @@
-import { ContinuousScale } from '../../scale/continuousScale';
+import type { ContinuousScale } from '../../scale/continuousScale';
 import { LinearScale } from '../../scale/linearScale';
 import { extent } from '../../util/array';
 import { isContinuous } from '../../util/value';
@@ -14,7 +14,7 @@ export function clamper(domain: number[]): (x: number) => number {
     [a, b] = [b, a];
   }
 
-  return (x) => (x >= a && x <= b ? x : NaN);
+  return (x) => (x >= a && x <= b ? x : Number.NaN);
 }
 
 export class NumberAxis extends ChartAxis {
@@ -44,7 +44,7 @@ export class NumberAxis extends ChartAxis {
       domain = extent(domain, isContinuous, Number) || [0, 1];
     }
     const { scale, min, max } = this;
-    domain = [isNaN(min) ? domain[0] : min, isNaN(max) ? domain[1] : max];
+    domain = [Number.isNaN(min) ? domain[0] : min, Number.isNaN(max) ? domain[1] : max];
     scale.domain = domain;
     this.onLabelFormatChange(this.label.format);
     (scale as ContinuousScale).clamp = true;
@@ -56,11 +56,11 @@ export class NumberAxis extends ChartAxis {
     return this.scale.domain;
   }
 
-  protected _min: number = NaN;
+  protected _min: number = Number.NaN;
   set min(value: number) {
     if (this._min !== value) {
       this._min = value;
-      if (!isNaN(value)) {
+      if (!Number.isNaN(value)) {
         this.scale.domain = [value, this.scale.domain[1]];
       }
     }
@@ -69,11 +69,11 @@ export class NumberAxis extends ChartAxis {
     return this._min;
   }
 
-  protected _max: number = NaN;
+  protected _max: number = Number.NaN;
   set max(value: number) {
     if (this._max !== value) {
       this._max = value;
-      if (!isNaN(value)) {
+      if (!Number.isNaN(value)) {
         this.scale.domain = [this.scale.domain[0], value];
       }
     }

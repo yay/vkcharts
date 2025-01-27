@@ -27,14 +27,14 @@ export function extent<T, K>(values: T[], predicate: (value: T) => boolean, map:
 export function extent<T, K>(
   values: T[],
   predicate: (value: T) => boolean,
-  map?: (value: T) => K
+  map?: (value: T) => K,
 ): [T | K, T | K] | undefined {
   const transform = map || identity;
   const n = values.length;
   let i = -1;
-  let value;
-  let min;
-  let max;
+  let value: T | undefined;
+  let min: T | undefined;
+  let max: T | undefined;
 
   while (++i < n) {
     // Find the first value.
@@ -80,7 +80,7 @@ export function findMinMax(values: number[]): { min: number; max: number } {
 
 export function copy(array: any[], start: number = 0, count: number = array.length): any[] {
   const result = [];
-  let n = array.length;
+  const n = array.length;
 
   if (n) {
     for (let i = 0; i < count; i++) {

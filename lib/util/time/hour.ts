@@ -1,9 +1,9 @@
-import { CountableTimeInterval } from './interval';
 import { durationHour, durationMinute, durationSecond } from './duration';
+import { CountableTimeInterval } from './interval';
 
 function floor(date: Date) {
   date.setTime(
-    date.getTime() - date.getMilliseconds() - date.getSeconds() * durationSecond - date.getMinutes() * durationMinute
+    date.getTime() - date.getMilliseconds() - date.getSeconds() * durationSecond - date.getMinutes() * durationMinute,
   );
 }
 function offset(date: Date, hours: number) {

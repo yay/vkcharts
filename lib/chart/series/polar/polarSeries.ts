@@ -1,5 +1,5 @@
-import { Series } from '../series';
 import { ChartAxisDirection } from '../../chartAxis';
+import { Series } from '../series';
 import { SeriesMarker, type SeriesMarkerFormatterParams } from '../seriesMarker';
 
 export abstract class PolarSeries extends Series {

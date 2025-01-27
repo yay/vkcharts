@@ -1,7 +1,7 @@
 interface ScreenDetails {
   currentScreen: ScreenDetailed;
-  oncurrentscreenchange: Function;
-  onscreenschange: Function;
+  oncurrentscreenchange: () => void;
+  onscreenschange: () => void;
   screens: ScreenDetailed[];
 }
 
@@ -18,7 +18,7 @@ interface ScreenDetailed {
   isPrimary: boolean;
   label: string;
   left: number;
-  onchange: Function;
+  onchange: () => void;
   orientation: ScreeOrientation;
   pixelDepth: number;
   top: number;
@@ -27,7 +27,7 @@ interface ScreenDetailed {
 
 interface ScreeOrientation {
   angle: number;
-  onchange: Function;
+  onchange: () => void;
   type: string;
 }
 
@@ -36,7 +36,7 @@ const log = logging ? console.log : () => {};
 
 export function initFullScreenButton(
   button: string | HTMLButtonElement = 'full-screen',
-  target: HTMLElement = document.body
+  target: HTMLElement = document.body,
 ) {
   const btn = typeof button === 'string' ? (document.getElementById(button) as HTMLButtonElement) : button;
   btn.addEventListener('click', async () => {

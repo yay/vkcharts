@@ -1,6 +1,6 @@
 import { HdpiCanvas } from '../canvas/hdpiCanvas';
-import { Node } from './node';
 import { createId } from '../util/id';
+import type { Node } from './node';
 
 interface DebugOptions {
   renderFrameIndex: boolean;

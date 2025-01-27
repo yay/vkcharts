@@ -1,14 +1,14 @@
-import { describe, expect, test } from '@jest/globals';
+import { describe, expect, test } from 'vitest';
+import type { AreaSeries } from '../series/cartesian/areaSeries';
+import type { BarSeries } from '../series/cartesian/barSeries';
+import type { PieSeries } from '../series/polar/pieSeries';
 import { VkChart } from '../vkChart';
-import {
-  type VkCartesianChartOptions,
-  type VkCartesianSeriesMarkerFormatter,
-  type VkChartTheme,
-  type VkPolarChartOptions,
+import type {
+  VkCartesianChartOptions,
+  VkCartesianSeriesMarkerFormatter,
+  VkChartTheme,
+  VkPolarChartOptions,
 } from '../vkChartOptions';
-import { AreaSeries } from '../series/cartesian/areaSeries';
-import { BarSeries } from '../series/cartesian/barSeries';
-import { PieSeries } from '../series/polar/pieSeries';
 import { ChartTheme } from './chartTheme';
 
 const data = [
@@ -111,9 +111,9 @@ describe('cartesian overrides', () => {
   });
 
   test('Cartesian chart instance properties', () => {
-    expect(chart.title && chart.title.enabled).toBe(true);
-    expect(chart.title && chart.title.fontSize).toBe(24);
-    expect(chart.title && chart.title.fontWeight).toBe('normal');
+    expect(chart.title?.enabled).toBe(true);
+    expect(chart.title?.fontSize).toBe(24);
+    expect(chart.title?.fontWeight).toBe('normal');
 
     expect(chart.background.fill).toBe('red');
 
@@ -194,9 +194,9 @@ describe('polar overrides', () => {
   });
 
   test('Polar chart intstance properties', () => {
-    expect(chart.title && chart.title.enabled).toBe(true);
-    expect(chart.title && chart.title.fontSize).toBe(24);
-    expect(chart.title && chart.title.fontWeight).toBe('normal');
+    expect(chart.title?.enabled).toBe(true);
+    expect(chart.title?.fontSize).toBe(24);
+    expect(chart.title?.fontWeight).toBe('normal');
 
     expect(chart.background.fill).toBe('red');
 
@@ -303,9 +303,9 @@ describe('common overrides', () => {
   const polarChart = VkChart.create(polarChartOptions);
 
   test('Cartesian chart instance properties', () => {
-    expect(cartesianChart.title && cartesianChart.title.enabled).toBe(true);
-    expect(cartesianChart.title && cartesianChart.title.fontSize).toBe(24);
-    expect(cartesianChart.title && cartesianChart.title.fontWeight).toBe('normal');
+    expect(cartesianChart.title?.enabled).toBe(true);
+    expect(cartesianChart.title?.fontSize).toBe(24);
+    expect(cartesianChart.title?.fontWeight).toBe('normal');
 
     expect(cartesianChart.background.fill).toBe('red');
 
@@ -320,9 +320,9 @@ describe('common overrides', () => {
   });
 
   test('Polar chart intstance properties', () => {
-    expect(polarChart.title && polarChart.title.enabled).toBe(true);
-    expect(polarChart.title && polarChart.title.fontSize).toBe(24);
-    expect(polarChart.title && polarChart.title.fontWeight).toBe('normal');
+    expect(polarChart.title?.enabled).toBe(true);
+    expect(polarChart.title?.fontSize).toBe(24);
+    expect(polarChart.title?.fontWeight).toBe('normal');
 
     expect(polarChart.background.fill).toBe('red');
 
@@ -538,9 +538,9 @@ describe('Position specific axis styling', () => {
     expect(chart.axes[1].label.fontFamily).toBe(defaultTheme.getConfig('cartesian.axes.category.label.fontFamily'));
     expect(chart.axes[1].label.fontWeight).toBe('bold');
     expect(chart.axes[1].label.rotation).toBe(45);
-    expect(chart.axes[1].title && chart.axes[1].title.text).toBe('Test');
+    expect(chart.axes[1].title?.text).toBe('Test');
     // Since config is provided, the `enabled` should be auto-set to `true`,
     // even though theme's default is `false`.
-    expect(chart.axes[1].title && chart.axes[1].title.enabled).toBe(false);
+    expect(chart.axes[1].title?.enabled).toBe(false);
   });
 });

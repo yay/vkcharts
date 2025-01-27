@@ -1,4 +1,4 @@
-import { expect, test } from '@jest/globals';
+import { expect, test } from 'vitest';
 import { NumericTicks } from '../util/ticks';
 import { LogScale } from './logScale';
 
@@ -12,12 +12,6 @@ test('ticks', () => {
       900000, 1000000,
     ]);
     expect(scale.ticks(4)).toEqual(new NumericTicks(5, [100, 1000, 10000, 100000, 1000000]));
-  }
-
-  {
-    // const scale = new LogScale();
-    // scale.domain = [-100, 10000];
-    // expect(scale.ticks()).toEqual([]);
   }
 
   {

@@ -1,14 +1,14 @@
-import { Group } from '../../scene/group';
-import { Selection } from '../../scene/selection';
-import { Line } from '../../scene/shape/line';
-import { normalizeAngle360, toRadians } from '../../util/angle';
-import { Text } from '../../scene/shape/text';
-import { BBox } from '../../scene/bbox';
-import { Matrix } from '../../scene/matrix';
+import { AxisLabel } from '../../axis';
+import { type TreeLayout, ticksToTree, treeLayout } from '../../layout/tree';
 // import { Rect } from "../../scene/shape/rect"; debug (bbox)
 import { BandScale } from '../../scale/bandScale';
-import { ticksToTree, TreeLayout, treeLayout } from '../../layout/tree';
-import { AxisLabel } from '../../axis';
+import { BBox } from '../../scene/bbox';
+import type { Group } from '../../scene/group';
+import { Matrix } from '../../scene/matrix';
+import { Selection } from '../../scene/selection';
+import { Line } from '../../scene/shape/line';
+import { Text } from '../../scene/shape/text';
+import { normalizeAngle360, toRadians } from '../../util/angle';
 import { ChartAxis } from '../chartAxis';
 
 class GroupedCategoryAxisLabel extends AxisLabel {
@@ -105,7 +105,7 @@ export class GroupedCategoryAxis extends ChartAxis<BandScale<string | number>> {
         layout.depth * lineHeight,
         (Math.min(range[0], range[1]) || 0) + (s.bandwidth || 0) / 2,
         -layout.depth * lineHeight,
-        range[1] - range[0] < 0
+        range[1] - range[0] < 0,
       );
     }
   }
@@ -263,7 +263,7 @@ export class GroupedCategoryAxis extends ChartAxis<BandScale<string | number>> {
       node.translationY = datum.screenX;
       if (index === 0) {
         // use the phantom root as the axis title
-        if (title && title.enabled && labels.length > 0) {
+        if (title?.enabled && labels.length > 0) {
           node.visible = true;
           node.text = title.text;
           node.fontSize = title.fontSize;
@@ -312,7 +312,7 @@ export class GroupedCategoryAxis extends ChartAxis<BandScale<string | number>> {
       // Calculate positions of label separators for all nodes except the root.
       // Each separator is placed to the top of the current label.
       if (datum.parent && isLabelTree) {
-        let y = !datum.children.length
+        const y = !datum.children.length
           ? datum.screenX - bandwidth / 2
           : datum.screenX - (datum.leafCount * bandwidth) / 2;
 
@@ -425,10 +425,10 @@ export class GroupedCategoryAxis extends ChartAxis<BandScale<string | number>> {
 
   computeBBox(options?: { excludeTitle: boolean }): BBox {
     const includeTitle = !options || !options.excludeTitle;
-    let left = Infinity;
-    let right = -Infinity;
-    let top = Infinity;
-    let bottom = -Infinity;
+    let left = Number.POSITIVE_INFINITY;
+    let right = Number.NEGATIVE_INFINITY;
+    let top = Number.POSITIVE_INFINITY;
+    let bottom = Number.NEGATIVE_INFINITY;
 
     this.labelSelection.each((label, _, index) => {
       // The label itself is rotated, but not translated, the group that

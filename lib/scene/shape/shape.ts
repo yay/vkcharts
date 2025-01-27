@@ -1,6 +1,6 @@
-import { Node } from '../node';
 import { chainObjects } from '../../util/object';
-import { DropShadow } from '../dropShadow';
+import type { DropShadow } from '../dropShadow';
+import { Node } from '../node';
 
 export type ShapeLineCap = undefined | 'round' | 'square'; // null is for 'butt'
 export type ShapeLineJoin = undefined | 'round' | 'bevel'; // null is for 'miter'
@@ -51,7 +51,7 @@ export abstract class Shape extends Node {
       opacity: 1,
       fillShadow: undefined,
       strokeShadow: undefined,
-    }
+    },
   );
 
   /**
@@ -87,7 +87,10 @@ export abstract class Shape extends Node {
     const protoStyles = Object.getPrototypeOf(styles);
 
     for (const property in styles) {
-      if (styles.hasOwnProperty(property) && protoStyles.hasOwnProperty(property)) {
+      if (
+        Object.prototype.hasOwnProperty.call(styles, property) &&
+        Object.prototype.hasOwnProperty.call(protoStyles, property)
+      ) {
         (this as any)[property] = styles[property];
       }
     }
@@ -165,7 +168,7 @@ export abstract class Shape extends Node {
   // Returns the aligned `start` or `length` value.
   // For example: `start` could be `y` and `length` could be `height` of a rectangle.
   align(alignment: number, start: number, length?: number) {
-    if (length != undefined) {
+    if (length !== undefined) {
       return Math.floor(length) + Math.floor((start % 1) + (length % 1));
     }
     return Math.floor(start) + alignment;
@@ -298,7 +301,7 @@ export abstract class Shape extends Node {
       // has no effect on shadows, so we have to account for the pixel ratio
       // manually here.
       const fillShadow = this.fillShadow;
-      if (fillShadow && fillShadow.enabled) {
+      if (fillShadow?.enabled) {
         ctx.shadowColor = fillShadow.color;
         ctx.shadowOffsetX = fillShadow.xOffset * pixelRatio;
         ctx.shadowOffsetY = fillShadow.yOffset * pixelRatio;
@@ -328,7 +331,7 @@ export abstract class Shape extends Node {
       }
 
       const strokeShadow = this.strokeShadow;
-      if (strokeShadow && strokeShadow.enabled) {
+      if (strokeShadow?.enabled) {
         ctx.shadowColor = strokeShadow.color;
         ctx.shadowOffsetX = strokeShadow.xOffset * pixelRatio;
         ctx.shadowOffsetY = strokeShadow.yOffset * pixelRatio;

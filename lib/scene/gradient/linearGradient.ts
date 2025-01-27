@@ -1,5 +1,5 @@
+import type { BBox } from '../bbox';
 import { Gradient } from './gradient';
-import { BBox } from '../bbox';
 
 export class LinearGradient extends Gradient {
   angle = 0;

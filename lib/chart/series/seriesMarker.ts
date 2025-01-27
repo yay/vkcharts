@@ -1,6 +1,6 @@
-import { Marker } from '../marker/marker';
 import { Observable, reactive } from '../../util/observable';
 import { Circle } from '../marker/circle';
+import type { Marker } from '../marker/marker';
 
 export class SeriesMarker extends Observable {
   @reactive('change') enabled = true;

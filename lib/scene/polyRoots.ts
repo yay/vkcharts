@@ -4,7 +4,7 @@ const sign: (x: number) => number = Math.sign
   : (x) => {
       x = +x;
 
-      if (x === 0 || isNaN(x)) {
+      if (x === 0 || Number.isNaN(x)) {
         return x;
       }
 

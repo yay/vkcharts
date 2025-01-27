@@ -1,28 +1,28 @@
+import type { DropShadow } from '../../../scene/dropShadow';
 import { Group } from '../../../scene/group';
-import { Selection } from '../../../scene/selection';
-import { DropShadow } from '../../../scene/dropShadow';
-import {
-  type SeriesNodeDatum,
-  type CartesianTooltipRendererParams as AreaTooltipRendererParams,
-  SeriesTooltip,
-} from '../series';
 import { PointerEvents } from '../../../scene/node';
-import { type LegendDatum } from '../../legend';
+import { Selection } from '../../../scene/selection';
 import { Path } from '../../../scene/shape/path';
-import { Marker } from '../../marker/marker';
-import { CartesianSeries, CartesianSeriesMarker, type CartesianSeriesMarkerFormat } from './cartesianSeries';
-import { ChartAxisDirection } from '../../chartAxis';
-import { getMarker } from '../../marker/util';
-import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
+import { Text } from '../../../scene/shape/text';
+import type { FontStyle, FontWeight } from '../../../scene/shape/text';
 import { findMinMax } from '../../../util/array';
 import { equal } from '../../../util/equal';
-import { reactive, type TypedEvent } from '../../../util/observable';
-import { interpolate } from '../../../util/string';
-import { Text } from '../../../scene/shape/text';
-import { Label } from '../../label';
+import { type TypedEvent, reactive } from '../../../util/observable';
 import { sanitizeHtml } from '../../../util/sanitize';
-import { type FontStyle, type FontWeight } from '../../../scene/shape/text';
+import { interpolate } from '../../../util/string';
 import { isNumber } from '../../../util/value';
+import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
+import { ChartAxisDirection } from '../../chartAxis';
+import { Label } from '../../label';
+import type { LegendDatum } from '../../legend';
+import type { Marker } from '../../marker/marker';
+import { getMarker } from '../../marker/util';
+import {
+  type CartesianTooltipRendererParams as AreaTooltipRendererParams,
+  type SeriesNodeDatum,
+  SeriesTooltip,
+} from '../series';
+import { CartesianSeries, CartesianSeriesMarker, type CartesianSeriesMarkerFormat } from './cartesianSeries';
 
 interface AreaSelectionDatum {
   readonly itemId: string;
@@ -92,16 +92,16 @@ export class AreaSeries extends CartesianSeries {
   private labelGroup = this.group.appendChild(new Group());
 
   private fillSelection: Selection<Path, Group, AreaSelectionDatum, any> = Selection.select(
-    this.areaGroup
+    this.areaGroup,
   ).selectAll<Path>();
   private strokeSelection: Selection<Path, Group, AreaSelectionDatum, any> = Selection.select(
-    this.strokeGroup
+    this.strokeGroup,
   ).selectAll<Path>();
   private markerSelection: Selection<Marker, Group, MarkerSelectionDatum, any> = Selection.select(
-    this.markerGroup
+    this.markerGroup,
   ).selectAll<Marker>();
   private labelSelection: Selection<Text, Group, LabelSelectionDatum, any> = Selection.select(
-    this.labelGroup
+    this.labelGroup,
   ).selectAll<Text>();
 
   /**
@@ -254,8 +254,8 @@ export class AreaSeries extends CartesianSeries {
         }
         const value = datum[yKey];
 
-        return isFinite(value) && seriesItemEnabled.get(yKey) ? value : 0;
-      })
+        return Number.isFinite(value) && seriesItemEnabled.get(yKey) ? value : 0;
+      }),
     );
 
     // xData: ['Jan', 'Feb']
@@ -273,7 +273,7 @@ export class AreaSeries extends CartesianSeries {
     let yMin: number;
     let yMax: number;
 
-    if (normalizedTo && isFinite(normalizedTo)) {
+    if (normalizedTo && Number.isFinite(normalizedTo)) {
       yMin = yLargestMinMax.min < 0 ? -normalizedTo : 0;
       yMax = normalizedTo;
       yData.forEach((stack, i) =>
@@ -283,7 +283,7 @@ export class AreaSeries extends CartesianSeries {
           } else {
             stack[j] = (y / yMinMax[i].max) * normalizedTo;
           }
-        })
+        }),
       );
     } else {
       yMin = yLargestMinMax.min;
@@ -592,14 +592,15 @@ export class AreaSeries extends CartesianSeries {
         });
       }
 
-      node.fill = (format && format.fill) || fill;
-      node.stroke = (format && format.stroke) || stroke;
+      node.fill = format?.fill || fill;
+      node.stroke = format?.stroke || stroke;
       node.strokeWidth = format && format.strokeWidth !== undefined ? format.strokeWidth : strokeWidth;
       node.size = format && format.size !== undefined ? format.size : size;
 
       node.translationX = datum.point.x;
       node.translationY = datum.point.y;
-      node.visible = marker.enabled && node.size > 0 && !!seriesItemEnabled.get(datum.yKey) && !isNaN(datum.point.x);
+      node.visible =
+        marker.enabled && node.size > 0 && !!seriesItemEnabled.get(datum.yKey) && !Number.isNaN(datum.point.x);
       node.opacity = this.getOpacity(datum);
     });
   }
@@ -718,7 +719,7 @@ export class AreaSeries extends CartesianSeries {
           {
             content: interpolate(tooltipFormat, params),
           },
-          defaults
+          defaults,
         );
       }
       if (tooltipRenderer) {
@@ -733,7 +734,7 @@ export class AreaSeries extends CartesianSeries {
     const { data, id, xKey, yKeys, yNames, seriesItemEnabled, marker, fills, strokes, fillOpacity, strokeOpacity } =
       this;
 
-    if (data && data.length && xKey && yKeys.length) {
+    if (data?.length && xKey && yKeys.length) {
       yKeys.forEach((yKey, index) => {
         legendData.push({
           id,

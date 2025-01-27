@@ -1,4 +1,4 @@
-import { type VkChartThemePalette } from '../vkChartOptions';
+import type { VkChartThemePalette } from '../vkChartOptions';
 import { ChartTheme } from './chartTheme';
 
 const palette: VkChartThemePalette = {

@@ -1,4 +1,4 @@
-import { expect, test } from '@jest/globals';
+import { expect, test } from 'vitest';
 import { BandScale } from './bandScale';
 
 test('initial state', () => {
@@ -15,9 +15,9 @@ test('initial state', () => {
 test('no implicit domain construction', () => {
   const scale = new BandScale();
 
-  expect(scale.convert('B')).toBe(NaN);
-  expect(scale.convert('C')).toBe(NaN);
-  expect(scale.convert('A')).toBe(NaN);
+  expect(scale.convert('B')).toBe(Number.NaN);
+  expect(scale.convert('C')).toBe(Number.NaN);
+  expect(scale.convert('A')).toBe(Number.NaN);
 
   expect(scale.domain).toEqual([]);
 });

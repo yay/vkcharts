@@ -1,22 +1,22 @@
-import { Selection } from '../../../scene/selection';
-import { Group } from '../../../scene/group';
-import { type SeriesNodeDatum, type CartesianTooltipRendererParams, SeriesTooltip, Series } from '../series';
-import { extent } from '../../../util/array';
-import { type LegendDatum } from '../../legend';
-import { LinearScale } from '../../../scale/linearScale';
-import { reactive, type TypedEvent } from '../../../util/observable';
-import { CartesianSeries, CartesianSeriesMarker, type CartesianSeriesMarkerFormat } from './cartesianSeries';
-import { ChartAxisDirection } from '../../chartAxis';
-import { getMarker } from '../../marker/util';
-import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
-import { ContinuousScale } from '../../../scale/continuousScale';
-import { sanitizeHtml } from '../../../util/sanitize';
-import { Label } from '../../label';
-import { Text } from '../../../scene/shape/text';
 import { HdpiCanvas } from '../../../canvas/hdpiCanvas';
-import { Marker } from '../../marker/marker';
-import { type MeasuredLabel, type PlacedLabel, type PointLabelDatum } from '../../../util/labelPlacement';
+import { ContinuousScale } from '../../../scale/continuousScale';
+import { LinearScale } from '../../../scale/linearScale';
+import type { Group } from '../../../scene/group';
+import { Selection } from '../../../scene/selection';
+import { Text } from '../../../scene/shape/text';
+import { extent } from '../../../util/array';
+import type { MeasuredLabel, PlacedLabel, PointLabelDatum } from '../../../util/labelPlacement';
+import { type TypedEvent, reactive } from '../../../util/observable';
+import { sanitizeHtml } from '../../../util/sanitize';
 import { isContinuous } from '../../../util/value';
+import { type TooltipRendererResult, toTooltipHtml } from '../../chart';
+import { ChartAxisDirection } from '../../chartAxis';
+import { Label } from '../../label';
+import type { LegendDatum } from '../../legend';
+import type { Marker } from '../../marker/marker';
+import { getMarker } from '../../marker/util';
+import { type CartesianTooltipRendererParams, Series, type SeriesNodeDatum, SeriesTooltip } from '../series';
+import { CartesianSeries, CartesianSeriesMarker, type CartesianSeriesMarkerFormat } from './cartesianSeries';
 
 interface ScatterNodeDatum extends SeriesNodeDatum {
   readonly point: {
@@ -62,7 +62,7 @@ export class ScatterSeries extends CartesianSeries {
 
   private nodeData: ScatterNodeDatum[] = [];
   private markerSelection: Selection<Marker, Group, ScatterNodeDatum, any> = Selection.select(
-    this.pickGroup
+    this.pickGroup,
   ).selectAll<Marker>();
 
   private labelData: MeasuredLabel[] = [];
@@ -259,7 +259,7 @@ export class ScatterSeries extends CartesianSeries {
   }
 
   private updateLabelSelection(): void {
-    const placedLabels: PlacedLabel[] = (this.chart && this.chart.placeLabels().get(this)) || [];
+    const placedLabels: PlacedLabel[] = this.chart?.placeLabels().get(this) || [];
     const updateLabels = this.labelSelection.setData(placedLabels);
     updateLabels.exit.remove();
     const enterLabels = updateLabels.enter.append(Text);
@@ -329,8 +329,8 @@ export class ScatterSeries extends CartesianSeries {
         });
       }
 
-      node.fill = (format && format.fill) || fill;
-      node.stroke = (format && format.stroke) || stroke;
+      node.fill = format?.fill || fill;
+      node.stroke = format?.stroke || stroke;
       node.strokeWidth = format && format.strokeWidth !== undefined ? format.strokeWidth : strokeWidth;
       node.size = format && format.size !== undefined ? format.size : datum.size;
       node.fillOpacity = marker.fillOpacity !== undefined ? marker.fillOpacity : 1;
@@ -395,7 +395,7 @@ export class ScatterSeries extends CartesianSeries {
           title,
           color,
         }),
-        defaults
+        defaults,
       );
     }
 
@@ -405,7 +405,7 @@ export class ScatterSeries extends CartesianSeries {
   listSeriesItems(legendData: LegendDatum[]): void {
     const { id, data, xKey, yKey, yName, title, visible, marker } = this;
 
-    if (data && data.length && xKey && yKey) {
+    if (data?.length && xKey && yKey) {
       legendData.push({
         id,
         itemId: undefined,
