@@ -168,7 +168,7 @@ export function reactive(...events: string[]) {
         target[privateKeyEvents] = events;
       }
       Object.defineProperty(target, key, {
-        set(value: any) {
+        set(value: unknown) {
           const oldValue = this[privateKey];
           // This is a way to stop inside the setter by adding the special
           // 'debugger' event to a reactive property, for example:
@@ -187,7 +187,7 @@ export function reactive(...events: string[]) {
             }
           }
         },
-        get(): any {
+        get(): unknown {
           return this[privateKey];
         },
         enumerable: true,

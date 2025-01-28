@@ -16,14 +16,12 @@ export function interpolate(
   values: { [key: string]: any },
   formats?: { [key: string]: ValueFormat },
 ): string {
-  return input.replace(interpolatePattern, () => {
-    // biome-ignore lint/style/noArguments: <explanation>
-    const name = arguments[2];
+  return input.replace(interpolatePattern, (_match, _, name) => {
     const [valueName, formatName] = name.split(':');
     const value = values[valueName];
 
     if (typeof value === 'number') {
-      const format = formatName && formats && formats[formatName];
+      const format = formatName && formats?.[formatName];
 
       if (format) {
         const { locales, options } = format as NumberFormat;
@@ -34,7 +32,7 @@ export function interpolate(
     }
 
     if (value instanceof Date) {
-      const format = formatName && formats && formats[formatName];
+      const format = formatName && formats?.[formatName];
       if (typeof format === 'string') {
         const formatter = locale.format(format);
         return formatter(value);

@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
     "outDir": "dist-test",
-    "rootDir": "lib"
+    "rootDir": "lib",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": ["**/*.test.ts"]
 }

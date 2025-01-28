@@ -1,4 +1,4 @@
-import react from '@vitejs/plugin-react';
+import react from '@vitejs/plugin-react-swc';
 import { defineConfig } from 'vite';
 
 // https://vitejs.dev/guide/build.html#library-mode
@@ -12,5 +12,9 @@ export default defineConfig({
       fileName: 'vk-charts',
     },
   },
-  plugins: [react()],
+  plugins: [
+    react({
+      tsDecorators: true,
+    }),
+  ],
 });

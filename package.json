@@ -24,7 +24,10 @@
     "preview": "vite preview",
     "typecheck": " tsc --noEmit"
   },
-  "files": ["dist", "index.d.ts"],
+  "files": [
+    "dist",
+    "index.d.ts"
+  ],
   "main": "./dist/vk-charts.umd.cjs",
   "module": "./dist/vk-charts.js",
   "types": "./dist/index.d.ts",
@@ -38,6 +41,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@vitejs/plugin-react": "4.3.4",
+    "@vitejs/plugin-react-swc": "^3.7.2",
     "canvas": "3.1.0",
     "electron": "34.0.1",
     "typescript": "5.7.3",
