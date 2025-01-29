@@ -14,7 +14,7 @@ export class HdpiCanvas {
   constructor(document = window.document, width = 600, height = 300) {
     this.document = document;
     this.element = document.createElement('canvas');
-    this.context = this.element.getContext('2d')!;
+    this.context = this.element.getContext('2d') as CanvasRenderingContext2D;
 
     this.element.style.userSelect = 'none';
     this.element.style.display = 'block';

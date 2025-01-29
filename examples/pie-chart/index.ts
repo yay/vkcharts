@@ -64,7 +64,7 @@ function renderChart(angleKey: string, labelKey?: string, radiusKey?: string) {
   const canvas = new HdpiCanvas(document, canvasWidth, canvasHeight);
   document.body.append(canvas.element);
 
-  const ctx = canvas.element.getContext('2d')!;
+  const ctx = canvas.context;
   ctx.font = '14px Verdana';
 
   const calloutLength = 10;

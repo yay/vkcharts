@@ -1,7 +1,7 @@
 import { LinearScale } from '../../lib/scale/linearScale';
 import { BandScale } from '../../lib/scale/bandScale';
-import { createHdpiCanvas } from '../../lib/canvas/canvas';
 import { Axis } from '../../utils/axis';
+import { HdpiCanvas } from '../../lib/canvas/hdpiCanvas';
 
 const gradientTheme = [
   ['#69C5EC', '#53AFD6'],
@@ -98,10 +98,10 @@ function renderChart() {
   xBarScale.round = true;
   const barWidth = xBarScale.bandwidth;
 
-  const canvas = createHdpiCanvas(canvasWidth, canvasHeight);
-  document.body.appendChild(canvas);
+  const canvas = new HdpiCanvas(window.document, canvasWidth, canvasHeight);
+  document.body.appendChild(canvas.element);
 
-  const ctx = canvas.getContext('2d')!;
+  const ctx = canvas.context;
   ctx.font = '14px Verdana';
 
   // bars

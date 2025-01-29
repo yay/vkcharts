@@ -94,7 +94,7 @@ function renderChart() {
   const canvas = new HdpiCanvas(window.document, canvasWidth, canvasHeight);
   document.body.appendChild(canvas.element);
 
-  const ctx = canvas.element.getContext('2d')!;
+  const ctx = canvas.context;
   ctx.font = '14px Verdana';
 
   // bars

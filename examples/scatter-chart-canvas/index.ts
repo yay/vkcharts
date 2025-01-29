@@ -93,7 +93,7 @@ function renderChart(data: any[][], configs: SeriesConfig[], minRadius = 2, maxR
   const canvas = new HdpiCanvas(window.document, canvasWidth, canvasHeight);
   document.body.appendChild(canvas.element);
 
-  const ctx = canvas.element.getContext('2d')!;
+  const ctx = canvas.context;
   ctx.font = '14px Verdana';
 
   function drawSeries(color: string, xData: number[], yData: number[], radiusData: number[]) {
