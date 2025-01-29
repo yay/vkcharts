@@ -1,8 +1,12 @@
 // This is the property we set on an HTMLCanvasElement to let us know we've applied
 // the resolution independent overrides to it, and what its current DPR is.
-const DevicePixelRatioKey = '__DevicePixelRatio';
-// TODO: use Symbol() here in the future to truly hide this property.
+const DevicePixelRatioKey = Symbol('DevicePixelRatioOverride');
 
+/**
+ * Creates an object with HDPI overrides for the CanvasRenderingContext2D
+ * for the given device pixel ratio.
+ * @param dpr
+ */
 function makeHdpiOverrides(dpr: number): any {
   let depth = 0;
   return {
@@ -20,10 +24,7 @@ function makeHdpiOverrides(dpr: number): any {
       this.$resetTransform();
       this.scale(dpr, dpr);
       this.save();
-      depth = 0;
-      // The scale above will be impossible to restore,
-      // because we override the `ctx.restore` above and
-      // check `depth` there.
+      depth = 0; // Make sure the `dpr` scale above is impossible to `ctx.restore()`
     },
   };
 }
@@ -40,7 +41,9 @@ export function createHdpiCanvas(width = 300, height = 150): HTMLCanvasElement {
   const canvas = document.createElement('canvas');
   canvas.width = width;
   canvas.height = height;
-  applyHdpiOverrides(canvas);
+  if (!applyHdpiOverrides(canvas)) {
+    console.warn('HDPI overrides were already applied or used screen is not an HDPI one.');
+  }
   return canvas;
 }
 
@@ -52,12 +55,11 @@ export function applyHdpiOverrides(canvas: HTMLCanvasElement): number {
   if (!canvasDpr && dpr !== 1) {
     const overrides = makeHdpiOverrides(dpr);
     const ctx = canvas.getContext('2d')!;
-    const ctxObj = ctx as any;
     for (const name in overrides) {
       // Save native methods under prefixed names.
-      ctxObj['$' + name] = ctxObj[name];
+      (ctx as any)['$' + name] = (ctx as any)[name];
       // Pretend our overrides are native methods.
-      ctxObj[name] = overrides[name];
+      (ctx as any)[name] = overrides[name];
     }
     (canvas as any)[DevicePixelRatioKey] = dpr;
 
@@ -89,5 +91,5 @@ export function resizeCanvas(canvas: HTMLCanvasElement, width: number, height: n
   canvas.style.width = Math.round(width) + 'px';
   canvas.style.height = Math.round(height) + 'px';
 
-  canvas.getContext('2d')!.resetTransform();
+  canvas.getContext('2d')?.resetTransform();
 }
