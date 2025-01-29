@@ -155,3 +155,21 @@ export class Observable {
     }
   }
 }
+
+// Removed TypeScript "legacy" decorators in favor of code generation via pre-processor.
+// "Legacy" (stage 2) decorators are on their way out, and stage 3 decorators don't support
+// passing of parameters to the decorator function (e.g. @reactive("layoutChange") vs @reactive).
+// At the same time, "legacy" decorator also stopped working when in this particular case,
+// where the @reactive decorator calls `Object.defineProperty` on the class prototype:
+
+// You can no longer use Object.defineProperty inside a class field TypeScript legacy (stage 2) decorator
+// due to the way class fields are initialized in the newer ECMAScript specification.
+// Specifically, class fields are initialized after the object is constructed,
+// and this impacts how decorators interact with class fields.
+
+// The key difference here is that:
+// - Old Behavior (Stage 2 / Legacy Proposal):
+//   Decorators were applied directly on prototype or instance properties, and you could override
+//   a property definition using Object.defineProperty.
+// - New Behavior (ESNext): Class fields are assigned directly to the instance after the constructor is executed,
+//   which bypasses modifications you make with Object.defineProperty inside a legacy decorator.
